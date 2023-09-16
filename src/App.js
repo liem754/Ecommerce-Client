@@ -1,0 +1,109 @@
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import {
+    Public,
+    Home,
+    Login,
+    Collection,
+    AllCollection,
+    DetailProduct,
+    Blogs,
+    Faq,
+    Services,
+    FinalRegister,
+    ResetPassword,
+    DetailBlog,
+    Contact,
+} from "./pages/public";
+
+import { path } from "./ultils/paths";
+import { getCategory } from "./store/app/asyncActions";
+import {
+    AdminLayout,
+    CreateBlog,
+    CreateProduct,
+    DashBoard,
+    ManagerBlog,
+    ManagerOrder,
+    ManagerProduct,
+    ManagerUser,
+} from "pages/admin";
+import MenberLayout from "pages/menber/MenberLayout";
+import Personal from "pages/menber/Personal";
+import EditUser from "pages/menber/EditUser";
+function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getCategory());
+    }, []);
+    return (
+        <div className="font-main">
+            <Routes>
+                <Route path={path.PUBLIC} element={<Public />}>
+                    <Route path={path.HOME} element={<Home />} />
+
+                    <Route
+                        path={path.DETAIL_PRODUCT}
+                        element={<DetailProduct />}
+                    />
+                    <Route path={path.COLECTIONS} element={<Collection />} />
+                    <Route
+                        path={path.DETAIL_COLLECTION}
+                        element={<AllCollection />}
+                    />
+
+                    <Route path={`${path.BLOG}`} element={<Blogs />}></Route>
+                    <Route path={`${path.BLOGDE}`} element={<Blogs />}></Route>
+
+                    <Route
+                        path={`${path.BLOG}/${path.DETAIL_BLOG}`}
+                        element={<DetailBlog />}
+                    />
+                    <Route path={path.FAQ} element={<Faq />} />
+                    <Route path={path.CONTACT} element={<Contact />} />
+                    <Route path={path.OUR_SERVICE} element={<Services />} />
+                    <Route
+                        path={path.RESET_PASSWORD}
+                        element={<ResetPassword />}
+                    />
+                </Route>
+                <Route path={path.LOGIN} element={<Login />} />
+                <Route path={path.FINAL_REGISTER} element={<FinalRegister />} />
+                <Route path={`/${path.ADMIN}`} element={<AdminLayout />}>
+                    <Route
+                        path={`${path.CREATE_PRODUCT}`}
+                        element={<CreateProduct />}
+                    />
+                    <Route path={`${path.DASHBOARD}`} element={<DashBoard />} />
+                    <Route
+                        path={`${path.MANAGER_ORDER}`}
+                        element={<ManagerOrder />}
+                    />
+                    <Route
+                        path={`${path.MANAGER_BLOG}`}
+                        element={<ManagerBlog />}
+                    />
+                    <Route
+                        path={`${path.CREATE_BLOG}`}
+                        element={<CreateBlog />}
+                    />
+                    <Route
+                        path={`${path.MANAGER_PRODUCT}`}
+                        element={<ManagerProduct />}
+                    />
+                    <Route
+                        path={`${path.MANAGER_USER}`}
+                        element={<ManagerUser />}
+                    />
+                </Route>
+                <Route path={path.MENBER_LAYOUT} element={<MenberLayout />}>
+                    <Route path={path.PERSONAL} element={<Personal />} />
+                    <Route path={path.EDIT_USER} element={<EditUser />} />
+                </Route>
+            </Routes>
+        </div>
+    );
+}
+
+export default App;
