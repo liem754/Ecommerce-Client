@@ -39,7 +39,7 @@ function Tag({ description, total, totalratings, pid, rerender, update }) {
     }, [payload]);
     console.log(total);
     return (
-        <div className="w-full mb-11 relative">
+        <div className="w-full mb-11">
             {rating && (
                 <ModalRating
                     handle={handle}

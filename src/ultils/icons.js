@@ -1,5 +1,5 @@
 import { GiShoppingCart } from "react-icons/gi";
-import { BsPhone, BsSignTurnLeftFill } from "react-icons/bs";
+import { BsPhone, BsSignTurnLeftFill, BsCart2 } from "react-icons/bs";
 import {
     FaTabletAlt,
     FaTwitter,
@@ -36,6 +36,7 @@ export const Icons = {
     GiShoppingCart,
     BsPhone,
     FaTabletAlt,
+    BsCart2,
     AiOutlineLaptop,
     SlEarphones,
     PiTelevisionSimpleBold,

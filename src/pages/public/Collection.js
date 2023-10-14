@@ -19,7 +19,6 @@ import { sorts } from "../../ultils/contans";
 import { Icons } from "ultils/icons";
 import useDebounce from "hooks/useDebounce";
 const { AiOutlineSearch } = Icons;
-
 function Collection() {
     const [sort, setSort] = useState("");
     const [product, setProduct] = useState([]);
@@ -146,6 +145,7 @@ function Collection() {
         },
         [sort],
     );
+    console.log(product.counts);
 
     return (
         <div className="w-full flex-col items-center flex">

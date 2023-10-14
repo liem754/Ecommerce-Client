@@ -6,10 +6,21 @@ export const productSlice = createSlice({
         product: null,
         isLoading: false,
         data: null,
+        view: false,
+        pid: null,
+        show: false,
+        cart: null,
     },
     reducers: {
         Update: (state, action) => {
             state.data = action.payload.data;
+        },
+        setView: (state, action) => {
+            state.view = action.payload.view;
+            state.pid = action.payload.pid;
+        },
+        setShow: (state, action) => {
+            state.show = action.payload.show;
         },
     },
     extraReducers: builder => {
@@ -28,6 +39,6 @@ export const productSlice = createSlice({
         });
     },
 });
-export const { Update } = productSlice.actions;
+export const { Update, setView, setShow } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -7,7 +7,7 @@ import { Breadcrumb, Tag } from "../../components";
 import { current } from "@reduxjs/toolkit";
 import { format, formatStar } from "../../ultils/format";
 import { Icons } from "../../ultils/icons";
-
+import * as api from "../../apis";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, EffectCoverflow, Autoplay } from "swiper";
 import ReactImageMagnify from "react-image-magnify";
@@ -15,10 +15,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
-import { apiGetProdcuts } from "../../apis";
+import { apiGetProdcuts, apiUpdateCart } from "../../apis";
 import { makeid } from "../../ultils/helpers";
 import SliderMany from "../../components/SliderMany";
 import DOMPurify from "dompurify";
+import Swal from "sweetalert2";
+import { IdCurrent } from "store/user/userSlice";
 const {
     GoDotFill,
     AiFillSafetyCertificate,
@@ -66,7 +68,35 @@ function DetailProduct() {
 
     //     console.log(kt);
     // };
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    const handleCart = async e => {
+        const rs = await apiUpdateCart({
+            pid: pid,
+            quantity: number,
+            color: co,
+            price:
+                co !== "BLACK"
+                    ? +product?.price * number
+                    : +product?.price > 2000000
+                    ? (+product?.price - 500000) * number
+                    : (+product?.price - 50000) * number,
+        });
+        if (rs.success) {
+            Swal.fire("Congratulation", rs.mes, "success");
+            const rss = await api.apiCurrent();
+            if (rss.success) {
+                dispatch(
+                    IdCurrent({
+                        idCurrent: rss.rs._id,
+                        data: rss.rs,
+                    }),
+                );
+            }
+        }
+    };
+    console.log();
     return (
         <div className="w-full flex flex-col items-center justify-center ">
             {/* <button onClick={handle}>next</button> */}
@@ -172,10 +202,10 @@ function DetailProduct() {
                             {co === "BLACK"
                                 ? format(
                                       +product?.price > 2000000
-                                          ? +product?.price - 500000
-                                          : +product?.price - 50000,
+                                          ? (+product?.price - 500000) * number
+                                          : (+product?.price - 50000) * number,
                                   )
-                                : format(product?.price)}
+                                : format(product?.price * number)}
                         </h2>
                         <div className="flex items-center gap-2 py-2">
                             <div className="flex gap-1 py-1">
@@ -243,7 +273,9 @@ function DetailProduct() {
                                 </div>
                             </div>
                             <div className="mt-3">
-                                <button className="p-2 w-full bg-red-600 text-white">
+                                <button
+                                    onClick={e => handleCart(e)}
+                                    className="p-2 w-full bg-red-600 text-white">
                                     Thêm vào giỏ
                                 </button>
                             </div>

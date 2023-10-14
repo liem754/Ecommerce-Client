@@ -23,3 +23,4 @@ export { default as Select } from "./Select";
 export { default as Tiny } from "./Tiny";
 export { default as ModalProduct } from "./ModalProduct";
 export { default as ModalVarriants } from "./ModalVarriants";
+export { default as ModalView } from "./modelView";

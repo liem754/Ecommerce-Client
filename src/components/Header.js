@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiCurrent, apiRefreshtoken } from "apis";
 import { IdCurrent, logout, register } from "store/user/userSlice";
 import Swal from "sweetalert2";
+import { setShow } from "store/product/productSlice";
 const { GiShoppingCart } = Icons;
 function Header() {
     const dispatch = useDispatch();
     const [current, setCurrent] = useState({});
+    const { data } = useSelector(state => state.user);
 
     const fetch = async () => {
         const rs = await apiCurrent();
@@ -90,20 +92,20 @@ function Header() {
                         to={`/${
                             +current?.role === 2002
                                 ? `${path.ADMIN}/${path.DASHBOARD}`
-                                : `${path.MENBER_LAYOUT}/${path.PERSONAL}`
+                                : `${path.MENBER_LAYOUT}/${path.EDIT_USER}`
                         }`}
                         className="flex gap-2 items-center md:border-r-2 md:pr-6">
                         <img
                             className="rounded-[50%] w-[30px]"
                             src={
-                                current?.avatar
-                                    ? current?.avatar
+                                data?.avatar
+                                    ? data?.avatar
                                     : "https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg"
                             }
                             alt=""
                         />
                         {Object.keys(current).length !== 0 && (
-                            <span className="font-medium text-sm md:text-md">
+                            <span className="font-medium text-sm md:text-[16px]">
                                 {`${
                                     current?.firstname
                                         ?.charAt(0)
@@ -113,10 +115,13 @@ function Header() {
                             </span>
                         )}
                     </Link>
-                    <div className="hidden md:flex gap-2 items-center border-r-2 pr-6">
+                    <Link
+                        to={`/${path.MENBER_LAYOUT}/${path.CART}`}
+                        className="hidden md:flex gap-2 text-sm md:text-[16px] items-center border-r-2 pr-6 cursor-pointer">
                         <GiShoppingCart size={"30px"} />
+                        <span>{data?.cart?.length}</span>
                         <span>item</span>
-                    </div>
+                    </Link>
 
                     <button
                         onClick={handle}

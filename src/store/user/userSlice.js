@@ -10,6 +10,7 @@ export const userSlice = createSlice({
         isUpdate: false,
         idCurrent: null,
         data: null,
+        cart: null,
     },
     reducers: {
         register: (state, action) => {
@@ -26,6 +27,9 @@ export const userSlice = createSlice({
         IdCurrent: (state, action) => {
             state.idCurrent = action.payload.idCurrent;
             state.data = action.payload.data;
+        },
+        setCart: (state, action) => {
+            state.cart = action.payload.cart;
         },
     },
     // extraReducers: builder => {
@@ -46,6 +50,7 @@ export const userSlice = createSlice({
     // },
 });
 
-export const { register, logout, update, IdCurrent } = userSlice.actions;
+export const { register, logout, update, IdCurrent, setCart } =
+    userSlice.actions;
 
 export default userSlice.reducer;

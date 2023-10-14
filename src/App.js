@@ -32,14 +32,17 @@ import {
 import MenberLayout from "pages/menber/MenberLayout";
 import Personal from "pages/menber/Personal";
 import EditUser from "pages/menber/EditUser";
+import Cart from "pages/menber/Cart";
+import CheckOut from "pages/menber/Checkout";
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCategory());
     }, []);
     return (
-        <div className="font-main">
+        <div className="font-main h-screen">
             <Routes>
+                <Route path={path.CHECKOUT} element={<CheckOut />} />
                 <Route path={path.PUBLIC} element={<Public />}>
                     <Route path={path.HOME} element={<Home />} />
 
@@ -99,6 +102,8 @@ function App() {
                 </Route>
                 <Route path={path.MENBER_LAYOUT} element={<MenberLayout />}>
                     <Route path={path.PERSONAL} element={<Personal />} />
+                    <Route path={path.CART} element={<Cart />} />
+
                     <Route path={path.EDIT_USER} element={<EditUser />} />
                 </Route>
             </Routes>

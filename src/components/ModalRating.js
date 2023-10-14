@@ -17,7 +17,7 @@ function ModalRating({ setRating, handle, value }) {
             onClick={() => {
                 setRating(false);
             }}
-            className="z-50 animate-slide-bottom absolute flex justify-center to items-center -top-96 to -left-36 -bottom-96 top -right-36 bg-black bg-opacity-60">
+            className="z-50 animate-slide-bottom absolute flex justify-center to items-center top-0 bottom-0 left-0 right-0  bg-black bg-opacity-60">
             <div
                 onClick={e => {
                     e.stopPropagation();

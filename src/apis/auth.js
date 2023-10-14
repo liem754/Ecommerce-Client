@@ -62,3 +62,14 @@ export const apiUpdateUserByAdmin = (data, uid) =>
         method: "put",
         data,
     });
+export const apiUpdateCart = data =>
+    axios({
+        url: "/user/cart",
+        method: "put",
+        data,
+    });
+export const apiRemoveCart = (pid, color) =>
+    axios({
+        url: `/user/remove-cart/${pid}/${color}`,
+        method: "put",
+    });

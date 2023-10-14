@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
     Banner,
     DailyDeal,
+    ModalView,
     ProductFeatures,
     Sidebar,
     Slider,
@@ -12,12 +13,16 @@ import Product from "../../components/product";
 import SliderMany from "../../components/SliderMany";
 import { Link } from "react-router-dom";
 import AllCollection from "./AllCollection";
+import { useDispatch, useSelector } from "react-redux";
+import { setView } from "store/product/productSlice";
 function Home() {
     const [bestSeller, setBestSeller] = useState([]);
     const [newProduct, setNewProduct] = useState([]);
     const [bestStar, setBestStar] = useState([]);
     const [bestShow, setBestShow] = useState(false);
+    const dispatch = useDispatch();
 
+    const { view, pid } = useSelector(state => state.product);
     const fetch = async () => {
         const response = await Promise.all([
             apiGetProdcuts({ sort: "-sold" }),
@@ -33,8 +38,32 @@ function Home() {
     useEffect(() => {
         fetch();
     }, []);
+    const han = e => {
+        e.stopPropagation();
+        dispatch(
+            setView({
+                view: true,
+                pid: null,
+            }),
+        );
+    };
     return (
         <div className="w-[98%] md:w-[90%] lg:w-4/5 mt-5">
+            {view && (
+                <div
+                    onClick={e => {
+                        e.stopPropagation();
+                        dispatch(
+                            setView({
+                                view: false,
+                                pid: null,
+                            }),
+                        );
+                    }}
+                    className=" z-30 bg-opacity-20 bg-black absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center">
+                    <ModalView onClick={e => han(e)} pid={pid} />
+                </div>
+            )}
             <div className="md:flex  gap-5">
                 <div className="md:w-[25%] w-full flex md:block  ">
                     <div className="border shadow-md pb-2 w-[50%] md:w-full">

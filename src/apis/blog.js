@@ -23,3 +23,8 @@ export const apiCreateCategory = data =>
         method: "post",
         data,
     });
+export const apiDeleteBlog = bid =>
+    axios({
+        url: "/blog/" + bid,
+        method: "delete",
+    });

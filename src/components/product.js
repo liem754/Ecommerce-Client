@@ -1,17 +1,70 @@
 import { memo, useState } from "react";
 import { format, formatStar } from "../ultils/format";
 import { Icons } from "../ultils/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { path } from "../ultils/paths";
 import label from "../assets/images/label2.png";
 import label1 from "../assets/images/label3.png";
-const { AiOutlineMenu, AiOutlineEye, AiTwotoneHeart } = Icons;
+import { ModalView } from "components";
+import { setView } from "store/product/productSlice";
+import * as api from "../apis";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { IdCurrent, register } from "store/user/userSlice";
+const { AiOutlineMenu, AiOutlineEye, AiTwotoneHeart, BsCart2 } = Icons;
 function Product({ img, title, price, cate, id, grip, news, star, slug }) {
     const [hove, setHove] = useState(false);
+    const navigate = useNavigate();
+    const { isLoggedin } = useSelector(state => state.user);
 
+    const dispatch = useDispatch();
+    const handelview = e => {
+        e.stopPropagation();
+        navigate(`/${cate.toLowerCase()}/${id}/${slug}`);
+    };
+    const handle = e => {
+        e.stopPropagation();
+        navigate(`/${cate.toLowerCase()}/${id}/${slug}`);
+        window.scrollTo(0, 0);
+    };
+    const handlecart = async e => {
+        e.stopPropagation();
+        if (!isLoggedin) {
+            Swal.fire({
+                title: "Info!",
+                text: "Vui lòng đăng nhập!",
+                icon: "info",
+                cancelButtonText: "Not now!",
+                showCancelButton: true,
+                confirmButtonText: "Go login now!",
+            }).then(rs => {
+                if (rs.isConfirmed) {
+                    navigate("/login");
+                }
+            });
+        }
+
+        const rs = await api.apiUpdateCart({
+            pid: id,
+            color: "BLACK",
+            price,
+        });
+        if (rs.success) {
+            Swal.fire("Congratulation", rs.mes, "success");
+            const rss = await api.apiCurrent();
+            if (rss.success) {
+                dispatch(
+                    IdCurrent({
+                        idCurrent: rss.rs._id,
+                        data: rss.rs,
+                    }),
+                );
+            }
+        }
+    };
     return (
-        <Link
-            to={`/${cate.toLowerCase()}/${id}/${slug}`}
+        <div
+            onClick={e => handle(e)}
             onMouseEnter={() => setHove(true)}
             onMouseLeave={() => setHove(false)}
             className={` block`}>
@@ -51,22 +104,26 @@ function Product({ img, title, price, cate, id, grip, news, star, slug }) {
                     <h3 className="mt-1">{`${format(price)}`}</h3>
                 </div>
                 {hove && (
-                    <div className="flex absolute right-[31%] top-[72%] gap-3 introduce7">
+                    <div
+                        onClick={e => e.stopPropagation()}
+                        className="flex absolute right-[31%] top-[72%] gap-3 introduce7">
                         <div className="p-1 border border-black cursor-pointer rounded-[50%]">
                             <AiTwotoneHeart />
                         </div>
-                        <Link
-                            to={`/${cate.toLowerCase()}/${id}/${slug}`}
+                        <div
+                            onClick={e => handlecart(e)}
                             className="p-1 border border-black cursor-pointer rounded-[50%]">
-                            <AiOutlineMenu />
-                        </Link>
-                        <div className="p-1 border border-black cursor-pointer rounded-[50%]">
+                            <BsCart2 />
+                        </div>
+                        <div
+                            onClick={e => handelview(e)}
+                            className="p-1 border border-black cursor-pointer rounded-[50%]">
                             <AiOutlineEye />
                         </div>
                     </div>
                 )}
             </div>
-        </Link>
+        </div>
     );
 }
 

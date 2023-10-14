@@ -6,12 +6,12 @@ const sidebarMenber = [
     {
         id: 1,
         value: "Personal",
-        link: path.PERSONAL,
+        link: `${path.EDIT_USER}`,
     },
     {
         id: 2,
-        value: "EditUser",
-        link: `${path.EDIT_USER}`,
+        value: "My Cart",
+        link: `/${path.MENBER_LAYOUT}/cart`,
     },
     {
         id: 3,

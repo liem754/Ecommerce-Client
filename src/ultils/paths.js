@@ -5,7 +5,7 @@ export const path = {
     PRODUCT: "product",
     BLOG: "blogs",
     BLOGDE: "blogs/:title",
-
+    CART: "cart",
     OUR_SERVICE: "our-service",
     FAQ: "faqs",
     COLECTIONS: ":category",
@@ -27,4 +27,5 @@ export const path = {
     MENBER_LAYOUT: "menber",
     PERSONAL: "personal",
     EDIT_USER: "edit-user",
+    CHECKOUT: "checkout",
 };

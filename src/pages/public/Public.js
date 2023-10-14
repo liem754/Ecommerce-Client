@@ -3,7 +3,7 @@ import { Footer, Header, Navigation } from "../../components";
 
 function Public() {
     return (
-        <div className="">
+        <div className=" max-h-screen overflow-y-auto">
             <div className="w-full flex justify-center ">
                 <Header />
             </div>

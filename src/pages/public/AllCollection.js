@@ -12,6 +12,8 @@ import { Icons } from "../../ultils/icons";
 const { AiOutlineRight } = Icons;
 function AllCollection({ home }) {
     const { category } = useSelector(state => state.appReducer);
+    const { show } = useSelector(state => state.product);
+    console.log(show);
     return (
         <div className={`${home ? "w-full" : "w-4/5"} mt-24 `}>
             <h1
