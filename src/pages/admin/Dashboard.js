@@ -44,12 +44,7 @@ function DashBoard() {
     //         Swal.fire("Thông báo !", "Bạn chưa thay đổi !", "info");
     //     }
     // };
-    console.log(new Date().getFullYear());
-    console.log(order?.orders[0]?.createdAt.slice(0, 4));
-    console.log(
-        order?.orders[0]?.createdAt.slice(0, 4).toString() ===
-            new Date().getFullYear().toString(),
-    );
+
     return (
         <div className="py-10">
             <div className="w-full flex justify-center">
@@ -249,61 +244,65 @@ function DashBoard() {
                             <tr
                                 className={`  ${"bg-white text-xs dark:border-neutral-500 border-b border-black dark:bg-neutral-600"} `}>
                                 <td className="whitespace-nowrap px-2 py-2 text-center text-2xl font-bold  text-blue-700 ">
-                                    {format(
-                                        order?.orders
-                                            ?.filter(
-                                                item =>
-                                                    item?.createdAt
-                                                        .slice(0, 4)
-                                                        .toString() ===
-                                                        new Date()
-                                                            .getFullYear()
-                                                            .toString() &&
-                                                    item?.createdAt
-                                                        .split("-")[1]
-                                                        .toString() ===
-                                                        (
-                                                            new Date().getMonth() +
-                                                            1
-                                                        ).toString() &&
-                                                    item?.createdAt
-                                                        .split("-")[2]
-                                                        .substring(1, 2)
-                                                        .toString() ===
-                                                        new Date()
-                                                            .getDate()
-                                                            .toString(),
-                                            )
-                                            ?.reduce(
-                                                (sum, el) => sum + el?.total,
-                                                0,
-                                            ),
-                                    )}
+                                    {order?.orders &&
+                                        format(
+                                            order?.orders
+                                                ?.filter(
+                                                    item =>
+                                                        item?.createdAt
+                                                            .slice(0, 4)
+                                                            .toString() ===
+                                                            new Date()
+                                                                .getFullYear()
+                                                                .toString() &&
+                                                        item?.createdAt
+                                                            .split("-")[1]
+                                                            .toString() ===
+                                                            (
+                                                                new Date().getMonth() +
+                                                                1
+                                                            ).toString() &&
+                                                        item?.createdAt
+                                                            .split("-")[2]
+                                                            .substring(1, 2)
+                                                            .toString() ===
+                                                            new Date()
+                                                                .getDate()
+                                                                .toString(),
+                                                )
+                                                ?.reduce(
+                                                    (sum, el) =>
+                                                        sum + el?.total,
+                                                    0,
+                                                ),
+                                        )}
                                 </td>
                                 <td className="whitespace-nowrap px-2 py-2 text-center text-2xl font-bold  text-blue-700  ">
-                                    {format(
-                                        order?.orders
-                                            .filter(
-                                                item =>
-                                                    item?.createdAt
-                                                        .slice(0, 4)
-                                                        .toString() ===
-                                                        new Date()
-                                                            .getFullYear()
-                                                            .toString() &&
-                                                    item?.createdAt
-                                                        .split("-")[1]
-                                                        .toString() ===
-                                                        (
-                                                            new Date().getMonth() +
-                                                            1
-                                                        ).toString(),
-                                            )
-                                            .reduce(
-                                                (sum, el) => sum + el?.total,
-                                                0,
-                                            ),
-                                    )}
+                                    {order?.orders &&
+                                        format(
+                                            order?.orders
+                                                .filter(
+                                                    item =>
+                                                        item?.createdAt
+                                                            .slice(0, 4)
+                                                            .toString() ===
+                                                            new Date()
+                                                                .getFullYear()
+                                                                .toString() &&
+                                                        item?.createdAt
+                                                            .split("-")[1]
+                                                            .toString() ===
+                                                            (
+                                                                new Date().getMonth() +
+                                                                1
+                                                            ).toString(),
+                                                )
+                                                .reduce(
+                                                    (sum, el) =>
+                                                        sum + el?.total,
+                                                    0,
+                                                ),
+                                        )}
                                 </td>
                                 <td className="whitespace-nowrap px-2 py-2 text-center  text-2xl font-bold  text-blue-700">
                                     {format(
@@ -353,8 +352,7 @@ function DashBoard() {
                         <div className="flex flex-col gap-2 items-center">
                             <h2 className=" font-medium ">Doanh thu</h2>
                             <h2 className=" text-red-600 font-medium">
-                                {`
-                                ${format(
+                                {format(
                                     order?.orders
                                         .filter(
                                             item =>
@@ -373,7 +371,7 @@ function DashBoard() {
                                             (sum, el) => sum + el?.total,
                                             0,
                                         ),
-                                )}`}
+                                )}
                             </h2>
                         </div>
                     </div>
@@ -394,8 +392,7 @@ function DashBoard() {
                         <div className="flex flex-col gap-2 items-center">
                             <h2 className=" font-medium ">Doanh thu</h2>
                             <h2 className="text-red-600 font-medium">
-                                {`
-                                ${format(
+                                {format(
                                     order?.orders
                                         .filter(
                                             item =>
@@ -408,7 +405,7 @@ function DashBoard() {
                                             (sum, el) => sum + el?.total,
                                             0,
                                         ),
-                                )}`}
+                                )}
                             </h2>
                         </div>
                     </div>

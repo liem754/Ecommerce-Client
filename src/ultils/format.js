@@ -2,7 +2,7 @@ import { Icons } from "./icons";
 
 const { AiFillStar, AiOutlineStar } = Icons;
 export function format(n) {
-    return n.toLocaleString("it-IT", { style: "currency", currency: "VND" });
+    return n?.toLocaleString("it-IT", { style: "currency", currency: "VND" });
 }
 export const formatStar = number => {
     const stars = [];
