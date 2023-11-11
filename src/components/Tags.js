@@ -22,7 +22,7 @@ function Tag({ description, total, totalratings, pid, rerender, update }) {
     });
     const handle = useCallback((comment, score) => {
         setPayload(pre => ({ ...pre, comment: comment, score: score }));
-    });
+    }, []);
 
     const fetch = async () => {
         const rs = await apiRatings({

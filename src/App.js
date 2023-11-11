@@ -34,6 +34,7 @@ import Personal from "pages/menber/Personal";
 import EditUser from "pages/menber/EditUser";
 import Cart from "pages/menber/Cart";
 import CheckOut from "pages/menber/Checkout";
+import History from "pages/menber/History";
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -103,6 +104,7 @@ function App() {
                 <Route path={path.MENBER_LAYOUT} element={<MenberLayout />}>
                     <Route path={path.PERSONAL} element={<Personal />} />
                     <Route path={path.CART} element={<Cart />} />
+                    <Route path={path.HISTORY} element={<History />} />
 
                     <Route path={path.EDIT_USER} element={<EditUser />} />
                 </Route>

@@ -14,6 +14,12 @@ const sidebarMenber = [
         link: `/${path.MENBER_LAYOUT}/cart`,
     },
     {
+        id: 2,
+        value: "Purchase History",
+        link: `/${path.MENBER_LAYOUT}/history`,
+    },
+
+    {
         id: 3,
         value: "Home",
         link: `/${path.HOME}`,
@@ -22,10 +28,10 @@ const sidebarMenber = [
 function MenberLayout() {
     return (
         <div className="flex gap-3 h-screen">
-            <div className="w-[25%] border">
+            <div className="w-[20%] border">
                 <SideBarAdmin dataa={sidebarMenber} />
             </div>
-            <div className="w-[75%] border">
+            <div className="w-[80%] border">
                 <Outlet />
             </div>
         </div>

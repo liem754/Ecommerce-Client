@@ -37,6 +37,8 @@ function DetailProduct() {
     const [update, setUpdate] = useState(false);
     const dispatch = useDispatch();
     const { product } = useSelector(state => state.product);
+    const { data } = useSelector(state => state.user);
+
     const [active, setActive] = useState(1);
     const [co, setCo] = useState("BLACK");
 
@@ -82,6 +84,8 @@ function DetailProduct() {
                     : +product?.price > 2000000
                     ? (+product?.price - 500000) * number
                     : (+product?.price - 50000) * number,
+            title: product?.title,
+            thumb: product?.images[0],
         });
         if (rs.success) {
             Swal.fire("Congratulation", rs.mes, "success");
@@ -96,7 +100,7 @@ function DetailProduct() {
             }
         }
     };
-    console.log();
+
     return (
         <div className="w-full flex flex-col items-center justify-center ">
             {/* <button onClick={handle}>next</button> */}
@@ -272,13 +276,15 @@ function DetailProduct() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-3">
-                                <button
-                                    onClick={e => handleCart(e)}
-                                    className="p-2 w-full bg-red-600 text-white">
-                                    Thêm vào giỏ
-                                </button>
-                            </div>
+                            {data?.role === "2000" && (
+                                <div className="mt-3">
+                                    <button
+                                        onClick={e => handleCart(e)}
+                                        className="p-2 w-full bg-red-600 text-white">
+                                        Thêm vào giỏ
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="w-[35%] ">

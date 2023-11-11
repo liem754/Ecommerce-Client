@@ -34,7 +34,6 @@ function Login() {
     });
     const fetch = async () => {
         const response = await apiRegister(payload);
-        console.log(response);
     };
     // const fetchLogin = async () => {
     //     const response = dispatch

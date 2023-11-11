@@ -35,3 +35,28 @@ export const apiUpdateProduct = (pid, data) =>
         method: "put",
         data,
     });
+export const apiCreateOrder = data =>
+    axios({
+        url: "/order/",
+        method: "post",
+        data,
+    });
+
+export const apiGetOrders = params =>
+    axios({
+        url: "/order/",
+        method: "get",
+        params,
+    });
+export const apiupdateOrders = data =>
+    axios({
+        url: "/order/",
+        method: "put",
+        data,
+    });
+export const apiGetOrdersbyAdmin = params =>
+    axios({
+        url: "/order/all",
+        method: "get",
+        params,
+    });

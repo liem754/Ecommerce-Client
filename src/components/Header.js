@@ -96,7 +96,7 @@ function Header() {
                         }`}
                         className="flex gap-2 items-center md:border-r-2 md:pr-6">
                         <img
-                            className="rounded-[50%] w-[30px]"
+                            className="rounded-[50%] w-[40px] h-[40px]"
                             src={
                                 data?.avatar
                                     ? data?.avatar
@@ -115,13 +115,15 @@ function Header() {
                             </span>
                         )}
                     </Link>
-                    <Link
-                        to={`/${path.MENBER_LAYOUT}/${path.CART}`}
-                        className="hidden md:flex gap-2 text-sm md:text-[16px] items-center border-r-2 pr-6 cursor-pointer">
-                        <GiShoppingCart size={"30px"} />
-                        <span>{data?.cart?.length}</span>
-                        <span>item</span>
-                    </Link>
+                    {data?.role === "2000" && (
+                        <Link
+                            to={`/${path.MENBER_LAYOUT}/${path.CART}`}
+                            className="hidden md:flex gap-2 text-sm md:text-[16px] items-center border-r-2 pr-6 cursor-pointer">
+                            <GiShoppingCart size={"30px"} />
+                            <span>{data?.cart?.length}</span>
+                            <span>item</span>
+                        </Link>
+                    )}
 
                     <button
                         onClick={handle}

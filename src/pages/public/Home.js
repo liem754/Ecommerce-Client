@@ -7,6 +7,7 @@ import {
     Sidebar,
     Slider,
 } from "../../components";
+import im from "../../assets/images/Just-over-half-of-the-worlds-population-uses-smartphones.jpg";
 import { Banners } from "../../ultils/contans";
 import { apiGetProdcuts } from "../../apis/product";
 import Product from "../../components/product";
@@ -75,7 +76,21 @@ function Home() {
                         </div>
                     </div>
                     <div className="w-[50%] md:w-full">
-                        <DailyDeal />
+                        {/* <DailyDeal /> */}
+                        <img
+                            src="https://bibliocloudimages.s3-eu-west-1.amazonaws.com/389/supportingresources/292138/jpg_rgb_1500h.jpg"
+                            className="w-full h-[500px]"
+                            alt=""
+                        />
+                        {/* <Link
+                            to={`/laptop`}
+                            className="cursor-pointer flex-1 lg:shadow-md   ">
+                            <img
+                                className=" w-full h-[200px] lg:h-[250px]"
+                                src="https://laptops.vn/uploads/722x354_laptop-thinkpad_180423_1682397886.png"
+                                alt=""
+                            />
+                        </Link> */}
                     </div>
                 </div>
                 <div className="w-full md:w-[75%]">
@@ -107,26 +122,6 @@ function Home() {
                                     news="Trending"
                                 />
                             )}
-                        </div>
-                        <div className="flex gap-5 mt-3 w-full">
-                            <Link
-                                to={`/laptop`}
-                                className="cursor-pointer flex-1 lg:shadow-md   ">
-                                <img
-                                    className=" w-full h-[200px] lg:h-[250px]"
-                                    src="https://laptops.vn/uploads/722x354_laptop-thinkpad_180423_1682397886.png"
-                                    alt=""
-                                />
-                            </Link>
-                            <Link
-                                to={`/smartphone`}
-                                className="cursor-pointer flex-1 border ">
-                                <img
-                                    className="h-[200px] lg:h-[250px] w-full"
-                                    src="https://cdn.tgdd.vn/Files/2021/01/21/1321650/duoi5trieudangmua_1280x720-800-resize.jpg"
-                                    alt=""
-                                />
-                            </Link>
                         </div>
                     </div>
                 </div>

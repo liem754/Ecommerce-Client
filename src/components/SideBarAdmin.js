@@ -46,7 +46,7 @@ function SideBarAdmin({ dataa, blog }) {
             <div className="m-5">
                 <div className="flex gap-3 items-center pr-6 mb-2">
                     <img
-                        className="rounded-[50%] w-[60px] border shadow-sm"
+                        className="rounded-[50%] w-[60px]  h-[60px] border shadow-sm"
                         src={
                             data?.avatar ||
                             "https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg"

@@ -3,7 +3,9 @@ import {
     PayPalButtons,
     usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
+import { apiCreateOrder } from "apis";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // This value is from the props in the UI
 const style = { layout: "vertical" };
@@ -35,8 +37,15 @@ function onApprove(data) {
 }
 
 // Custom component to wrap the PayPalButtons and show loading spinner
-const ButtonWrapper = ({ currency, showSpinner, amount }) => {
+const ButtonWrapper = ({
+    currency,
+    showSpinner,
+    amount,
+    payload,
+    setIsSuccess,
+}) => {
     const [{ isPending, options }, dispatch] = usePayPalScriptReducer();
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch({
             type: "resetOptions",
@@ -46,6 +55,7 @@ const ButtonWrapper = ({ currency, showSpinner, amount }) => {
             },
         });
     }, [currency, showSpinner]);
+
     return (
         <>
             {showSpinner && isPending && <div className="spinner" />}
@@ -70,9 +80,9 @@ const ButtonWrapper = ({ currency, showSpinner, amount }) => {
                 }
                 onApprove={(data, actions) =>
                     actions.order.capture().then(async response => {
-                        console.log(response);
-                        // if(response.status==='COMPLETED'){
-                        // }
+                        if (response.status === "COMPLETED") {
+                            setIsSuccess(true);
+                        }
                     })
                 }
             />
@@ -80,9 +90,11 @@ const ButtonWrapper = ({ currency, showSpinner, amount }) => {
     );
 };
 
-export default function Paypal({ amount }) {
+export default function Paypal({ amount, payload, setIsSuccess }) {
     return (
-        <div style={{ maxWidth: "750px", minHeight: "200px" }}>
+        <div
+            className="w-full"
+            style={{ maxWidth: "750px", minHeight: "200px" }}>
             <PayPalScriptProvider
                 options={{
                     clientId: "test",
@@ -90,6 +102,8 @@ export default function Paypal({ amount }) {
                     currency: "USD",
                 }}>
                 <ButtonWrapper
+                    payload={payload}
+                    setIsSuccess={setIsSuccess}
                     currency={"USD"}
                     amount={amount}
                     showSpinner={false}

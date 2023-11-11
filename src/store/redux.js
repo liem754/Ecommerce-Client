@@ -19,7 +19,7 @@ const commonConfig = {
 };
 const userConfig = {
     ...commonConfig,
-    whitelist: ["isLoggedin", "token", "cart"],
+    whitelist: ["isLoggedin", "token", "cart", "data"],
 };
 export const store = configureStore({
     reducer: {

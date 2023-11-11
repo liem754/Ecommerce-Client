@@ -17,6 +17,7 @@ function Cart() {
     const [carts, setCarts] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     useEffect(() => {
         data?.cart.map(async el => {
             const rs = await apiGetProdcut(el?.product);
@@ -31,17 +32,11 @@ function Cart() {
                         newqua: el.quantity,
                     },
                 ]);
+
+                // const uniqueArray = [...new Set(array)];
             }
         });
-        // if (carts.length === 1) {
-        // setSum(carts[0]?.newprice);
-        // } else {
-        // carts.map(el => {
-        //     setSum(pre => pre + el.newprice);
-        // });
-        // }
     }, []);
-    useEffect(() => {}, []);
     const handle = async (e, pid, it) => {
         const rs = await apiRemoveCart(pid, it?.new);
         if (rs.success) {
@@ -61,6 +56,7 @@ function Cart() {
             }
         }
     };
+    console.log(data.address);
     return (
         <div className="flex flex-col items-center  w-full mt-6">
             <div className="flex justify-start w-[90%]">
@@ -122,19 +118,43 @@ function Cart() {
                                 : 0}
                         </h2>
                     </div>
-
-                    <div
-                        className=""
-                        onClick={() => {
-                            dispatch(setCart({ cart: carts }));
-                        }}>
-                        <Link
-                            target="_blank"
-                            to={`/${path.CHECKOUT}`}
-                            className=" hover:bg-red-500 cursor-pointer rounded-md p-2 w-[12%] text-center text-white bg-red-600">
-                            Thanh Toán
-                        </Link>
-                    </div>
+                    {data.cart.length === 0 ? (
+                        <>
+                            <h2>Chưa có sản phẩm vui lòng đặt hàng !!</h2>
+                            <Link
+                                to={"/"}
+                                className=" bg-blue-600 text-white px-4 py-1 rounded-md">
+                                Go
+                            </Link>
+                        </>
+                    ) : (
+                        <div
+                            className=""
+                            onClick={() => {
+                                dispatch(setCart({ cart: carts }));
+                                if (!data.address) {
+                                    Swal.fire(
+                                        "Thông báo !",
+                                        "Vui lòng thêm địa chỉ trước khí đặt hàng !",
+                                        "info",
+                                    ).then(() => {
+                                        navigate(
+                                            `/${
+                                                +data?.role === 2002
+                                                    ? `${path.ADMIN}/${path.DASHBOARD}`
+                                                    : `${path.MENBER_LAYOUT}/${path.EDIT_USER}`
+                                            }`,
+                                        );
+                                    });
+                                } else {
+                                    navigate("/checkout");
+                                }
+                            }}>
+                            <button className=" hover:bg-red-500 cursor-pointer rounded-md p-2 w-[100%] text-center text-white bg-red-600">
+                                Thanh Toán
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

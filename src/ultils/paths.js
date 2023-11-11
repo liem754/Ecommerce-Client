@@ -28,4 +28,5 @@ export const path = {
     PERSONAL: "personal",
     EDIT_USER: "edit-user",
     CHECKOUT: "checkout",
+    HISTORY: "history",
 };
