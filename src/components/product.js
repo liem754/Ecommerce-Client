@@ -15,7 +15,7 @@ const { AiOutlineMenu, AiOutlineEye, AiTwotoneHeart, BsCart2 } = Icons;
 function Product({ img, title, price, cate, id, grip, news, star, slug }) {
     const [hove, setHove] = useState(false);
     const navigate = useNavigate();
-    const { isLoggedin } = useSelector(state => state.user);
+    const { isLoggedin, data } = useSelector(state => state.user);
 
     const dispatch = useDispatch();
     const handelview = e => {
@@ -48,6 +48,9 @@ function Product({ img, title, price, cate, id, grip, news, star, slug }) {
             pid: id,
             color: "BLACK",
             price,
+
+            title,
+            thumb: img,
         });
         if (rs.success) {
             Swal.fire("Congratulation", rs.mes, "success");
@@ -103,7 +106,7 @@ function Product({ img, title, price, cate, id, grip, news, star, slug }) {
                     <div className="flex gap-1 py-1">{formatStar(star)}</div>
                     <h3 className="mt-1">{`${format(price)}`}</h3>
                 </div>
-                {hove && (
+                {hove && data?.role === "2000" && (
                     <div
                         onClick={e => e.stopPropagation()}
                         className="flex absolute right-[31%] top-[72%] gap-3 introduce7">
