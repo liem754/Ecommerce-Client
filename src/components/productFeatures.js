@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { format, formatStar } from "../ultils/format";
-import { path } from "../ultils/paths";
-
 function ProductFeatures({ img, title, price, star, cate, id, slug }) {
     return (
         <Link to={`/${cate.toLowerCase()}/${id}/${slug}`}>

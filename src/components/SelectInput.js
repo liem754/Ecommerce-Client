@@ -3,7 +3,7 @@ import { memo } from "react";
 function SelectInput({ value, ChangeValue, options }) {
     return (
         <select
-            className="px-2 py-1 border border-gray-500"
+            className="px-2 py-1 border border-gray-500 w-full"
             value={value}
             onChange={e => ChangeValue(e.target.value)}>
             <option value="choose">choose</option>

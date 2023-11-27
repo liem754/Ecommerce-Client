@@ -49,7 +49,7 @@ function Tag({ description, total, totalratings, pid, rerender, update }) {
             )}
             <div className={`flex  `}>
                 <div
-                    className={` w-[20%] cursor-pointer text-center py-2 px-5 z-10 ${
+                    className={`sm:block hidden w-[20%] cursor-pointer text-center py-2 px-5 z-10 ${
                         mo
                             ? "border-x border-black border-t-4"
                             : " bg-gray-200 border-b border-black"
@@ -63,7 +63,7 @@ function Tag({ description, total, totalratings, pid, rerender, update }) {
                 </div>
 
                 <div
-                    className={` w-[20%] cursor-pointer text-center py-2 px-5 z-10 ${
+                    className={` text-xs sm:text-md w-[20%] cursor-pointer text-center py-2 sm:px-5 px-1 z-10 ${
                         !mo
                             ? "border-x border-black border-t-4"
                             : "border-b border-black bg-gray-200"
@@ -80,30 +80,33 @@ function Tag({ description, total, totalratings, pid, rerender, update }) {
             <div className="w-full border-x border-b border-black p-6">
                 {mo ? (
                     <div className="flex flex-col gap-5">
-                        {description?.length === 1 && (
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(description[0]),
-                                }}></div>
-                        )}
+                        {description}
+                        {/* {description[0]?.map((item, index) => (
+                            <h2 key={index}>{item}</h2>
+                        ))} */}
                     </div>
                 ) : (
                     <div className="flex flex-col gap-5">
-                        <div className="border-4 py-6 px-2 flex justify-between">
-                            <div className="w-[40%] flex flex-col items-center gap-2 justify-center">
+                        <div className="border-4 py-6 px-2 flex sm:flex-row flex-col  justify-between">
+                            <div className="sm:w-[40%] w-full flex flex-col items-center gap-2 justify-center">
                                 <span className="text-lg font-medium">{`${totalratings}/5`}</span>
                                 <span className="flex gap-1">
-                                    {formatStar(totalratings).map(el => (
-                                        <span>{el}</span>
-                                    ))}
+                                    {formatStar(totalratings).map(
+                                        (el, index) => (
+                                            <span key={index}>
+                                                <span>{el}</span>
+                                            </span>
+                                        ),
+                                    )}
                                 </span>
                                 <span className="lg:text-sm text-xs">{`${total?.length} reviewer`}</span>
                             </div>
-                            <div className="w-[60%] flex flex-col gap-2">
+                            <div className="sm:w-[60%] w-full flex flex-col gap-2">
                                 {Array.from(Array(5).keys())
                                     .reverse()
-                                    .map(el => (
+                                    .map((el, index) => (
                                         <Votebar
+                                            key={index}
                                             number={el + 1}
                                             ratingCount={
                                                 total?.filter(
@@ -145,8 +148,8 @@ function Tag({ description, total, totalratings, pid, rerender, update }) {
                             </button>
                         </div>
                         <div className="flex flex-col gap-6 pt-5">
-                            {total?.map(el => (
-                                <div className="">
+                            {total?.map((el, index) => (
+                                <div key={index} className="">
                                     {el?.postedBy && (
                                         <div className="flex flex-col gap-2 p-1 border ">
                                             <div className="flex justify-between items-center">
@@ -182,8 +185,12 @@ function Tag({ description, total, totalratings, pid, rerender, update }) {
                                                     <span className="flex items-center gap-1">
                                                         {formatStar(
                                                             el?.star,
-                                                        ).map(el => (
-                                                            <span>{el}</span>
+                                                        ).map((el, index) => (
+                                                            <span key={index}>
+                                                                <span>
+                                                                    {el}
+                                                                </span>
+                                                            </span>
                                                         ))}
                                                     </span>
                                                 </div>

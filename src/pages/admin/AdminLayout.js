@@ -1,5 +1,6 @@
+import { Footer } from "components";
 import SideBarAdmin from "components/SideBarAdmin";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { path } from "ultils/paths";
 const sidebar = [
     {
@@ -46,15 +47,30 @@ const sidebar = [
 ];
 
 function AdminLayout() {
+    const navigate = useNavigate();
     return (
-        <div className=" ">
+        <div className="flex flex-col ">
             <div className="flex gap-3">
-                <div className="w-[20%] border ">
+                <div className="w-[25%] border hidden sm:block ">
                     <SideBarAdmin dataa={sidebar} />
                 </div>
-                <div className="w-[80%] border">
+                <div className="w-[85%] border hidden sm:block">
                     <Outlet />
                 </div>
+                <h2 className=" h-screen p-20">
+                    <h3>
+                        Chúng tôi không hỗ quản lý bằng điện thoại ! Vui lòng
+                        chuyển sang laptop ?
+                    </h3>
+                    <h2
+                        onClick={() => navigate("/")}
+                        className=" hover:text-red-700 cursor-pointer">
+                        Về trang chủ ?
+                    </h2>
+                </h2>
+            </div>
+            <div className="w-full justify-center hidden sm:flex">
+                <Footer />
             </div>
         </div>
     );

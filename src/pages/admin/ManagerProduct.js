@@ -129,22 +129,22 @@ function ManagerProduct() {
 
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Brand
                             </th>
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Price
                             </th>
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Category
                             </th>
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Sold
                             </th>
 
@@ -155,7 +155,7 @@ function ManagerProduct() {
                             </th>
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Created At
                             </th>
                             <th
@@ -168,32 +168,32 @@ function ManagerProduct() {
                     <tbody>
                         {products?.products?.map((el, index) => (
                             <tr className="bg-gray-100 border-b" key={el._id}>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {index + 1}
                                 </td>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.title}
                                 </td>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.brand}
                                 </td>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el?.price && format(el?.price)}
                                 </td>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.category}
                                 </td>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el?.sold}
                                 </td>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el?.color ? `${el?.color}` : "no"}
                                 </td>
-                                <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {moment(el.createdAt).format("DD/MM/YYYY")}
                                 </td>
                                 <td
-                                    className={`px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black ${
+                                    className={`px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black ${
                                         el._id !== idCurrent && "text-center"
                                     } `}>
                                     <span

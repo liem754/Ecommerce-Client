@@ -176,8 +176,8 @@ function Login() {
                     </div>
                 </div>
             )}
-            <div className="w-3/5 border-2 shadow-sm flex bg-white ">
-                <div className=" w-[50%] flex items-end">
+            <div className="lg:w-3/5 w-4/5 border-2 shadow-sm flex bg-white ">
+                <div className=" hidden sm:flex w-[50%] items-end">
                     <img
                         className="w-full"
                         src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
@@ -185,7 +185,7 @@ function Login() {
                     />
                 </div>
                 <div className="border-2"></div>
-                <div className="w-[50%] ">
+                <div className="sm:w-[50%] w-full ">
                     <div
                         className={`flex min-h-full flex-col justify-center px-6 ${
                             isLogin ? "py-16" : "py-6"
@@ -347,12 +347,20 @@ function Login() {
                                     ? "Not a member? "
                                     : "Do you already have an account? "}
                                 {isLogin ? (
-                                    <button
-                                        onClick={() => setIsLogin(false)}
-                                        href=""
-                                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                                        Bạn chưa có tài khoản ?
-                                    </button>
+                                    <div className="flex flex-col justify-start items-start gap-1">
+                                        <button
+                                            onClick={() => setIsLogin(false)}
+                                            href=""
+                                            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                                            Bạn chưa có tài khoản ?
+                                        </button>
+                                        <button
+                                            onClick={() => navigate("/")}
+                                            href=""
+                                            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                                            Về trang chủ ?
+                                        </button>
+                                    </div>
                                 ) : (
                                     <button
                                         onClick={() => setIsLogin(true)}

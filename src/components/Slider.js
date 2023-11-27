@@ -53,10 +53,8 @@ function Slider({ list, many }) {
                 {list &&
                     list?.map((item, index) => {
                         return (
-                            <SwiperSlide>
-                                <div
-                                    key={item._id}
-                                    className="flex w-full justify-center">
+                            <SwiperSlide key={index}>
+                                <div className="flex w-full justify-center">
                                     <div className="h-[450px] w-full">
                                         <img
                                             className=" h-[100%] w-[100%] object-cover"

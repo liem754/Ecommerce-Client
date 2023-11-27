@@ -89,7 +89,7 @@ function SearchItem({ label, type = "checkbox", handleActive, active }) {
         <div className="relative">
             <div
                 onClick={() => handleActive(label)}
-                className="flex items-center gap-1 p-2 border border-gray-700 cursor-pointer ">
+                className="flex items-center gap-1 p-2 border text-xs lg:text-md border-gray-700 cursor-pointer ">
                 <span>
                     {checked.length === 0
                         ? label

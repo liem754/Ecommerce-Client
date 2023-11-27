@@ -150,7 +150,7 @@ function Collection() {
     return (
         <div className="w-full flex-col items-center flex">
             <div className="flex w-full justify-center py-5 bg-gray-200">
-                <div className="w-4/5 flex flex-col gap-1">
+                <div className="lg:w-4/5 w-[90%] flex flex-col gap-1">
                     <h2>
                         {param.pathname
                             .replace("/", "")
@@ -161,9 +161,9 @@ function Collection() {
                     <Breadcrumb category={param.category} />
                 </div>
             </div>
-            <div className="flex flex-col items-center w-4/5  ">
+            <div className="flex flex-col items-center lg:w-4/5 w-[90%]  ">
                 <div className="flex items-center justify-between p-3 border-2 shadow-md mt-7 mb-1 w-full">
-                    <div className="flex flex-col gap-2 w-[20%]">
+                    <div className="flex flex-col gap-2 w-[23%]">
                         <h2 className="font-medium">Filter by</h2>
                         <div className="flex gap-3">
                             <SearchItem
@@ -180,7 +180,7 @@ function Collection() {
                             />
                         </div>
                     </div>
-                    <div className="w-[50%]">
+                    <div className="lg:w-[50%] w-[40%]">
                         {param.pathname === "/all-product" && (
                             <div className="flex flex-col gap-1 w-full">
                                 <h2 className="font-medium">Search</h2>
@@ -204,7 +204,7 @@ function Collection() {
                     </div>
                     <div className="flex flex-col gap-1 w-[16%]">
                         <h2 className="font-medium">Sort by</h2>
-                        <div className="">
+                        <div className="w-full">
                             <SelectInput
                                 value={sort}
                                 options={sorts}
@@ -216,7 +216,7 @@ function Collection() {
                 <div className="flex w-full flex-wrap gap-[30px] p-3 border shadow-md mb-6 mt-2">
                     {product &&
                         product?.products?.map(item => (
-                            <div key={item.id} className="w-[23%]">
+                            <div key={item.id} className="lg:w-[23%] w-[30%]">
                                 <Product
                                     grip
                                     title={item?.title}

@@ -17,7 +17,7 @@ function Blogs() {
     const pa = useLocation();
     const fetch = async data => {
         const rs = await apiGetBlogs(data);
-        if (rs.success) setBlogs(rs.blogs);
+        if (rs?.success) setBlogs(rs?.blogs);
     };
     const fetchCate = async () => {
         const rs = await apiGetCategoryBlog();
@@ -34,24 +34,24 @@ function Blogs() {
                 .includes("64f9")
         ) {
             fetch({
-                title: pa.pathname.replace("/blogs/", "").replace("-", " "),
+                category: pa.pathname.replace("/blogs/", "").replace("-", " "),
             });
         } else {
             fetch();
         }
     }, [pa]);
-
+    console.log(blogs);
     return (
         <div className="flex flex-col items-center w-full">
             <div className="bg-gray-300 w-full flex justify-center py-2 pl-2">
-                <div className="w-4/5 ">
+                <div className="lg:w-4/5 w-[90%] ">
                     <div className="flex flex-col">
                         <h2>Blog</h2>
                         <Breadcrumb category={"blogs"} type={"blog"} />
                     </div>
                 </div>
             </div>
-            <div className=" flex gap-5 w-4/5 mt-7 mb-16">
+            <div className=" flex lg:gap-5 gap-1 lg:w-4/5 w-[90%] mt-7 mb-16">
                 <div className="w-[30%] lg:w-[25%] flex flex-col gap-2 border">
                     {cate?.map(el => (
                         <NavLink
@@ -59,21 +59,21 @@ function Blogs() {
                             to={`/blogs/${slugify(el.title)}`}
                             className={({ isActive }) =>
                                 isActive
-                                    ? "text-white cursor-pointer py-3 px-5 bg-black lg:text-md text-sm "
-                                    : "px-5 py-3 cursor-pointer hover:bg-gray-200 font-medium lg:text-md text-sm"
+                                    ? "text-white border-b cursor-pointer py-3 lg:px-5 px-2 bg-black lg:text-md text-sm "
+                                    : "lg:px-5 px-2  border-b py-3 cursor-pointer hover:bg-gray-200 font-medium lg:text-md text-sm"
                             }>
                             {el.title}
                         </NavLink>
                     ))}
                 </div>
-                <div className=" flex gap-3 w-[70%] lg:w-[75%] flex-wrap">
+                <div className=" flex gap-3 w-[70%] lg:w-[75%] flex-wrap sm:flex-row flex-col">
                     {blogs &&
                         blogs?.map(el => (
                             <Link
                                 to={`/blogs/${el._id}/${slugify(
                                     el.title,
                                 ).replace("j", "")}`}
-                                className="w-[48%] lg:w-[32%] p-2 shadow-xl hover:scale-105">
+                                className="sm:w-[48%] lg:w-[32%] w-full h-[260px] p-2 shadow-xl hover:scale-105">
                                 <img
                                     src={el.image[0]}
                                     alt=""

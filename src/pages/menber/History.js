@@ -41,7 +41,7 @@ function History() {
     };
     return (
         <div className="h">
-            <div className="px-4 py-12 w-full flex flex-col justify-between">
+            <div className="px-4 w-full py-12 flex flex-col justify-between">
                 <h2 className="text-4xl font-bold text-center mb-10">
                     History
                 </h2>
@@ -56,26 +56,36 @@ function History() {
                         <option value="Thành công">Thành công</option>
                     </select>
                 </div>
-                <table className="w-full table-auto">
+                <table className="w-full lg:table-auto">
                     <thead className="border-b bg-gray-400 font-medium dark:border-neutral-500 dark:bg-neutral-600">
                         <tr>
-                            <th scope="col" className="px-2 py-2">
+                            <th
+                                scope="col"
+                                className="px-2 py-2 hidden sm:block">
                                 STT
                             </th>
                             <th scope="col" className="px-2 py-2">
                                 Products
                             </th>
-                            <th scope="col" className="px-2 py-2">
+                            <th
+                                scope="col"
+                                className="px-2 py-2 hidden sm:block">
                                 Total
                             </th>
 
-                            <th scope="col" className="px-2 py-2">
+                            <th
+                                scope="col"
+                                className="px-2 hidden lg:block  py-2">
                                 Status
                             </th>
-                            <th scope="col" className="px-2 py-2">
+                            <th
+                                scope="col"
+                                className="px-2 hidden lg:block py-2">
                                 Information line
                             </th>
-                            <th scope="col" className="px-2 py-2">
+                            <th
+                                scope="col"
+                                className="hidden lg:block py-2 px-2 ">
                                 Time
                             </th>
                             <th scope="col" className="px-2 py-2">
@@ -92,7 +102,7 @@ function History() {
                                         ? "dark:border-neutral-500 text-xs border-b border-black bg-neutral-200 dark:bg-neutral-700"
                                         : "bg-white text-xs dark:border-neutral-500 border-b border-black dark:bg-neutral-600"
                                 } `}>
-                                <td className="whitespace-nowrap px-2 py-2 text-center">
+                                <td className="hidden sm:block whitespace-nowrap px-2 py-2 text-center">
                                     {index + 1}
                                 </td>
                                 <td className="whitespace-nowrap px-2 py-2  ">
@@ -102,7 +112,7 @@ function History() {
                                                 <img
                                                     src={el?.thumb}
                                                     alt=""
-                                                    className="w-[50px]"
+                                                    className="hidden lg:block w-[50px]"
                                                 />
                                                 <div className="flex flex-col justify-start items-start gap-1">
                                                     <h2>{el?.title}</h2>
@@ -119,15 +129,17 @@ function History() {
                                         ))}
                                     </div>
                                 </td>
-                                <td className="whitespace-nowrap px-2 py-2 text-center">
-                                    {item?.pay === "Thanh toán Online" ? (
+                                <td className="hidden sm:block whitespace-nowrap px-2 py-2 text-center">
+                                    {item?.pay === "Thanh toán Online" &&
+                                    item?.status === "Đang chờ xử lý" ? (
                                         <div className="flex flex-col gap-1">
                                             <span>{`${format(
                                                 item?.total,
                                             )} `}</span>
                                             <span>( Đã thanh toán )</span>
                                         </div>
-                                    ) : (
+                                    ) : item?.pay !== "Thanh toán Online" &&
+                                      item?.status === "Đang chờ xử lý" ? (
                                         <div className="flex flex-col gap-1">
                                             <span>{`${format(
                                                 item?.total,
@@ -137,12 +149,16 @@ function History() {
                                                 hàng )
                                             </span>
                                         </div>
+                                    ) : (
+                                        <span className=" text-xs sm:text-sm">{`${format(
+                                            item?.total,
+                                        )} `}</span>
                                     )}
                                 </td>
-                                <td className="whitespace-nowrap px-2 py-2 text-center">
+                                <td className="whitespace-nowrap px-2 hidden lg:block  py-2 text-center">
                                     {item?.status}
                                 </td>
-                                <td className="whitespace-nowrap px-2 py-2 text-center">
+                                <td className="whitespace-nowrap hidden lg:block px-2 py-2 text-center">
                                     <div className="flex flex-col gap-1">
                                         <div className="flex items-center gap-1">
                                             <h2 className=" font-medium">
@@ -165,7 +181,7 @@ function History() {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="whitespace-nowrap px-2 py-2 text-center">
+                                <td className="whitespace-nowrap hidden lg:block px-2 py-2 text-center">
                                     {moment(item?.createdAt).fromNow()}
                                 </td>
                                 <td className="whitespace-nowrap px-2 py-2 text-center">

@@ -64,9 +64,7 @@ function App() {
                         path={`${path.BLOG}/${path.DETAIL_BLOG}`}
                         element={<DetailBlog />}
                     />
-                    <Route path={path.FAQ} element={<Faq />} />
                     <Route path={path.CONTACT} element={<Contact />} />
-                    <Route path={path.OUR_SERVICE} element={<Services />} />
                     <Route
                         path={path.RESET_PASSWORD}
                         element={<ResetPassword />}

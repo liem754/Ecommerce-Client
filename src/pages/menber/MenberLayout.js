@@ -1,6 +1,7 @@
+import { Footer } from "components";
 import SideBarAdmin from "components/SideBarAdmin";
 
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { path } from "ultils/paths";
 const sidebarMenber = [
     {
@@ -27,12 +28,31 @@ const sidebarMenber = [
 ];
 function MenberLayout() {
     return (
-        <div className="flex gap-3 h-screen">
-            <div className="w-[20%] border">
-                <SideBarAdmin dataa={sidebarMenber} />
+        <div className="flex flex-col  gap-3 h-screen">
+            <div className="flex sm:hidden bg-black  text-sm py-2 justify-center ">
+                {sidebarMenber?.map(item => (
+                    <NavLink
+                        to={item?.link}
+                        key={item?.id}
+                        className={({ isActive }) =>
+                            isActive
+                                ? " underline underline-offset-4 px-2 text-white"
+                                : "text-white px-2"
+                        }>
+                        {item?.value}
+                    </NavLink>
+                ))}
             </div>
-            <div className="w-[80%] border">
-                <Outlet />
+            <div className="flex gap-3">
+                <div className="lg:w-[20%] w-[30%] border hidden sm:block">
+                    <SideBarAdmin dataa={sidebarMenber} />
+                </div>
+                <div className="lg:w-[80%] sm:w-[70%] w-full border">
+                    <Outlet />
+                </div>
+            </div>
+            <div className="w-full flex justify-center">
+                <Footer />
             </div>
         </div>
     );

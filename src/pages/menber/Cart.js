@@ -69,7 +69,9 @@ function Cart() {
                     <h2 className="w-[14%]">Giá</h2>
                 </div>
                 {carts.map((el, index) => (
-                    <div className="flex w-full rounded-sm shadow-md border">
+                    <div
+                        key={index}
+                        className="flex w-full rounded-sm shadow-md border">
                         <div
                             onClick={() => {
                                 navigate(
@@ -82,21 +84,23 @@ function Cart() {
                             <img
                                 src={el?.images[0]}
                                 alt=""
-                                className="w-[30%]"
+                                className="w-[30%] hidden sm:block"
                             />
-                            <div className=" mt-1 text-md">
+                            <div className=" mt-1 lg:text-md sm:text-xs text-[10px]">
                                 <h2>{el?.title}</h2>
                                 <h3>{`Màu : ${el?.new}`}</h3>
                             </div>
                         </div>
-                        <div className="w-[29%] flex justify-normal items-center">
+                        <div className="lg:w-[26%] w-[20%] flex justify-normal items-center">
                             <h3>{el.newqua}</h3>
                         </div>
-                        <div className="w-[20%] flex justify-between items-center">
-                            <h3>{format(el.newprice)}</h3>
+                        <div className="w-[26%] lg:w-[20] flex justify-between items-center">
+                            <h3 className="lg:text-md sm:text-xs text-[9px]">
+                                {format(el.newprice)}
+                            </h3>
                             <span
                                 onClick={e => handle(e, el._id, el)}
-                                className="p-2 bg-red-600 hover:bg-red-500 text-white rounded-md cursor-pointer">
+                                className="text-xs sm:text-md lg:p-2 p-1 bg-red-600 hover:bg-red-500 text-white rounded-md cursor-pointer">
                                 Xóa
                             </span>
                         </div>

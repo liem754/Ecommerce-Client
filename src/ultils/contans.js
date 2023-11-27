@@ -15,18 +15,9 @@ export const Navigations = [
         value: "BLOGS",
         path: `/${path.BLOG}/Share-Experiences`,
     },
+
     {
         id: 4,
-        value: "OUR SERVICES",
-        path: `/${path.OUR_SERVICE}`,
-    },
-    {
-        id: 5,
-        value: "FAQS",
-        path: `/${path.FAQ}`,
-    },
-    {
-        id: 6,
         value: "CONTACT US",
         path: `/${path.CONTACT}`,
     },

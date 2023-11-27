@@ -54,7 +54,7 @@ function SideBarAdmin({ dataa, blog }) {
                         alt=""
                     />
                     {Object.keys(current).length !== 0 && (
-                        <span className="font-bold text-lg">
+                        <span className="font-bold lg:text-lg text-md w-full">
                             {`${
                                 current?.firstname?.charAt(0).toUpperCase() +
                                 current?.firstname?.slice(1)

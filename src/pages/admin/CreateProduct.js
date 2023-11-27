@@ -81,7 +81,7 @@ function CreateProduct() {
     // console.log(payload);
     // console.log(invalids);
     return (
-        <div className=" p-8">
+        <div className=" lg:p-8 p-4">
             <h2 className="text-2xl font-bold my-4">CREATE NEW PRODUCT</h2>
             <div className="border p-3">
                 <div className="flex items-center justify-between px-3 py-5 border-b border-gray-400">

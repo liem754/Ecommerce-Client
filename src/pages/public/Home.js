@@ -133,7 +133,9 @@ function Home() {
                 <div className="flex flex-wrap gap-5 mt-5">
                     {bestStar &&
                         bestStar.map((item, index) => (
-                            <div key={item._id} className="lg:w-[32%] w-[47%]">
+                            <div
+                                key={index}
+                                className="lg:w-[32%] sm:w-[47%] w-full">
                                 <ProductFeatures
                                     title={item.title}
                                     img={item.images[1]}

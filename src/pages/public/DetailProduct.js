@@ -61,15 +61,7 @@ function DetailProduct() {
     const rerender = useCallback(() => {
         setUpdate(!update);
     }, [update]);
-    // const handle = () => {
-    //     const kt = products.find(
-    //         el =>
-    //             el?._id ===
-    //             pid.replace(pid.slice(-2), Math.round(Math.random() * 100)),
-    //     );
 
-    //     console.log(kt);
-    // };
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -112,8 +104,8 @@ function DetailProduct() {
                     <Breadcrumb title={title} category={category} />
                 </div>
             </div>
-            <div className="lg:w-4/5 w-[95%] flex gap-8 my-10">
-                <div className="w-[37%]">
+            <div className="lg:w-4/5 w-[95%] flex flex-col  sm:flex-row  gap-8 my-10">
+                <div className="lg:w-[37%] sm:w-[49%] w-full">
                     <div className="px-2 py-2 w-full h-[450px] border flex justify-center items-center">
                         <ReactImageMagnify
                             {...{
@@ -200,8 +192,8 @@ function DetailProduct() {
                         </a>
                     </div>
                 </div>
-                <div className="w-[60%] flex gap-2">
-                    <div className="flex flex-col gap-2 w-[65%]">
+                <div className="lg:w-[60%] sm:w-[50%] w-full flex  gap-2">
+                    <div className="flex flex-col gap-2 sm:w-[65%] w-full justify-center items-center">
                         <h2 className=" font-medium text-4xl">
                             {co === "BLACK"
                                 ? format(
@@ -239,8 +231,9 @@ function DetailProduct() {
                         <div className="flex flex-col gap-3 py-2">
                             <div className="flex items-center gap-2">
                                 <h2 className="text-sm font-medium">Color:</h2>
-                                {product?.color?.split(" ").map(el => (
+                                {product?.color?.split(" ").map((el, index) => (
                                     <span
+                                        key={index}
                                         onClick={() => setCo(el)}
                                         className={`p-2 ${
                                             co === el
@@ -287,7 +280,7 @@ function DetailProduct() {
                             )}
                         </div>
                     </div>
-                    <div className="w-[35%] ">
+                    <div className="w-[35%] hidden lg:block ">
                         <div className=" p-2 border flex items-center gap-3">
                             <AiFillSafetyCertificate size={"28px"} />
 
@@ -352,7 +345,7 @@ function DetailProduct() {
                     </div>
                 </div>
             </div>
-            <div className="lg:w-4/5 w-[93%]">
+            <div className="lg:w-4/5 w-[96%]">
                 <Tag
                     update={update}
                     rerender={rerender}
@@ -368,7 +361,7 @@ function DetailProduct() {
                         OTHER CUSTOMERS ALSO BUY:
                     </h1>
                     <div className=" mt-5 w-full">
-                        <SliderMany list={products} nobig />
+                        <SliderMany list={products} nobig newws neww />
                     </div>
                 </div>
             </div>

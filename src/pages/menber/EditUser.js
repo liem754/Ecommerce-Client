@@ -108,7 +108,7 @@ function EditUser() {
                 e.stopPropagation();
             }}
             className="flex justify-center items-center">
-            <div className="flex flex-col gap-6 bg-white w-[60%] p-12">
+            <div className="flex flex-col gap-6 bg-white lg:w-[60%] lg:p-12 w-[90%] p-8">
                 <h2 className="text-2xl font-bold">Chỉnh sửa tài khoản</h2>
                 <div>
                     <label className="block text-sm font-semibold leading-6 text-gray-900">

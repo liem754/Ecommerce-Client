@@ -14,7 +14,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/swiper-bundle.min.css";
 import Product from "./product";
 
-function SliderMany({ list, news, neww, now }) {
+function SliderMany({ list, news, neww, now, newws }) {
     console.log(document.body.scrollWidth);
     return (
         <div className="slide-container relative">
@@ -30,8 +30,10 @@ function SliderMany({ list, news, neww, now }) {
                     (+document.body.scrollWidth < 1000 && !neww) ||
                     (+document.body.scrollWidth > 1000 && neww && !now)
                         ? 3
-                        : +document.body.scrollWidth < 1000 && neww
+                        : +document.body.scrollWidth < 1000 && neww && !newws
                         ? 2
+                        : +document.body.scrollWidth < 1000 && newws && neww
+                        ? 1
                         : 4
                 }
                 // loop={true}
@@ -54,7 +56,7 @@ function SliderMany({ list, news, neww, now }) {
                 {list &&
                     list?.map((item, index) => {
                         return (
-                            <SwiperSlide>
+                            <SwiperSlide key={index}>
                                 <Product
                                     title={item.title}
                                     img={item.images[1]}

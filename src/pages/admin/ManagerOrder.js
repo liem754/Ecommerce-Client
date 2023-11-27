@@ -65,10 +65,10 @@ function ManagerOrder() {
                         <th scope="col" className="px-2 py-2">
                             Status
                         </th>
-                        <th scope="col" className="px-2 py-2">
+                        <th scope="col" className="hidden lg:block px-2 py-2">
                             Information line
                         </th>
-                        <th scope="col" className="px-2 py-2">
+                        <th scope="col" className="hidden lg:block px-2 py-2">
                             Time
                         </th>
                         <th scope="col" className="px-2 py-2">
@@ -95,7 +95,7 @@ function ManagerOrder() {
                                             <img
                                                 src={el?.thumb}
                                                 alt=""
-                                                className="w-[50px]"
+                                                className="w-[50px] hidden lg:block"
                                             />
                                             <div className="flex flex-col justify-start items-start gap-1">
                                                 <h2>{el?.title}</h2>
@@ -142,7 +142,7 @@ function ManagerOrder() {
                                     <span>{item?.status}</span>
                                 )}
                             </td>
-                            <td className="whitespace-nowrap px-2 py-2 text-center">
+                            <td className="hidden lg:block whitespace-nowrap px-2 py-2 text-center">
                                 <div className="flex flex-col gap-1">
                                     <div className="flex items-center gap-1">
                                         <h2 className=" font-medium">
@@ -165,7 +165,7 @@ function ManagerOrder() {
                                     </div>
                                 </div>
                             </td>
-                            <td className="whitespace-nowrap px-2 py-2 text-center">
+                            <td className="hidden lg:block whitespace-nowrap px-2 py-2 text-center">
                                 {moment(item?.createdAt).fromNow()}
                             </td>
                             <td className="whitespace-nowrap px-2 py-2 text-center">

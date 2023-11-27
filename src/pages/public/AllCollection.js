@@ -30,10 +30,10 @@ function AllCollection({ home }) {
                 {category &&
                     category
                         .filter(el => el.brand.length > 0)
-                        .map(item => (
+                        .map((item, index) => (
                             <Link
+                                key={index}
                                 to={`/${item.title?.toLowerCase()}`}
-                                key={item.id}
                                 className={`${
                                     home
                                         ? " w-[47%] lg:w-[32%] border-2 py-3 px-4"
@@ -76,14 +76,18 @@ function AllCollection({ home }) {
                                             </h2>
 
                                             <div className="flex flex-col gap-1">
-                                                {item.brand?.map(el => (
-                                                    <p className="text-xs flex gap-1 items-center py-[4px]">
-                                                        <AiOutlineRight
-                                                            size={"10px"}
-                                                        />
-                                                        <span>{el}</span>
-                                                    </p>
-                                                ))}
+                                                {item.brand?.map(
+                                                    (el, index) => (
+                                                        <p
+                                                            key={index}
+                                                            className="text-xs flex gap-1 items-center py-[4px]">
+                                                            <AiOutlineRight
+                                                                size={"10px"}
+                                                            />
+                                                            <span>{el}</span>
+                                                        </p>
+                                                    ),
+                                                )}
                                             </div>
                                         </div>
                                     ) : (

@@ -90,7 +90,7 @@ function ManagerUser() {
                             </th>
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Email address
                             </th>
 
@@ -101,12 +101,12 @@ function ManagerUser() {
                             </th>
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Role
                             </th>
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Phone
                             </th>
                             <th
@@ -117,7 +117,7 @@ function ManagerUser() {
 
                             <th
                                 scope="col"
-                                className="text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Created At
                             </th>
 
@@ -134,18 +134,18 @@ function ManagerUser() {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {index + 1}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {el.email}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">{`${el.lastname} ${el.firstname}`}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">{`${el.lastname} ${el.firstname}`}</td>
+                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {
                                         roles.find(
                                             item => item.code === +el.role,
                                         )?.value
                                     }
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {el.mobile}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
@@ -174,7 +174,7 @@ function ManagerUser() {
                                         </span>
                                     )}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {moment(el.createdAt).format("DD/MM/YYYY")}
                                 </td>
                                 <td

@@ -59,6 +59,7 @@ function Header() {
     //         fetchRefresh();
     //     }
     // }, [current]);
+    console.log(current);
     return (
         <div className="w-[95%] lg:w-4/5 py-5 flex justify-between items-center border-b-2">
             <Link to={"/"} className="w-[30%] md:w-[20%]">
