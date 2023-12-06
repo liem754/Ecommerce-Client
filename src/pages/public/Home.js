@@ -49,7 +49,7 @@ function Home() {
         );
     };
     return (
-        <div className="w-[98%] md:w-[90%] lg:w-4/5 mt-5">
+        <div className="w-[96%] lg:w-4/5 mt-5">
             {view && (
                 <div
                     onClick={e => {
@@ -135,7 +135,7 @@ function Home() {
                         bestStar.map((item, index) => (
                             <div
                                 key={index}
-                                className="lg:w-[32%] sm:w-[47%] w-full">
+                                className="xl:w-[32%] sm:w-[47%] w-full">
                                 <ProductFeatures
                                     title={item.title}
                                     img={item.images[1]}

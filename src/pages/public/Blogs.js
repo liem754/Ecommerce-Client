@@ -44,14 +44,14 @@ function Blogs() {
     return (
         <div className="flex flex-col items-center w-full">
             <div className="bg-gray-300 w-full flex justify-center py-2 pl-2">
-                <div className="lg:w-4/5 w-[90%] ">
+                <div className="lg:w-4/5 w-[96%] ">
                     <div className="flex flex-col">
                         <h2>Blog</h2>
                         <Breadcrumb category={"blogs"} type={"blog"} />
                     </div>
                 </div>
             </div>
-            <div className=" flex lg:gap-5 gap-1 lg:w-4/5 w-[90%] mt-7 mb-16">
+            <div className=" flex lg:gap-5 gap-1 lg:w-4/5 w-[96%] mt-7 mb-16">
                 <div className="w-[30%] lg:w-[25%] flex flex-col gap-2 border">
                     {cate?.map(el => (
                         <NavLink

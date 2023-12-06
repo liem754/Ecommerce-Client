@@ -22,7 +22,7 @@ function Footer() {
     return (
         <div className="w-full bg-black flex flex-col items-center justify-center text-white">
             <div className="lg:w-4/5 w-[93%] mt-3 py-7 md:flex justify-between border-b border-gray-500">
-                <div className="flex flex-col gap-2 mb-10 sm:mb-0 ml-10 sm:ml-0">
+                <div className="flex flex-col gap-2 mb-10 sm:mb-0 ">
                     <h2 className="pl-2 font-bold mb-1 border-l-4 border-blue-600 lg:text-md text-sm">
                         ABOUT US
                     </h2>
@@ -62,7 +62,7 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-2 mb-10 sm:mb-0 ml-10 sm:ml-0">
+                <div className="flex flex-col gap-2 mb-10 sm:mb-0 ">
                     <h2 className="pl-2 font-bold mb-1 border-l-4 border-blue-600 lg:text-md text-sm">
                         INFORMATION
                     </h2>
@@ -92,7 +92,7 @@ function Footer() {
                         </span>
                     </Link>
                 </div>
-                <div className="flex flex-col gap-2 mb-10 sm:mb-0 ml-10 sm:ml-0">
+                <div className="flex flex-col gap-2 mb-10 sm:mb-0 ">
                     <h2 className="pl-2 font-bold mb-1 border-l-4 border-blue-600 lg:text-md text-sm">
                         WHO WE ARE
                     </h2>
@@ -128,7 +128,7 @@ function Footer() {
                     </h2>
                 </div>
             </div>
-            <div className="w-[90%] lg:w-4/5 py-6 mb-16 ml-10 sm:ml-0">
+            <div className="w-[90%] lg:w-4/5 py-6 mb-16 ">
                 <h2 className="pl-2 font-bold mb-1 border-l-4 border-blue-600  lg:text-md text-sm">
                     PRODUCT TAGS
                 </h2>

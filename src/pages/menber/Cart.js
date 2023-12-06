@@ -59,10 +59,10 @@ function Cart() {
     console.log(data.address);
     return (
         <div className="flex flex-col items-center  w-full mt-6">
-            <div className="flex justify-start w-[90%]">
+            <div className="flex justify-start w-[98%]">
                 <h3 className="text-2xl font-serif font-bold">MY CART</h3>
             </div>
-            <div className="w-[90%] my-10 flex flex-col gap-3">
+            <div className="w-[98%] my-10 flex flex-col gap-3">
                 <div className=" flex bg-blue-600 text-white p-3">
                     <h2 className="w-[47%]">Sảm phẩm</h2>
                     <h2 className="w-[35%]">Số lượng</h2>
@@ -100,7 +100,7 @@ function Cart() {
                             </h3>
                             <span
                                 onClick={e => handle(e, el._id, el)}
-                                className="text-xs sm:text-md lg:p-2 p-1 bg-red-600 hover:bg-red-500 text-white rounded-md cursor-pointer">
+                                className="text-xs sm:text-md lg:p-2 xl:mr-6 p-1 bg-red-600 hover:bg-red-500 text-white rounded-md cursor-pointer">
                                 Xóa
                             </span>
                         </div>
@@ -108,7 +108,7 @@ function Cart() {
                 ))}
             </div>
             <div className="flex justify-center items-center w-full my-5">
-                <div className=" flex flex-col gap-2 items-end w-[90%] ">
+                <div className=" flex flex-col gap-2 items-end w-[98%] ">
                     <div className=" flex justify-center items-center gap-1">
                         <h2>{`Tổng Tiền : `}</h2>
                         <h2 className=" text-red-600">

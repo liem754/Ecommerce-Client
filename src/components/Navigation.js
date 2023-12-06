@@ -30,7 +30,7 @@ function Navigation() {
             <div className="lg:hidden block w-full">
                 <div
                     onClick={() => setShow(!show)}
-                    className="lg:hidden flex sm:ml-2 w-4/5 gap-1 py-1 items-center">
+                    className="lg:hidden flex sm:ml-2 md:ml-4 cursor-pointer w-4/5 gap-1 py-1 items-center">
                     <AiOutlineMenu size={"25px"} />
                 </div>
                 {show && (

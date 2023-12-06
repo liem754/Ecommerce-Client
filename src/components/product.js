@@ -73,14 +73,14 @@ function Product({ img, title, price, cate, id, grip, news, star, slug }) {
             className={` block`}>
             <div className="border-2 shadow-md w-full relative">
                 {news === "Trending" ? (
-                    <div className="w-[35%] relative mt-1 lg:block hidden">
+                    <div className="w-[35%] relative mt-1 xl:block hidden">
                         <h3 className="text-white absolute top-[5px] text-sm left-4 md:block hidden">
                             Trending
                         </h3>
                         <img src={label} alt="" />
                     </div>
                 ) : news === "New" ? (
-                    <div className="w-[45%] relative mt-1 lg:block hidden">
+                    <div className="w-[45%] relative mt-1 xl:block hidden">
                         <h3 className="text-white absolute top-[10px] text-sm left-9">
                             New
                         </h3>
