@@ -104,8 +104,8 @@ function DetailProduct() {
                     <Breadcrumb title={title} category={category} />
                 </div>
             </div>
-            <div className="lg:w-4/5 w-[95%] flex flex-col  sm:flex-row  gap-8 my-10">
-                <div className="lg:w-[37%] sm:w-[49%] w-full">
+            <div className="lg:w-4/5 w-[95%] flex flex-col  md:flex-row sm:items-start   gap-8 my-10">
+                <div className="lg:w-[37%] md:w-[49%] w-full">
                     <div className="px-2 py-2 w-full h-[450px] border flex justify-center items-center">
                         <ReactImageMagnify
                             {...{
@@ -192,8 +192,8 @@ function DetailProduct() {
                         </a>
                     </div>
                 </div>
-                <div className="lg:w-[60%] sm:w-[50%] w-full flex  gap-2">
-                    <div className="flex flex-col gap-2 sm:w-[65%] w-full justify-center items-center">
+                <div className="lg:w-[60%] md:w-[50%] w-full flex   gap-2">
+                    <div className="flex flex-col gap-2 md:w-[65%] w-full justify-center items-center md:items-start">
                         <h2 className=" font-medium text-4xl">
                             {co === "BLACK"
                                 ? format(
@@ -228,7 +228,7 @@ function DetailProduct() {
                                     }}></div>
                             )}
                         </div>
-                        <div className="flex flex-col gap-3 py-2">
+                        <div className="flex flex-col gap-3 py-2 w-full justify-center items-center ">
                             <div className="flex items-center gap-2">
                                 <h2 className="text-sm font-medium">Color:</h2>
                                 {product?.color?.split(" ").map((el, index) => (
@@ -270,10 +270,10 @@ function DetailProduct() {
                                 </div>
                             </div>
                             {data?.role === "2000" && (
-                                <div className="mt-3">
+                                <div className="mt-3 w-full">
                                     <button
                                         onClick={e => handleCart(e)}
-                                        className="p-2 w-full bg-red-600 text-white">
+                                        className="p-2 w-full bg-red-600 text-white rounded-md">
                                         Thêm vào giỏ
                                     </button>
                                 </div>
@@ -360,8 +360,14 @@ function DetailProduct() {
                     <h1 className="text-xl font-bold py-3 border-b-2 border-red-600">
                         OTHER CUSTOMERS ALSO BUY:
                     </h1>
-                    <div className=" mt-5 w-full">
-                        <SliderMany list={products} nobig newws neww />
+                    <div className=" mt-5 w-full hidden lg:block">
+                        <SliderMany list={products} lg />
+                    </div>
+                    <div className=" mt-5 w-full hidden lg:hidden md:block ">
+                        <SliderMany list={products} md />
+                    </div>
+                    <div className=" mt-5 w-full md:hidden ">
+                        <SliderMany list={products} />
                     </div>
                 </div>
             </div>

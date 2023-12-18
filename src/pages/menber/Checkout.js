@@ -62,11 +62,11 @@ function CheckOut() {
     console.log(payload?.address);
     return (
         <div className="h-auto flex justify-center items-center py-10">
-            <div className="w-[98%] flex justify-center gap-2">
-                <div className="w-[35%] flex flex-col justify-end it h-screen">
+            <div className="w-[98%] flex flex-col lg:flex-row justify-center gap-2">
+                <div className="lg:w-[35%] w-full flex flex-col justify-end it lg:h-screen">
                     <img src={im} alt="" className="w-full h-[50%] mb-28" />
                 </div>
-                <div className="w-[64%] p-2 flex flex-col items-center gap-8 mt-2">
+                <div className="lg:w-[64%] w-full p-2 flex flex-col items-center gap-8 mt-2">
                     <div className=" flex justify-center">
                         <h2 className="text-2xl font-bold">
                             CHECKOUT YOUR CART

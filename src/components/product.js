@@ -89,7 +89,7 @@ function Product({ img, title, price, cate, id, grip, news, star, slug }) {
                 ) : (
                     <div className=""></div>
                 )}
-                <div className="h-[350px] w-full flex justify-center items-center">
+                <div className="md:h-[350px] h-[500px] w-full flex justify-center items-center">
                     <img
                         src={
                             img ||

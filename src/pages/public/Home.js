@@ -112,15 +112,33 @@ function Home() {
                                 NEW ARRIVALS
                             </div>
                         </div>
-                        <div className="mt-3">
+                        <div className="mt-3 hidden lg:block">
                             {bestShow ? (
-                                <SliderMany list={newProduct} neww news="New" />
+                                <SliderMany list={newProduct} lg news="New" />
                             ) : (
                                 <SliderMany
                                     list={bestSeller}
-                                    neww
+                                    lg
                                     news="Trending"
                                 />
+                            )}
+                        </div>
+                        <div className="mt-3 hidden lg:hidden md:block">
+                            {bestShow ? (
+                                <SliderMany list={newProduct} news="New" md />
+                            ) : (
+                                <SliderMany
+                                    list={bestSeller}
+                                    news="Trending"
+                                    md
+                                />
+                            )}
+                        </div>
+                        <div className="mt-3 md:hidden">
+                            {bestShow ? (
+                                <SliderMany list={newProduct} news="New" />
+                            ) : (
+                                <SliderMany list={bestSeller} news="Trending" />
                             )}
                         </div>
                     </div>

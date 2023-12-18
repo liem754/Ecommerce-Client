@@ -14,7 +14,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/swiper-bundle.min.css";
 import Product from "./product";
 
-function SliderMany({ list, news, neww, now, newws }) {
+function SliderMany({ list, news, md, lg }) {
     console.log(document.body.scrollWidth);
     return (
         <div className="slide-container relative">
@@ -26,16 +26,7 @@ function SliderMany({ list, news, neww, now, newws }) {
 
                 effect="cube"
                 spaceBetween={30}
-                slidesPerView={
-                    (+document.body.scrollWidth < 1000 && !neww) ||
-                    (+document.body.scrollWidth > 1000 && neww && !now)
-                        ? 3
-                        : +document.body.scrollWidth < 1000 && neww && !newws
-                        ? 2
-                        : +document.body.scrollWidth < 1000 && newws && neww
-                        ? 1
-                        : 4
-                }
+                slidesPerView={md ? 2 : lg ? 3 : 1}
                 // loop={true}
                 // scrollbar={{ draggable: true }}
                 // autoplay={{
