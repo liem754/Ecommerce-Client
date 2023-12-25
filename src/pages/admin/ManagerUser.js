@@ -25,8 +25,11 @@ function ManagerUser() {
     const [sele, setSele] = useState("");
     const [edit, setEdit] = useState({});
     const fetch = async params => {
-        const rs = await apiGetUsers({ ...params, limit: 3 });
-        if (rs.success) setUsers(rs.users);
+        const rs = await apiGetUsers({ ...params, limit: 10 });
+        if (rs.success) {
+            setUpd(false);
+            setUsers(rs.users);
+        }
     };
     const { isUpdate, idCurrent } = useSelector(state => state.user);
     const [upd, setUpd] = useState(false);
@@ -45,7 +48,7 @@ function ManagerUser() {
     };
     const handleDelete = async id => {
         fetchDelete(id);
-        setUpd(!upd);
+        setUpd(true);
     };
     const fetchUpdateByAdmin = async isBlock => {
         const rs = await apiUpdateUserByAdmin(isBlock, sele);
@@ -90,7 +93,7 @@ function ManagerUser() {
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Email address
                             </th>
 
@@ -101,12 +104,12 @@ function ManagerUser() {
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Role
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Phone
                             </th>
                             <th
@@ -117,7 +120,7 @@ function ManagerUser() {
 
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-6 py-4 text-left">
                                 Created At
                             </th>
 
@@ -134,18 +137,18 @@ function ManagerUser() {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {index + 1}
                                 </td>
-                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {el.email}
                                 </td>
                                 <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">{`${el.lastname} ${el.firstname}`}</td>
-                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {
                                         roles.find(
                                             item => item.code === +el.role,
                                         )?.value
                                     }
                                 </td>
-                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {el.mobile}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
@@ -174,7 +177,7 @@ function ManagerUser() {
                                         </span>
                                     )}
                                 </td>
-                                <td className="hidden lg:block px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
+                                <td className=" px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border border-black">
                                     {moment(el.createdAt).format("DD/MM/YYYY")}
                                 </td>
                                 <td

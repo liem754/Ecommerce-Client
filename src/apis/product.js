@@ -60,3 +60,8 @@ export const apiGetOrdersbyAdmin = params =>
         method: "get",
         params,
     });
+export const apiDeleteOrdersbyAdmin = params =>
+    axios({
+        url: "/order/remove/" + params,
+        method: "delete",
+    });

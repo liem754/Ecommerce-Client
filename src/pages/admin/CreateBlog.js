@@ -2,12 +2,16 @@ import { apiCreateBlog, apiCreateCategory, apiCreateProduct } from "apis";
 import { Tiny } from "components";
 import InputField from "components/inputField";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { show } from "store/app/appSlice";
 import Swal from "sweetalert2";
 import { getBase64 } from "ultils/helpers";
 import { Icons } from "ultils/icons";
 import validate from "ultils/validate";
 const { BsImage } = Icons;
 function CreateBlog() {
+    const { isShow } = useSelector(state => state.appReducer);
+    const dispatch = useDispatch();
     const [invalids, setInvalids] = useState([]);
     const [image, setImage] = useState("");
     const [payload, setPayload] = useState({
@@ -24,6 +28,7 @@ function CreateBlog() {
 
         fetchCate(payload.category);
         if (invalid === 0) {
+            dispatch(show(true));
             const fromData = new FormData();
             for (let i of Object.entries(payload)) fromData.append(i[0], i[1]);
             if (payload.image) {
@@ -31,7 +36,8 @@ function CreateBlog() {
             }
 
             const rs = await apiCreateBlog(fromData);
-            if (rs.success)
+            if (rs.success) {
+                dispatch(show(false));
                 Swal.fire(
                     "Congratulations!",
                     "Tạo blog mới thành công..",
@@ -45,6 +51,7 @@ function CreateBlog() {
                     });
                     setImage("");
                 });
+            }
         }
     };
     const ToBase64 = async file => {
@@ -185,11 +192,23 @@ function CreateBlog() {
                     )}
                 </div>
             </div>
-            <button
-                className="py-2 px-8 rounded-md bg-red-600 text-white hover:bg-red-500"
-                onClick={handle}>
-                Create new Blog
-            </button>
+            {isShow ? (
+                <div className="py-2 px-8 flex justify-center items-center rounded-md bg-red-600 text-white hover:bg-red-500">
+                    <div
+                        class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        role="status">
+                        <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                            Loading...
+                        </span>
+                    </div>
+                </div>
+            ) : (
+                <button
+                    className="py-2 px-8 rounded-md bg-red-600 text-white hover:bg-red-500 w-full"
+                    onClick={handle}>
+                    Create new Blog
+                </button>
+            )}
         </div>
     );
 }

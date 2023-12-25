@@ -3,6 +3,7 @@ import { Modal } from "components";
 import InputField from "components/inputField";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { show } from "store/app/appSlice";
 import { IdCurrent, update } from "store/user/userSlice";
 import Swal from "sweetalert2";
 import { getBase64 } from "ultils/helpers";
@@ -11,8 +12,8 @@ import validate from "ultils/validate";
 function EditUser() {
     const [invalids, setInvalids] = useState([]);
     const [inn, setInn] = useState(false);
-
     const { data } = useSelector(state => state.user);
+    const { isShow } = useSelector(state => state.appReducer);
     const [image, setImage] = useState(data?.avatar);
     const [payload, setPayload] = useState({
         email: "",
@@ -50,15 +51,12 @@ function EditUser() {
         setImage(image);
         setInn(false);
     };
-    // const handleOn = async e => {
-    //     const files = e.target.files;
 
-    //     setPayload(pre => ({ ...pre, avatar: files }));
-    // };
     const dispatch = useDispatch();
     const fetch = async data => {
         const rs = await apiUpdateUser(data);
         if (rs.success) {
+            dispatch(show(false));
             Swal.fire("Oops!", "Update user thành công!", "success").then(
                 () => {
                     dispatch(
@@ -89,6 +87,8 @@ function EditUser() {
             Swal.fire("Oops!", "Bạn chưa thay đổi trường nào cả!", "info");
         } else {
             if (invalid === 0) {
+                dispatch(show(true));
+
                 const formData = new FormData();
 
                 if (payload?.avatar?.length > 0)
@@ -101,7 +101,6 @@ function EditUser() {
             dispatch(update({ isUpdate: false }));
         }
     };
-    console.log(data?.avatar);
     return (
         <div
             onClick={e => {
@@ -212,11 +211,23 @@ function EditUser() {
                     />
                 </div>
                 <div className="flex justify-between">
-                    <button
-                        onClick={handle}
-                        className="py-2 w-full bg-red-600 text-white rounded-sm hover:bg-red-700">
-                        Update
-                    </button>
+                    {isShow ? (
+                        <div className="py-2 w-full flex justify-center items-center bg-red-600 text-white rounded-sm hover:bg-red-700">
+                            <div
+                                className="  h-8 w-8 text-white animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                role="status">
+                                <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                    Loading...
+                                </span>
+                            </div>
+                        </div>
+                    ) : (
+                        <button
+                            onClick={handle}
+                            className="py-2 w-full bg-red-600 text-white rounded-sm hover:bg-red-700">
+                            Update
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,4 +1,8 @@
-import { apiGetOrdersbyAdmin, apiupdateOrders } from "apis";
+import {
+    apiDeleteOrdersbyAdmin,
+    apiGetOrdersbyAdmin,
+    apiupdateOrders,
+} from "apis";
 import { Pagination } from "components";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -10,12 +14,15 @@ function ManagerOrder() {
 
     const [order, setOrder] = useState(null);
     const [edit, setEdit] = useState(false);
+    const [remove, setRemove] = useState(false);
+
     const [id, setId] = useState(0);
 
     const fetch = async query => {
         const rs = await apiGetOrdersbyAdmin(query);
         if (rs.success) {
             setOrder(rs);
+            setRemove(false);
         }
     };
 
@@ -23,7 +30,7 @@ function ManagerOrder() {
         fetch({
             isMine: true,
         });
-    }, [status]);
+    }, [status, remove]);
     const handleupdate = async id => {
         setEdit(false);
         if (status) {
@@ -42,6 +49,18 @@ function ManagerOrder() {
             }
         } else {
             Swal.fire("Thông báo !", "Bạn chưa thay đổi !", "info");
+        }
+    };
+    const deleteOrder = async id => {
+        const rs = await apiDeleteOrdersbyAdmin(id);
+        if (rs.success) {
+            Swal.fire("Thông báo !", "Xóa đơn hàng thành công", "success").then(
+                () => {
+                    setRemove(true);
+                },
+            );
+        } else {
+            Swal.fire("Thông báo !", "Xóa đơn hàng thất bại !", "error");
         }
     };
     return (
@@ -65,10 +84,10 @@ function ManagerOrder() {
                         <th scope="col" className="px-2 py-2">
                             Status
                         </th>
-                        <th scope="col" className="hidden lg:block px-2 py-2">
+                        <th scope="col" className=" px-2 py-2">
                             Information line
                         </th>
-                        <th scope="col" className="hidden lg:block px-2 py-2">
+                        <th scope="col" className=" px-2 py-2">
                             Time
                         </th>
                         <th scope="col" className="px-2 py-2">
@@ -142,7 +161,7 @@ function ManagerOrder() {
                                     <span>{item?.status}</span>
                                 )}
                             </td>
-                            <td className="hidden lg:block whitespace-nowrap px-2 py-2 text-center">
+                            <td className=" whitespace-nowrap px-2 py-2 text-center">
                                 <div className="flex flex-col gap-1">
                                     <div className="flex items-center gap-1">
                                         <h2 className=" font-medium">
@@ -165,7 +184,7 @@ function ManagerOrder() {
                                     </div>
                                 </div>
                             </td>
-                            <td className="hidden lg:block whitespace-nowrap px-2 py-2 text-center">
+                            <td className=" whitespace-nowrap px-2 py-2 text-center">
                                 {moment(item?.createdAt).fromNow()}
                             </td>
                             <td className="whitespace-nowrap px-2 py-2 text-center">
@@ -176,14 +195,23 @@ function ManagerOrder() {
                                         OK
                                     </button>
                                 ) : (
-                                    <button
-                                        onClick={() => {
-                                            setEdit(true);
-                                            setId(item?._id);
-                                        }}
-                                        className="py-1 px-3 bg-blue-600 text-white rounded-md">
-                                        Edit
-                                    </button>
+                                    <div className="flex items-center gap-1">
+                                        <button
+                                            onClick={() => {
+                                                setEdit(true);
+                                                setId(item?._id);
+                                            }}
+                                            className="py-1 px-3 bg-blue-600 text-white rounded-md">
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                deleteOrder(item._id)
+                                            }
+                                            className="py-1 px-3 bg-red-600 text-white rounded-md">
+                                            xóa
+                                        </button>
+                                    </div>
                                 )}
                             </td>
                         </tr>

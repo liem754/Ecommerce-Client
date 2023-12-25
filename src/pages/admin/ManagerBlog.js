@@ -107,24 +107,24 @@ function ManagerBlog() {
 
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Author
                             </th>
 
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Category
                             </th>
 
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Created At
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className=" text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Updated At
                             </th>
                             <th
@@ -143,18 +143,18 @@ function ManagerBlog() {
                                 <td className="px-3   py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.title}
                                 </td>
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className=" px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.author}
                                 </td>
 
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className=" px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.category}
                                 </td>
 
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className=" px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {moment(el.createdAt).format("DD/MM/YYYY")}
                                 </td>
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className=" px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {moment(el.updatedAt).format("DD/MM/YYYY")}
                                 </td>
                                 <td

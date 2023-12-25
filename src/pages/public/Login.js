@@ -35,12 +35,7 @@ function Login() {
     const fetch = async () => {
         const response = await apiRegister(payload);
     };
-    // const fetchLogin = async () => {
-    //     const response = dispatch
-    //     if (response?.sucess) navigate("/");
-    //     else throw new Error("Login not found!!");
-    //     console.log(response);
-    // };
+
     useEffect(() => {
         setIsLogin(location.state?.flag);
     }, [location.state?.flag]);
@@ -50,6 +45,7 @@ function Login() {
             let invalid = validate(payload, setInvalids);
             if (invalid === 0) {
                 const response = await apiRegister(payload);
+                console.log(response);
                 if (response?.success) {
                     Swal.fire("Congratulation", response.mes, "success").then(
                         () => {

@@ -56,10 +56,7 @@ function ManagerProduct() {
     }, [query]);
     useEffect(() => {
         const pa = Object.fromEntries([...params]);
-        // let para = [];
-        // for (let i of params.entries()) para.push(i);
-        // const queris = {};
-        // for (let i of params) queris[i[0]] = i[1];
+
         if (param) pa.q = param;
         fetch(pa);
     }, [param, isUpdate, upd, backs, params]);
@@ -69,31 +66,14 @@ function ManagerProduct() {
     const fetchDelete = async id => {
         const rs = await apiDeleteProduct(id);
         if (rs.success) {
+            setUpd(false);
             Swal.fire("Oops!", "Xóa product thành công @", "success");
         }
     };
     const handleDelete = async id => {
         fetchDelete(id);
-        setUpd(!upd);
+        setUpd(true);
     };
-
-    // const fetchUpdateByAdmin = async isBlock => {
-    //     const rs = await apiUpdateUserByAdmin(isBlock, sele);
-    //     if (rs.success) {
-    //         Swal.fire(
-    //             "Oops!",
-    //             "Update trạng thái user thành công !",
-    //             "success",
-    //         );
-    //     }
-    // };
-    // console.log(products?.products[1].color === "");
-    // const handleUp = data => {
-    //     setEdit(data);
-    // };
-    // useEffect(()=>{
-    //     handleUp()
-    // },[isUpdate])
 
     return (
         <div className="p-8 w-full mb-10">
@@ -129,22 +109,22 @@ function ManagerProduct() {
 
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Brand
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Price
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Category
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Sold
                             </th>
 
@@ -155,7 +135,7 @@ function ManagerProduct() {
                             </th>
                             <th
                                 scope="col"
-                                className="hidden lg:block text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
+                                className="text-sm font-medium text-gray-900 border border-black px-3 py-4 text-left">
                                 Created At
                             </th>
                             <th
@@ -174,22 +154,22 @@ function ManagerProduct() {
                                 <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.title}
                                 </td>
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.brand}
                                 </td>
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el?.price && format(el?.price)}
                                 </td>
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.category}
                                 </td>
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el?.sold}
                                 </td>
                                 <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el?.color ? `${el?.color}` : "no"}
                                 </td>
-                                <td className="hidden lg:block px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {moment(el.createdAt).format("DD/MM/YYYY")}
                                 </td>
                                 <td

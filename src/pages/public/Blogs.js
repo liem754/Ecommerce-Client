@@ -40,7 +40,7 @@ function Blogs() {
             fetch();
         }
     }, [pa]);
-    console.log(blogs);
+    console.log(cate);
     return (
         <div className="flex flex-col items-center w-full">
             <div className="bg-gray-300 w-full flex justify-center py-2 pl-2">

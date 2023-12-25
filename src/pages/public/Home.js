@@ -15,7 +15,6 @@ import SliderMany from "../../components/SliderMany";
 import { Link } from "react-router-dom";
 import AllCollection from "./AllCollection";
 import { useDispatch, useSelector } from "react-redux";
-import { setView } from "store/product/productSlice";
 function Home() {
     const [bestSeller, setBestSeller] = useState([]);
     const [newProduct, setNewProduct] = useState([]);
@@ -39,32 +38,9 @@ function Home() {
     useEffect(() => {
         fetch();
     }, []);
-    const han = e => {
-        e.stopPropagation();
-        dispatch(
-            setView({
-                view: true,
-                pid: null,
-            }),
-        );
-    };
+
     return (
         <div className="w-[96%] lg:w-4/5 mt-5">
-            {view && (
-                <div
-                    onClick={e => {
-                        e.stopPropagation();
-                        dispatch(
-                            setView({
-                                view: false,
-                                pid: null,
-                            }),
-                        );
-                    }}
-                    className=" z-30 bg-opacity-20 bg-black absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center">
-                    <ModalView onClick={e => han(e)} pid={pid} />
-                </div>
-            )}
             <div className="md:flex  gap-5">
                 <div className="md:w-[25%] w-full flex md:block  ">
                     <div className="border shadow-md pb-2 w-[50%] md:w-full">
@@ -174,8 +150,15 @@ function Home() {
                 <h1 className="text-xl font-bold py-3 border-b-2 border-red-600">
                     NEWS PRODUCTS
                 </h1>
-                <div className="mt-5 w-full">
-                    <SliderMany list={newProduct} news={"New"} neww now />
+
+                <div className=" mt-5 w-full hidden lg:block">
+                    <SliderMany list={newProduct} lg />
+                </div>
+                <div className=" mt-5 w-full hidden lg:hidden md:block ">
+                    <SliderMany list={newProduct} md />
+                </div>
+                <div className=" mt-5 w-full md:hidden ">
+                    <SliderMany list={newProduct} />
                 </div>
             </div>
             <div className="mt-8 w-full">

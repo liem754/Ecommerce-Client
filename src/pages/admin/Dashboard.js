@@ -10,7 +10,6 @@ function DashBoard() {
     const [statusYear, setStatusYear] = useState(2020);
     const [statuss, setStatuss] = useState(1);
     const [statusYears, setStatusYears] = useState(2020);
-    const [id, setId] = useState(0);
 
     const fetch = async query => {
         const rs = await apiGetOrdersbyAdmin(query);
@@ -24,26 +23,6 @@ function DashBoard() {
             isMine: true,
         });
     }, []);
-    // const handleupdate = async id => {
-    //     setEdit(false);
-    //     if (status) {
-    //         const rs = await apiupdateOrders({
-    //             oid: id,
-    //             status: status,
-    //         });
-    //         if (rs.success) {
-    //             Swal.fire(
-    //                 "Chúc mừng !",
-    //                 "Cập nhập đơn hàng thành công !",
-    //                 "success",
-    //             ).then(() => {
-    //                 setStatus(null);
-    //             });
-    //         }
-    //     } else {
-    //         Swal.fire("Thông báo !", "Bạn chưa thay đổi !", "info");
-    //     }
-    // };
 
     return (
         <div className="py-10">
@@ -97,7 +76,7 @@ function DashBoard() {
                                                     ).toString() &&
                                                 item?.createdAt
                                                     .split("-")[2]
-                                                    .substring(1, 2)
+                                                    .substring(0, 2)
                                                     .toString() ===
                                                     new Date()
                                                         .getDate()
