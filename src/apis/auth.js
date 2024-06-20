@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "configs/axios";
 export const apiRegister = payload =>
     axios({
         url: "/user/register",
@@ -15,7 +15,7 @@ export const apiLogin = payload =>
         url: "/user/login",
         method: "post",
         data: payload,
-        withCredentials: true,
+        // withCredentials: true,
     });
 export const apiResetPassword = payload =>
     axios({

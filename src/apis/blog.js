@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "configs/axios";
 
 export const apiCreateBlog = data =>
     axios({
@@ -27,4 +27,10 @@ export const apiDeleteBlog = bid =>
     axios({
         url: "/blog/" + bid,
         method: "delete",
+    });
+
+export const getCategory = () =>
+    axios({
+        url: "/blogcategory",
+        method: "GET",
     });

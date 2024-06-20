@@ -12,7 +12,6 @@ import {
     PURGE,
     REGISTER,
 } from "redux-persist";
-import globalSlice from "./global/globalSlice";
 const commonConfig = {
     key: "shop/user",
     storage,

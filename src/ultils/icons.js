@@ -7,6 +7,9 @@ import {
     FaGoogle,
     FaPinterest,
     FaPhone,
+    FaIdCard,
+    FaCarSide,
+    FaPhoneVolume,
 } from "react-icons/fa";
 import {
     AiOutlineLaptop,
@@ -66,4 +69,7 @@ export const Icons = {
     BiDotsHorizontalRounded,
     AiOutlineSearch,
     BsImage,
+    FaIdCard,
+    FaCarSide,
+    FaPhoneVolume,
 };

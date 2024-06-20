@@ -6,10 +6,14 @@ export const appSlice = createSlice({
         category: null,
         isLoading: false,
         isShow: false,
+        isFix: false,
     },
     reducers: {
         show: (state, action) => {
             state.isShow = action.payload;
+        },
+        fix: (state, action) => {
+            state.isFix = action.payload;
         },
     },
     extraReducers: builder => {
@@ -28,6 +32,6 @@ export const appSlice = createSlice({
         });
     },
 });
-export const { show } = appSlice.actions;
+export const { show, fix } = appSlice.actions;
 
 export default appSlice.reducer;

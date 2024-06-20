@@ -6,15 +6,13 @@ import {
     Home,
     Login,
     Collection,
-    AllCollection,
     DetailProduct,
     Blogs,
-    Faq,
-    Services,
     FinalRegister,
     ResetPassword,
-    DetailBlog,
     Contact,
+    Introduce,
+    DetailBlog,
 } from "./pages/public";
 
 import { path } from "./ultils/paths";
@@ -52,18 +50,12 @@ function App() {
                         element={<DetailProduct />}
                     />
                     <Route path={path.COLECTIONS} element={<Collection />} />
-                    <Route
-                        path={path.DETAIL_COLLECTION}
-                        element={<AllCollection />}
-                    />
+                    <Route path={path.INTRODUCE} element={<Introduce />} />
 
-                    <Route path={`${path.BLOG}`} element={<Blogs />}></Route>
+                    <Route path={path.BLOG} element={<Blogs />} />
                     <Route path={`${path.BLOGDE}`} element={<Blogs />}></Route>
 
-                    <Route
-                        path={`${path.BLOG}/${path.DETAIL_BLOG}`}
-                        element={<DetailBlog />}
-                    />
+                    <Route path={`${path.BLOGID}`} element={<DetailBlog />} />
                     <Route path={path.CONTACT} element={<Contact />} />
                     <Route
                         path={path.RESET_PASSWORD}

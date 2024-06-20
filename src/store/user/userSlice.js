@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCurrent } from "./asyncActions";
 export const userSlice = createSlice({
     name: "user",
     initialState: {

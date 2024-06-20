@@ -1,4 +1,11 @@
 import { path } from "./paths";
+import bn1 from "assets/images/banner1.jpg";
+import bn2 from "assets/images/banner2.jpg";
+import bn3 from "assets/images/bannerIn.png";
+import cl1 from "assets/images/bn1.jpg";
+import cl2 from "assets/images/bn2.jpg";
+import cl3 from "assets/images/bn3.jpg";
+
 export const Navigations = [
     {
         id: 1,
@@ -13,7 +20,7 @@ export const Navigations = [
     {
         id: 3,
         value: "BLOGS",
-        path: `/${path.BLOG}/Share-Experiences`,
+        path: `/${path.BLOG}`,
     },
 
     {
@@ -21,36 +28,42 @@ export const Navigations = [
         value: "CONTACT US",
         path: `/${path.CONTACT}`,
     },
+    {
+        id: 5,
+        value: "INTRODUCE",
+        path: `/${path.INTRODUCE}`,
+    },
 ];
 
-export const Banners = [
+export const collection = [
     {
         id: 1,
-        img: "https://cdn1.vectorstock.com/i/1000x1000/52/75/online-shopping-black-banner-or-promotion-vector-35015275.jpg",
+        img: cl1,
+        title: "Men",
     },
     {
         id: 2,
-        img: "https://www.eiosys.com/wp-content/uploads/2021/12/without-text-Top-Online-Electronics-Shopping-Websites-in-India.png",
+        img: cl2,
+        title: "Women",
     },
     {
         id: 3,
-        img: "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2022/07/electronic-devices.jpg",
+        img: cl3,
+        title: "Kids",
+    },
+];
+export const Banners = [
+    {
+        id: 1,
+        img: bn1,
     },
     {
-        id: 4,
-        img: "https://img.freepik.com/premium-psd/tablet-pro-mockup-table_173626-207.jpg?w=2000",
+        id: 2,
+        img: bn2,
     },
     {
-        id: 5,
-        img: "https://www.davidrambo.org/hp-omen-critique/OMEN-new-banner-1.png",
-    },
-    {
-        id: 6,
-        img: "https://f.hubspotusercontent30.net/hubfs/5624788/Electronic%20Online%20Header-01.jpg",
-    },
-    {
-        id: 7,
-        img: "https://global.hisense.com/dam/jcr:a0622ec8-3501-4c44-92dc-afafb9398077/product-overview-hisense-smartphone-kv.jpg",
+        id: 3,
+        img: bn3,
     },
 ];
 export const colors = [

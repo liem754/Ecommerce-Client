@@ -5,8 +5,8 @@ import { store, persistor } from "./store/redux";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import { ScrollTop } from "./components";
 import { PersistGate } from "redux-persist/integration/react";
+import { Top } from "components";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -15,7 +15,7 @@ root.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter>
-                <ScrollTop />
+                <Top />
                 <App />
             </BrowserRouter>
         </PersistGate>

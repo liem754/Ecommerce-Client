@@ -4,7 +4,9 @@ export const path = {
     LOGIN: "login",
     PRODUCT: "product",
     BLOG: "blogs",
-    BLOGDE: "blogs/:title",
+    BLOGDE: "blogs/:category",
+    BLOGID: "blogs/:bid/:title",
+
     CART: "cart",
     OUR_SERVICE: "our-service",
     FAQ: "faqs",
@@ -29,4 +31,6 @@ export const path = {
     EDIT_USER: "edit-user",
     CHECKOUT: "checkout",
     HISTORY: "history",
+
+    INTRODUCE: "introduce",
 };
