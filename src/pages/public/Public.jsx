@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function Public() {
     const { isFix } = useSelector(state => state.appReducer);
     return (
-        <div className={`${isFix && "max-h-screen"} overflow-y-auto`}>
+        <div className={`${isFix && "max-h-screen overflow-y-auto "} `}>
             <div className="w-full flex justify-center ">
                 <Header />
             </div>

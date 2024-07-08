@@ -1,6 +1,6 @@
 import { Footer } from "components";
 import SideBarAdmin from "components/SideBarAdmin";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { path } from "ultils/paths";
 const sidebar = [
     {
@@ -47,9 +47,8 @@ const sidebar = [
 ];
 
 function AdminLayout() {
-    const navigate = useNavigate();
     return (
-        <div className="flex flex-col ">
+        <div className="flex flex-col  max-h-screen overflow-y-auto ">
             <div className="flex gap-3 ">
                 <div className="w-[20%] border hidden sm:block ">
                     <SideBarAdmin dataa={sidebar} />

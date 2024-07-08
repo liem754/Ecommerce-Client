@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputField from "../../components/inputField";
-import logo from "../../assets/images/logo3.png";
+import logo from "../../assets/images/logo.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiChangePassword } from "../../apis";
 import Swal from "sweetalert2";
@@ -24,7 +24,7 @@ function ResetPassword() {
     };
     return (
         <div className="w-full flex h-screen justify-center items-center bg-background-home bg-cover bg-no-repeat object-none object-bottom">
-            <div className="w-3/5 border-2 shadow-sm flex bg-white ">
+            <div className="w-3/5 h-[500px] border-2 shadow-sm flex bg-white ">
                 <div className=" w-[50%] flex items-end">
                     <img
                         className="w-full"
@@ -43,7 +43,7 @@ function ResetPassword() {
                                 alt="Your Company"
                             />
                             <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                                Đổi mật khẩu
+                                Change Password
                             </h2>
                         </div>
 
@@ -52,7 +52,7 @@ function ResetPassword() {
                                 <div>
                                     <div className="flex flex-col gap-3">
                                         <label class="block text-sm font-medium leading-6 text-gray-900">
-                                            Nhập mật khẩu mới
+                                            Please enter a new password
                                         </label>
 
                                         <input
@@ -68,7 +68,7 @@ function ResetPassword() {
                                         <button
                                             onClick={handleSubmit}
                                             className="px-3 py-2 bg-black rounded-md text-white">
-                                            submit
+                                            Submit
                                         </button>
                                     </div>
                                 </div>

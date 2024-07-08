@@ -1,6 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { memo, useRef } from "react";
-function Tiny({ label, value, setValue, nameKey, setInvalids, invalids }) {
+function Tiny({ label, value, setValue, nameKey, setInvalids, invalids, fix }) {
     const editorRef = useRef(null);
     const log = () => {
         if (editorRef.current) {
@@ -19,7 +19,7 @@ function Tiny({ label, value, setValue, nameKey, setInvalids, invalids }) {
                 onInit={(evt, editor) => (editorRef.current = editor)}
                 initialValue={value}
                 init={{
-                    height: 500,
+                    height: fix ? 300 : 500,
                     menubar: true,
                     plugins: [
                         "advlist",

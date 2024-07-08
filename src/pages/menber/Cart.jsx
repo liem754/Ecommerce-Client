@@ -27,6 +27,7 @@ function Cart() {
                         new: el.color,
                         newprice: el.price,
                         newqua: el.quantity,
+                        newsize: el.size,
                     },
                 ]);
             }
@@ -53,14 +54,16 @@ function Cart() {
     };
     return (
         <div className="flex flex-col items-center  w-full mt-6">
-            <div className="flex justify-start w-[98%]">
-                <h3 className="text-2xl font-serif font-bold">MY CART</h3>
+            <div className="flex justify-center items-center w-[98%] py-2">
+                <h3 className="text-2xl font-serif font-bold text-center ">
+                    MY CART
+                </h3>
             </div>
             <div className="w-[98%] my-10 flex flex-col gap-3">
                 <div className=" flex bg-blue-600 text-white p-3">
-                    <h2 className="w-[47%]">Sảm phẩm</h2>
-                    <h2 className="w-[35%]">Số lượng</h2>
-                    <h2 className="w-[14%]">Giá</h2>
+                    <h2 className="w-[47%]">Product</h2>
+                    <h2 className="w-[35%]">Quantity</h2>
+                    <h2 className="w-[14%]">Price</h2>
                 </div>
                 {carts.map((el, index) => (
                     <div
@@ -82,7 +85,8 @@ function Cart() {
                             />
                             <div className=" mt-1 lg:text-md sm:text-xs text-[10px]">
                                 <h2>{el?.title}</h2>
-                                <h3>{`Màu : ${el?.new}`}</h3>
+                                <h3>{`Color : ${el?.new}`}</h3>
+                                <h3>{`Size : ${el?.newsize}`}</h3>
                             </div>
                         </div>
                         <div className="lg:w-[26%] w-[20%] flex justify-normal items-center">
@@ -95,7 +99,7 @@ function Cart() {
                             <span
                                 onClick={e => handle(e, el._id, el)}
                                 className="text-xs sm:text-md lg:p-2 xl:mr-6 p-1 bg-red-600 hover:bg-red-500 text-white rounded-md cursor-pointer">
-                                Xóa
+                                Delete
                             </span>
                         </div>
                     </div>
@@ -104,7 +108,7 @@ function Cart() {
             <div className="flex justify-center items-center w-full my-5">
                 <div className=" flex flex-col gap-2 items-end w-[98%] ">
                     <div className=" flex justify-center items-center gap-1">
-                        <h2>{`Tổng Tiền : `}</h2>
+                        <h2>{`Total : `}</h2>
                         <h2 className=" text-red-600">
                             {carts.length > 0
                                 ? format(
@@ -118,7 +122,7 @@ function Cart() {
                     </div>
                     {data.cart.length === 0 ? (
                         <>
-                            <h2>Chưa có sản phẩm vui lòng đặt hàng !!</h2>
+                            <h2>No products yet, please place an order !! </h2>
                             <Link
                                 to={"/"}
                                 className=" bg-blue-600 text-white px-4 py-1 rounded-md">
@@ -132,8 +136,8 @@ function Cart() {
                                 dispatch(setCart({ cart: carts }));
                                 if (!data.address) {
                                     Swal.fire(
-                                        "Thông báo !",
-                                        "Vui lòng thêm địa chỉ trước khí đặt hàng !",
+                                        "Notification !",
+                                        "Please add address before ordering !",
                                         "info",
                                     ).then(() => {
                                         navigate(
@@ -149,7 +153,7 @@ function Cart() {
                                 }
                             }}>
                             <button className=" hover:bg-red-500 cursor-pointer rounded-md p-2 w-[100%] text-center text-white bg-red-600">
-                                Thanh Toán
+                                Payment
                             </button>
                         </div>
                     )}

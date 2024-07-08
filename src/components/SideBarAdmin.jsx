@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IdCurrent, idCurrent, logout } from "store/user/userSlice";
 import Swal from "sweetalert2";
-import { path } from "ultils/paths";
 
 function SideBarAdmin({ dataa, blog }) {
     const { data } = useSelector(state => state.user);

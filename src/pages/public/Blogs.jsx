@@ -1,17 +1,22 @@
-import { NavLink, useLocation, useParams } from "react-router-dom";
-import { BlogFeature, Breadcrumb } from "../../components";
+import {
+    NavLink,
+    useLocation,
+    useParams,
+    useSearchParams,
+} from "react-router-dom";
+import { BlogFeature, Breadcrumb, Pagination } from "components";
 import { useEffect, useState } from "react";
 import { apiGetBlogs, apiGetCategoryBlog } from "apis";
 import slugify from "slugify";
 function Blogs() {
-    const { bid, title, category } = useParams();
-
+    const { title, category } = useParams();
+    const [params] = useSearchParams();
     const [blogs, setBlogs] = useState([]);
     const [cate, setCate] = useState([]);
     const pa = useLocation();
     const fetch = async data => {
         const rs = await apiGetBlogs(data);
-        if (rs?.success) setBlogs(rs?.blogs);
+        if (rs?.success) setBlogs(rs);
     };
     const fetchCate = async () => {
         const rs = await apiGetCategoryBlog();
@@ -21,19 +26,23 @@ function Blogs() {
         fetchCate();
     }, []);
     useEffect(() => {
+        let query = {};
+        for (let i of params) query[i[0]] = i[1];
         if (pa.pathname.split("/").length === 3) {
             fetch({
+                ...query,
                 category: pa.pathname
                     .replace("/blogs/", "")
                     .replace("and", "&")
                     .replaceAll("-", " "),
+                limit: 3,
             });
         } else {
-            fetch();
+            fetch({ ...query, limit: 3 });
         }
     }, [pa]);
     return (
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full mb-24">
             <div className="bg-gray-300 w-full flex justify-center py-2 pl-2">
                 <div className="lg:w-4/5 w-[96%] ">
                     <div className="flex flex-col">
@@ -68,15 +77,26 @@ function Blogs() {
                     </h2>
                     <div className="list_blog flex flex-wrap sm:flex-row gap-5">
                         {blogs &&
-                            blogs?.map(el => (
+                            blogs?.blogs?.map(el => (
                                 <BlogFeature
                                     key={el._id}
                                     id={el._id}
                                     title={el.title}
-                                    image={el.image}
+                                    image={el.images}
+                                    time={el.createdAt}
+                                    user={el.author}
                                 />
                             ))}
                     </div>
+                    {blogs?.blogs?.length > 0 && (
+                        <div className="mt-20 w-full">
+                            <Pagination
+                                type="blog"
+                                totalCount={blogs?.counts}
+                                pageSize={blogs?.limit}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

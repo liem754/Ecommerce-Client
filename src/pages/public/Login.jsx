@@ -13,6 +13,7 @@ import InputField from "components/inputField";
 import validate from "ultils/validate";
 import Swal from "sweetalert2";
 import { register } from "store/user/userSlice";
+import { fix } from "store/app/appSlice";
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Login() {
     const [isemail, setIsemail] = useState("");
     const [code, setCode] = useState("");
     const [modal, setModal] = useState(false);
+    const [load, setLoad] = useState(false);
     const [payload, setPayload] = useState({
         password: "",
         email: "",
@@ -34,6 +36,7 @@ function Login() {
         setIsLogin(location.state?.flag);
     }, [location.state?.flag]);
     const handle = async () => {
+        setLoad(true);
         const { name, phone, ...data } = payload;
         if (!isLogin) {
             let invalid = validate(payload, setInvalids);
@@ -49,6 +52,7 @@ function Login() {
                                 phone: "",
                                 name: "",
                             });
+                            setLoad(false);
                         },
                     );
                 } else {
@@ -59,8 +63,11 @@ function Login() {
             let invalid = validate(data, setInvalids);
             if (invalid === 0) {
                 const rs = await apiLogin(data && data);
+
                 if (rs.success) {
                     Swal.fire("Congratulation", rs.mes, "success").then(() => {
+                        setLoad(false);
+
                         dispatch(
                             register({
                                 isLoggedin: true,
@@ -84,6 +91,7 @@ function Login() {
                 "success",
             ).then(() => {
                 setIsForgot(false);
+                dispatch(fix(false));
                 setIsemail("");
             });
         } else {
@@ -108,12 +116,12 @@ function Login() {
     };
 
     return (
-        <div className="w-full flex h-screen justify-center items-center bg-background-home bg-cover bg-no-repeat object-none object-bottom">
+        <div className="w-full flex min-h-screen justify-center items-center bg-background-home bg-cover bg-no-repeat object-none object-bottom overflow-y-auto">
             {modal && (
-                <div className="absolute animate-slide-bottom top-0 left-0 right-0 bottom-0 bg-black flex justify-center items-center bg-opacity-70">
+                <div className="absolute animate-slide-bottom z-10 top-0 left-0 right-0 bottom-0 bg-black flex justify-center items-center bg-opacity-70">
                     <div className="bg-white border-2 shadow-md p-5 flex flex-col gap-2 rounded-md w-[40%]">
                         <label htmlFor="email" className="font-medium">
-                            Nhập code để xác thực
+                            Please enter the code to authenticate your email
                         </label>
                         <input
                             value={code}
@@ -137,10 +145,10 @@ function Login() {
                 </div>
             )}
             {isForgot && (
-                <div className="absolute animate-slide-bottom top-0 left-0 right-0 bottom-0 bg-black flex justify-center items-center bg-opacity-70">
+                <div className="absolute z-10 animate-slide-bottom inset-0  bg-black flex justify-center items-center bg-opacity-70">
                     <div className="bg-white border-2 shadow-md p-5 flex flex-col gap-2 rounded-md w-[40%]">
                         <label htmlFor="email" className="font-medium">
-                            Nhập email của bạn
+                            Enter your registered email
                         </label>
                         <input
                             value={isemail}
@@ -164,12 +172,12 @@ function Login() {
                     </div>
                 </div>
             )}
-            <div className="lg:w-3/5 w-4/5 border-2 shadow-sm flex bg-white animate-slide-bottom ">
-                <div className=" hidden sm:flex w-[50%] items-end">
-                    <img className="w-full" src={bg} alt="" />
+            <div className="lg:w-3/5 w-4/5 border-2 shadow-sm h-[600px]  flex bg-white animate-slide-bottom  ">
+                <div className="hidden sm:flex w-[50%] items-end">
+                    <img className="w-full h-full" src={bg} alt="" />
                 </div>
                 <div className="border-2"></div>
-                <div className="sm:w-[50%] w-full ">
+                <div className="sm:w-[50%] w-full h-full overflow-y-auto custom-scrollbar ">
                     <div
                         className={`flex min-h-full flex-col justify-center px-6 ${
                             isLogin ? "py-16" : "py-6"
@@ -285,9 +293,10 @@ function Login() {
                                                 </label>
 
                                                 <span
-                                                    onClick={() =>
-                                                        setIsForgot(true)
-                                                    }
+                                                    onClick={() => {
+                                                        setIsForgot(true);
+                                                        dispatch(fix(true));
+                                                    }}
                                                     className=" text-xs cursor-pointer font-semibold text-indigo-600 hover:text-indigo-500">
                                                     Forgot password?
                                                 </span>
@@ -306,12 +315,23 @@ function Login() {
                                 )}
 
                                 <div>
-                                    <button
-                                        onClick={handle}
-                                        type="submit"
-                                        className="flex w-full mt-3 justify-center rounded-md bg-indigo-600 px-3 py-2  text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                        Continue
-                                    </button>
+                                    {load ? (
+                                        <div class="flex w-full gap-2 mt-3 justify-center rounded-md bg-indigo-600 p-3  text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                            <span class="sr-only">
+                                                Loading...
+                                            </span>
+                                            <div class="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                            <div class="h-3 w-3 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                            <div class="h-3 w-3 bg-white rounded-full animate-bounce"></div>
+                                        </div>
+                                    ) : (
+                                        <button
+                                            onClick={handle}
+                                            type="submit"
+                                            className="flex w-full mt-3 justify-center rounded-md bg-indigo-600 px-3 py-2  text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                            Continue
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 

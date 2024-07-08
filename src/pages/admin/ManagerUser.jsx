@@ -41,7 +41,7 @@ function ManagerUser() {
     const fetchDelete = async id => {
         const rs = await apiDeleteUser(id);
         if (rs.success) {
-            Swal.fire("Oops!", "Xóa user thành công @", "success");
+            Swal.fire("Notification", "Delete user successfully", "success");
         }
     };
     const handleDelete = async id => {
@@ -52,7 +52,7 @@ function ManagerUser() {
         const rs = await apiUpdateUserByAdmin(isBlock, sele);
         if (rs.success) {
             Swal.fire(
-                "Oops!",
+                "Notification",
                 "Update trạng thái user thành công !",
                 "success",
             );
@@ -222,7 +222,11 @@ function ManagerUser() {
             </div>
             {users?.length !== 0 && (
                 <div className="w-full">
-                    <Pagination totalCount={users?.length} />
+                    <Pagination
+                        totalCount={users?.length}
+                        type={"user"}
+                        pageSize={10}
+                    />
                 </div>
             )}
             <div className="w-full">

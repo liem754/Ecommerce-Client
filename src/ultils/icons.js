@@ -1,5 +1,7 @@
 import { GiShoppingCart } from "react-icons/gi";
 import { BsPhone, BsSignTurnLeftFill, BsCart2 } from "react-icons/bs";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
 import {
     FaTabletAlt,
     FaTwitter,
@@ -29,12 +31,13 @@ import {
 } from "react-icons/ai";
 import { SlEarphones } from "react-icons/sl";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
-import { GrFormPrevious, GrFormNext } from "react-icons/gr";
+import { GrFormPrevious, GrFormNext, GrLike, GrDislike } from "react-icons/gr";
 import { CiSpeaker } from "react-icons/ci";
 import { GoDotFill } from "react-icons/go";
 import { MdLocalShipping } from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { BsImage } from "react-icons/bs";
+import { BiShow, BiHide } from "react-icons/bi";
 export const Icons = {
     GiShoppingCart,
     BsPhone,
@@ -72,4 +75,9 @@ export const Icons = {
     FaIdCard,
     FaCarSide,
     FaPhoneVolume,
+    RiDeleteBin6Line,
+    GrLike,
+    GrDislike,
+    BiShow,
+    BiHide,
 };

@@ -7,6 +7,7 @@ export const appSlice = createSlice({
         isLoading: false,
         isShow: false,
         isFix: false,
+        tranId: "kkk",
     },
     reducers: {
         show: (state, action) => {
@@ -14,6 +15,9 @@ export const appSlice = createSlice({
         },
         fix: (state, action) => {
             state.isFix = action.payload;
+        },
+        setTranId: (state, action) => {
+            state.tranId = action.payload;
         },
     },
     extraReducers: builder => {
@@ -32,6 +36,6 @@ export const appSlice = createSlice({
         });
     },
 });
-export const { show, fix } = appSlice.actions;
+export const { show, fix, setTranId } = appSlice.actions;
 
 export default appSlice.reducer;

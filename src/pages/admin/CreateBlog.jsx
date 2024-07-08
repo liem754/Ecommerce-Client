@@ -1,14 +1,14 @@
-import { apiCreateBlog, apiCreateCategory, apiCreateProduct } from "apis";
+import { apiCreateBlog, apiCreateCategory } from "apis";
 import { Tiny } from "components";
 import InputField from "components/inputField";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { show } from "store/app/appSlice";
 import Swal from "sweetalert2";
 import { getBase64 } from "ultils/helpers";
 import { Icons } from "ultils/icons";
 import validate from "ultils/validate";
-const { BsImage } = Icons;
+const { BsImage, RiDeleteBin6Line } = Icons;
 function CreateBlog() {
     const { isShow } = useSelector(state => state.appReducer);
     const dispatch = useDispatch();
@@ -17,12 +17,10 @@ function CreateBlog() {
     const [payload, setPayload] = useState({
         title: "",
         category: "",
-        image: "",
+        images: "",
         description: "",
     });
-    const fetchCate = async data => {
-        const rs = await apiCreateCategory({ title: data });
-    };
+    const fetchCate = async data => await apiCreateCategory({ title: data });
     const handle = async () => {
         let invalid = validate(payload, setInvalids);
 
@@ -31,8 +29,8 @@ function CreateBlog() {
             dispatch(show(true));
             const fromData = new FormData();
             for (let i of Object.entries(payload)) fromData.append(i[0], i[1]);
-            if (payload.image) {
-                for (let i of payload.image) fromData.append("images", i);
+            if (payload.images) {
+                for (let i of payload.images) fromData.append("images", i);
             }
 
             const rs = await apiCreateBlog(fromData);
@@ -46,7 +44,7 @@ function CreateBlog() {
                     setPayload({
                         title: "",
                         category: "",
-                        image: "",
+                        images: "",
                         description: "",
                     });
                     setImage("");
@@ -55,36 +53,30 @@ function CreateBlog() {
         }
     };
     const ToBase64 = async files => {
-        let image = [];
         for (let i of files) {
             if (i.type !== "image/png" && i.type !== "image/jpeg") {
                 Swal.fire("Oops!", "File not supported!", "info");
             }
             const han = await getBase64(i);
-            image = [...image, { name: i.name, path: han }];
+            setImage(pre => [...pre, { name: i.name, path: han }]);
         }
-
-        setImage(pre => [...image]);
     };
-    const handleOn = async e => {
+    const handleOn = e => {
         const files = e.target.files;
 
-        setPayload(pre => ({ ...pre, image: [...pre.image, ...files] }));
+        setPayload(pre => ({ ...pre, images: [...pre.images, ...files] }));
+        ToBase64(files);
     };
-    console.log(payload);
-    // const handleDe = image => {
-    //     setImage(pre => pre.filter(item => item !== image));
-    //     setPayload(pre => ({
-    //         ...pre,
-    //         images: pre?.images?.filter(item => item !== image),
-    //     }));
-    // };
-    useEffect(() => {
-        ToBase64(payload?.image);
-    }, [payload?.image]);
+    const handleDe = image => {
+        setImage(pre => pre.filter(item => item.name !== image));
+        setPayload(pre => ({
+            ...pre,
+            images: pre?.images?.filter(item => item.name !== image),
+        }));
+    };
 
     return (
-        <div className=" p-8">
+        <div className="p-8">
             <h2 className="text-2xl font-bold my-4">CREATE NEW PRODUCT</h2>
             <div className="border p-3">
                 <div className="flex items-center justify-between px-3 py-5 border-b border-gray-400">
@@ -156,10 +148,10 @@ function CreateBlog() {
                         onChange={handleOn}
                     />
                     {invalids?.length > 0 &&
-                        invalids.some(i => i.name === "image") && (
+                        invalids.some(i => i.name === "images") && (
                             <small className="text-red-500 text-xs">
                                 {
-                                    invalids.find(i => i.name === "image")
+                                    invalids.find(i => i.name === "images")
                                         ?.messeger
                                 }
                             </small>
@@ -175,14 +167,14 @@ function CreateBlog() {
                                     className="w-[30%] my-2"
                                     alt=""
                                 />
-                                {/* <span
-                                className=" cursor-pointer "
-                                onClick={e => {
-                                    e.stopPropagation();
-                                    handleDe(el);
-                                }}>
-                                Xóa
-                            </span> */}
+                                <span
+                                    className=" cursor-pointer "
+                                    onClick={e => {
+                                        e.stopPropagation();
+                                        handleDe(el.name);
+                                    }}>
+                                    <RiDeleteBin6Line />
+                                </span>
                             </div>
                         ))}
                 </div>

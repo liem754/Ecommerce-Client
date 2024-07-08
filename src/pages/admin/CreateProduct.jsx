@@ -1,14 +1,14 @@
-import { apiCreateCategory, apiCreateProduct } from "apis";
+import { apiCreateProduct } from "apis";
 import { Tiny } from "components";
 import InputField from "components/inputField";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { show } from "store/app/appSlice";
 import Swal from "sweetalert2";
 import { getBase64 } from "ultils/helpers";
 import { Icons } from "ultils/icons";
 import validate from "ultils/validate";
-const { BsImage } = Icons;
+const { BsImage, RiDeleteBin6Line } = Icons;
 function CreateProduct() {
     const { isShow } = useSelector(state => state.appReducer);
     const dispatch = useDispatch();
@@ -22,8 +22,17 @@ function CreateProduct() {
         images: "",
         color: "",
         description: "",
+        subcategory: "",
     });
-
+    const ToBase64 = async files => {
+        for (let i of files) {
+            if (i.type !== "image/png" && i.type !== "image/jpeg") {
+                Swal.fire("Oops!", "File not supported!", "info");
+            }
+            const han = await getBase64(i);
+            setImage(pre => [...pre, { name: i.name, path: han }]);
+        }
+    };
     const handle = async () => {
         let invalid = validate(payload, setInvalids);
 
@@ -40,10 +49,11 @@ function CreateProduct() {
             if (rs.success) {
                 dispatch(show(false));
                 Swal.fire(
-                    "Congratulations!",
-                    "Tạo sản phẩm mới thành công..",
+                    "Congratulations",
+                    "Successfully created new products !",
                     "success",
                 ).then(() => {
+                    setImage([]);
                     setPayload({
                         title: "",
                         brand: "",
@@ -57,38 +67,27 @@ function CreateProduct() {
             }
         }
     };
-    const ToBase64 = async files => {
-        let image = [];
-        for (let i of files) {
-            if (i.type !== "image/png" && i.type !== "image/jpeg") {
-                Swal.fire("Oops!", "File not supported!", "info");
-            }
-            const han = await getBase64(i);
-            image = [...image, { name: i.name, path: han }];
-        }
 
-        setImage(pre => [...image]);
-    };
-    const handleOn = async e => {
+    const handleOn = e => {
         const files = e.target.files;
 
         setPayload(pre => ({ ...pre, images: [...pre.images, ...files] }));
+        ToBase64(files);
     };
-    // const handleDe = image => {
-    //     setImage(pre => pre.filter(item => item !== image));
-    //     setPayload(pre => ({
-    //         ...pre,
-    //         images: pre?.images?.filter(item => item !== image),
-    //     }));
-    // };
-    useEffect(() => {
-        ToBase64(payload?.images);
-    }, [payload?.images]);
-    // console.log(payload);
-    // console.log(invalids);
+
+    const handleDe = el => {
+        setImage(pre => pre.filter(item => item.name !== el));
+        setPayload(pre => ({
+            ...pre,
+            images: pre?.images?.filter(item => item.name !== el),
+        }));
+    };
+
     return (
         <div className=" lg:p-8 p-4">
-            <h2 className="text-2xl font-bold my-4">CREATE NEW PRODUCT</h2>
+            <h2 className="text-2xl font-bold my-4 text-center">
+                CREATE NEW PRODUCT
+            </h2>
             <div className="border p-3">
                 <div className="flex items-center justify-between px-3 py-5 border-b border-gray-400">
                     <div className="w-[42%]">
@@ -155,19 +154,6 @@ function CreateProduct() {
                     </div>
                 </div>
                 <div className="px-3 py-5">
-                    {/* <label htmlFor="" className=" font-medium leading-6">
-                        Description
-                    </label>
-                    <textarea
-                        value={payload?.description}
-                        onChange={e =>
-                            setPayload(pre => ({
-                                ...pre,
-                                description: e.target.value,
-                            }))
-                        }
-                        className="w-full p-2 border border-gray-400 mt-1"
-                        rows={10}></textarea> */}
                     <Tiny
                         value={payload?.description}
                         nameKey={"description"}
@@ -177,8 +163,8 @@ function CreateProduct() {
                         label={"Description"}
                     />
                 </div>
-                <div className="px-3 py-5 border-b">
-                    <div className="w-[100%]">
+                <div className="flex items-center justify-between px-3 py-5 border-b border-gray-400">
+                    <div className="w-[42%]">
                         <label className="block text-sm font-semibold leading-6 text-gray-900">
                             Color
                         </label>
@@ -190,6 +176,21 @@ function CreateProduct() {
                             setValue={setPayload}
                             type="color"
                             namekey={"color"}
+                            width
+                        />
+                    </div>
+                    <div className="w-[42%]">
+                        <label className="block text-sm font-semibold leading-6 text-gray-900">
+                            SubCategory
+                        </label>
+                        <InputField
+                            bor
+                            setInvalids={setInvalids}
+                            invalids={invalids}
+                            value={payload?.subcategory}
+                            setValue={setPayload}
+                            type="subcategory"
+                            namekey={"subcategory"}
                             width
                         />
                     </div>
@@ -216,7 +217,7 @@ function CreateProduct() {
                         type="file"
                         multiple
                         hidden
-                        onChange={handleOn}
+                        onChange={e => handleOn(e)}
                     />
                     {invalids?.length > 0 &&
                         invalids.some(i => i.name === "image") && (
@@ -230,23 +231,21 @@ function CreateProduct() {
                 </div>
 
                 <div className="w-full ">
-                    {image?.map(el => (
-                        <div key={el} className="flex gap-2">
-                            <img
-                                src={el.path}
-                                className="w-[30%] my-2"
-                                alt=""
-                            />
-                            {/* <span
-                                className=" cursor-pointer "
-                                onClick={e => {
-                                    e.stopPropagation();
-                                    handleDe(el);
-                                }}>
-                                Xóa
-                            </span> */}
-                        </div>
-                    ))}
+                    {image?.length > 0 &&
+                        image?.map(el => (
+                            <div key={el} className="flex gap-2">
+                                <img
+                                    src={el.path}
+                                    className="w-[30%] my-2"
+                                    alt=""
+                                />
+                                <span
+                                    className="block cursor-pointer "
+                                    onClick={() => handleDe(el.name)}>
+                                    <RiDeleteBin6Line />
+                                </span>
+                            </div>
+                        ))}
                 </div>
             </div>
             {isShow ? (

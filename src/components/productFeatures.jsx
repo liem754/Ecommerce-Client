@@ -4,9 +4,9 @@ function ProductFeatures({ img, title, price, star, cate, id, slug }) {
     return (
         <Link key={id} to={`/${cate.toLowerCase()}/${id}/${slug}`}>
             <div className="flex gap-3 border shadow-md py-3 px-2">
-                <div className="w-[30%]  flex justify-center">
+                <div className="w-[30%]  flex justify-center border-r-2">
                     <img
-                        className="w-[80%] h-[110px] hover:scale-105"
+                        className="w-[90%] h-[110px] hover:scale-105"
                         src={
                             img ||
                             "https://cdn.vectorstock.com/i/preview-1x/48/06/image-preview-icon-picture-placeholder-vector-31284806.jpg"

@@ -4,17 +4,26 @@ import { memo, useEffect, useState } from "react";
 import { format } from "ultils/format";
 import moment from "moment";
 import Swal from "sweetalert2";
+import { apiCheckZaloPay } from "apis/payment";
+import { useSelector } from "react-redux";
 function History() {
+    const { tranId } = useSelector(state => state.appReducer);
     const [status, setStatus] = useState("Đang chờ xử lý");
 
     const [order, setOrder] = useState(null);
+    const check = async () => {
+        const rs = await apiCheckZaloPay({ app_trans_id: tranId });
+        console.log(rs);
+    };
     const fetch = async query => {
         const rs = await apiGetOrders(query);
         if (rs.success) {
             setOrder(rs);
         }
     };
-
+    useEffect(() => {
+        check();
+    }, []);
     useEffect(() => {
         fetch({
             status,
@@ -39,6 +48,7 @@ function History() {
             });
         }
     };
+    console.log(tranId);
     return (
         <div className="h">
             <div className="px-4 w-full py-12 flex flex-col justify-between">
@@ -219,7 +229,11 @@ function History() {
                 </table>
                 {order?.orders.length > 0 && (
                     <div className="mt-20">
-                        <Pagination totalCount={order?.counts} />
+                        <Pagination
+                            totalCount={order?.counts}
+                            type={"order"}
+                            pageSize={5}
+                        />
                     </div>
                 )}
             </div>

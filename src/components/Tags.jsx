@@ -10,35 +10,65 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { fix } from "store/app/appSlice";
+import size from "assets/images/sizemen.png";
+import size2 from "assets/images/sizegirl.png";
 
-function Tag({ description, total, totalratings, pid, rerender }) {
+function Tag({ description, total, totalratings, pid, rerender, category }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [mo, setMo] = useState(false);
+    const [show, setShow] = useState(false);
+
     const { isLoggedin, data } = useSelector(state => state.user);
     const [rating, setRating] = useState(false);
     const [payload, setPayload] = useState({
         comment: "",
-        score: "",
+        star: "",
+        images: [],
     });
-    const handle = useCallback((comment, score) => {
-        setPayload(pre => ({ ...pre, comment: comment, score: score }));
+    const handle = useCallback((comment, score, images) => {
+        setPayload(pre => ({
+            ...pre,
+            comment: comment,
+            star: score,
+            images: images,
+            updatedAt: Date.now(),
+        }));
     }, []);
 
     const fetch = async () => {
-        const rs = await apiRatings({
-            star: payload.score,
-            comment: payload.comment,
-            pid: pid,
-            updatedAt: Date.now(),
-        });
-        rerender();
+        setShow(true);
+        const fromData = new FormData();
+        for (let i of Object.entries(payload)) fromData.append(i[0], i[1]);
+        if (payload.images) {
+            for (let i of payload.images) fromData.append("images", i);
+        }
+        if (pid) {
+            fromData.append("pid", pid);
+        }
+
+        const rs = await apiRatings(fromData);
+
+        if (rs.success) {
+            Swal.fire("Congratulations!", rs.mes, "success").then(() => {
+                setRating(false);
+                dispatch(fix(false));
+                setShow(false);
+                rerender();
+            });
+        } else {
+            Swal.fire("Oops !", rs.mes, "info").then(() => {
+                setRating(false);
+                dispatch(fix(false));
+                setShow(false);
+                rerender();
+            });
+        }
     };
     useEffect(() => {
-        if (payload.comment !== "" && payload.score !== null) fetch();
-        setRating(false);
-        dispatch(fix(false));
+        if (payload.comment !== "" && payload.star !== null) fetch();
     }, [payload]);
+    console.log(total);
     return (
         <div className="w-full mb-11">
             {rating && (
@@ -46,6 +76,7 @@ function Tag({ description, total, totalratings, pid, rerender }) {
                     handle={handle}
                     value={payload}
                     setRating={setRating}
+                    show={show}
                 />
             )}
             <div className={`flex  `}>
@@ -64,7 +95,7 @@ function Tag({ description, total, totalratings, pid, rerender }) {
                 </div>
 
                 <div
-                    className={` text-xs sm:text-md w-[20%] cursor-pointer text-center py-2 sm:px-5 px-1 z-10 ${
+                    className={` sm:text-md w-[20%] cursor-pointer text-center py-2 sm:px-5 px-1 z-10 ${
                         !mo
                             ? "border-x border-black border-t-4"
                             : "border-b border-black bg-gray-200"
@@ -80,12 +111,16 @@ function Tag({ description, total, totalratings, pid, rerender }) {
             </div>
             <div className="w-full border-x border-b border-black p-6">
                 {mo ? (
-                    <div className="flex flex-col gap-5">
-                        {description}
-                        {/* {description[0]?.map((item, index) => (
-                            <h2 key={index}>{item}</h2>
-                        ))} */}
-                    </div>
+                    <>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(description[0]),
+                            }}></div>
+                        <img
+                            src={category === "shirt men" ? size : size2}
+                            alt=""
+                        />
+                    </>
                 ) : (
                     <div className="flex flex-col gap-5">
                         <div className="border-4 py-6 px-2 flex sm:flex-row flex-col  justify-between">
@@ -169,9 +204,7 @@ function Tag({ description, total, totalratings, pid, rerender }) {
                                                         el?.postedBy?.name?.slice(
                                                             1,
                                                         )
-                                                    } ${
-                                                        el?.postedBy?.lastname
-                                                    }`}</h2>
+                                                    } `}</h2>
                                                 </div>
                                                 <span className="text-xs">
                                                     {moment(
@@ -180,6 +213,13 @@ function Tag({ description, total, totalratings, pid, rerender }) {
                                                 </span>
                                             </div>
                                             <div className="w-full bg-gray-100 text-sm flex flex-col gap-1 px-4 py-2">
+                                                {el.images?.map(item => (
+                                                    <img
+                                                        src={item}
+                                                        className="w-[100px]"
+                                                        alt=""
+                                                    />
+                                                ))}
                                                 <div className="flex items-center gap-2">
                                                     <span className="font-bold">
                                                         vote:

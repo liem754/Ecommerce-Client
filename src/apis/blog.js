@@ -34,3 +34,20 @@ export const getCategory = () =>
         url: "/blogcategory",
         method: "GET",
     });
+
+export const apiUpdateBlog = (pid, data) =>
+    axios({
+        url: "/blog/updateblog/" + pid,
+        method: "put",
+        data,
+    });
+export const apiLikeBlog = pid =>
+    axios({
+        url: "/blog/like/" + pid,
+        method: "put",
+    });
+export const apiDisLikeBlog = pid =>
+    axios({
+        url: "/blog/dislike/" + pid,
+        method: "put",
+    });

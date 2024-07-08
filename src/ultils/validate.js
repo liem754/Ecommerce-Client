@@ -27,8 +27,12 @@ const validate = (payload, setInvalifel) => {
                     invalild++;
                 }
                 break;
-            case "mobile":
-                if (!+item[1]) {
+            case "phone":
+                const phoneNumber = item[1];
+                const isNumeric = phoneNumber
+                    .split("")
+                    .every(char => "0123456789".includes(char));
+                if (phoneNumber.length !== 10 || !isNumeric) {
                     setInvalifel(prev => [
                         ...prev,
                         {
@@ -51,40 +55,6 @@ const validate = (payload, setInvalifel) => {
                     invalild++;
                 }
                 break;
-            // case "areaNumber":
-            //   if (+item[1] === 0) {
-            //     setInvalifel((prev) => [
-            //       ...prev,
-            //       { name: item[0], messeger: "vui lòng nhập diện tích" },
-            //     ]);
-            //   }
-            //   if (isNaN(item[1])) {
-            //     setInvalifel((prev) => [
-            //       ...prev,
-            //       { name: item[0], messeger: "Vui lòng nhập số" },
-            //     ]);
-            //   }
-            //   break;
-            // case "priceNumber":
-            //   if (+item[1] === 0) {
-            //     setInvalifel((prev) => [
-            //       ...prev,
-            //       { name: item[0], messeger: "vui lòng nhập số tiền" },
-            //     ]);
-            //   } else if (+item[1] < 1) {
-            //     setInvalifel((prev) => [
-            //       ...prev,
-            //       { name: item[0], messeger: "Số tiền không hợp lệ" },
-            //     ]);
-            //   }
-            //   if (isNaN(item[1])) {
-            //     setInvalifel((prev) => [
-            //       ...prev,
-            //       { name: item[0], messeger: "Vui lòng nhập số" },
-            //     ]);
-            //   }
-
-            //   break;
 
             default:
                 break;

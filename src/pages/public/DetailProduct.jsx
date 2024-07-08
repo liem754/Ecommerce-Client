@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "store/product/asyncActions";
 import { useParams } from "react-router-dom";
 
-import { Breadcrumb, Tag } from "../../components";
+import { Breadcrumb, ColorItem, Tag } from "components";
 import { format, formatStar } from "ultils/format";
 import { Icons } from "ultils/icons";
 import * as api from "apis";
@@ -32,6 +32,8 @@ const {
 function DetailProduct() {
     const { pid, title, category } = useParams();
     const [number, setNumber] = useState(1);
+    const [size, setSize] = useState("M");
+
     const [update, setUpdate] = useState(false);
     const dispatch = useDispatch();
     const { product } = useSelector(state => state.product);
@@ -43,16 +45,16 @@ function DetailProduct() {
     const [products, setProducts] = useState([]);
     const fetch = async () => {
         const rs = await apiGetProdcuts({
-            category: category.charAt(0).toUpperCase() + category.slice(1),
+            subcategory: product?.subcategory,
+            category: category,
             limit: 10,
         });
         if (rs.success) setProducts(rs.products);
     };
     useEffect(() => {
         fetch();
-        dispatch(getProduct(pid));
-        window.scrollTo(0, 0);
-    }, [pid]);
+    }, [product]);
+
     useEffect(() => {
         dispatch(getProduct(pid));
     }, [update]);
@@ -61,8 +63,8 @@ function DetailProduct() {
     }, [update]);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+        dispatch(getProduct(pid));
+    }, [pid]);
     const handleCart = async e => {
         const rs = await apiUpdateCart({
             pid: pid,
@@ -76,6 +78,7 @@ function DetailProduct() {
                     : (+product?.price - 50000) * number,
             title: product?.title,
             thumb: product?.images[0],
+            size,
         });
         if (rs.success) {
             Swal.fire("Congratulation", rs.mes, "success");
@@ -90,7 +93,6 @@ function DetailProduct() {
             }
         }
     };
-
     return (
         <div className="w-full flex flex-col items-center justify-center ">
             <div className="bg-gray-100 w-full flex justify-center">
@@ -103,23 +105,14 @@ function DetailProduct() {
             </div>
             <div className="lg:w-4/5 w-[95%] flex flex-col  md:flex-row sm:items-start   gap-8 my-10">
                 <div className="lg:w-[37%] md:w-[49%] w-full">
-                    <div className="px-2 py-2 w-full h-[450px] border flex justify-center items-center">
-                        <ReactImageMagnify
-                            {...{
-                                smallImage: {
-                                    alt: "Wristwatch by Ted Baker London",
-                                    isFluidWidth: true,
-                                    src: product?.images[active],
-                                },
-                                largeImage: {
-                                    src: product?.images[active],
-                                    width: 1200,
-                                    height: 1800,
-                                },
-                            }}
+                    <div className="px-2 py-2 w-full  border flex justify-center items-center">
+                        <img
+                            src={product?.images[active]}
+                            alt=""
+                            className="object-cover"
                         />
                     </div>
-                    <div className="w-full p-2 mt-3 relative">
+                    <div className="w-full p-2 mt-10 relative ">
                         <Swiper
                             grabCursor={true}
                             effect="slide"
@@ -214,22 +207,44 @@ function DetailProduct() {
                                     }}></div>
                             )}
                         </div>
-                        <div className="flex flex-col gap-3 py-2 w-full justify-center items-center ">
-                            <div className="flex items-center gap-2">
-                                <h2 className="text-sm font-medium">Color:</h2>
+                        <div className="flex flex-col gap-3 w-full">
+                            <h2>Size:</h2>
+                            <div className=" flex items-center gap-8 w-full ">
+                                <h2
+                                    onClick={() => setSize("M")}
+                                    className={`py-2 ${
+                                        size === "M"
+                                            ? "scale-[1.1]  border-2 border-indigo-600"
+                                            : "hover:scale-105"
+                                    }  sc  w-[12%] md:w-[16%] text-center cursor-pointer border border-black `}>
+                                    M
+                                </h2>
+                                <h2
+                                    onClick={() => setSize("L")}
+                                    className={`${
+                                        size === "L"
+                                            ? "scale-[1.1]  border-2 border-indigo-600"
+                                            : "hover:scale-105"
+                                    } py-2  border w-[12%] md:w-[16%] text-center cursor-pointer border-black  `}>
+                                    L
+                                </h2>
+                                <h2
+                                    onClick={() => setSize("XL")}
+                                    className={`${
+                                        size === "XL"
+                                            ? "scale-[1.1]  border-2 border-indigo-600"
+                                            : "hover:scale-105"
+                                    } py-2   w-[12%] md:w-[16%] text-center cursor-pointer border border-black `}>
+                                    XL
+                                </h2>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-3 py-2 bg-y w-full  ">
+                            <h2 className="text-sm font-medium">Color:</h2>
+                            <div className="flex items-center gap-5 my-3">
                                 {product?.color?.split(" ").map((el, index) => (
-                                    <span
-                                        key={index}
-                                        onClick={() => setCo(el)}
-                                        className={`p-2 ${
-                                            co === el
-                                                ? "border border-black"
-                                                : ""
-                                        }`}>
-                                        {el}
-                                    </span>
+                                    <ColorItem setCo={setCo} co={co} el={el} />
                                 ))}
-                                {/* <span>{product?.color || "Mặc định"}</span> */}
                             </div>
                             <div className="flex items-center gap-3">
                                 <h2 className="text-sm font-medium">
@@ -260,7 +275,7 @@ function DetailProduct() {
                                     <button
                                         onClick={e => handleCart(e)}
                                         className="p-2 w-full bg-red-600 text-white rounded-md">
-                                        Thêm vào giỏ
+                                        Add to cart
                                     </button>
                                 </div>
                             )}
@@ -339,6 +354,7 @@ function DetailProduct() {
                     description={product?.description}
                     total={product?.ratings}
                     totalratings={product?.totalRatings}
+                    category={product?.subcategory}
                 />
             </div>
             <div className="w-4/5 mb-8">
@@ -347,13 +363,21 @@ function DetailProduct() {
                         OTHER CUSTOMERS ALSO BUY:
                     </h1>
                     <div className=" mt-5 w-full hidden lg:block">
-                        <SliderMany list={products} lg />
+                        <SliderMany
+                            list={products.filter(item => item?._id !== pid)}
+                            lg
+                        />
                     </div>
                     <div className=" mt-5 w-full hidden lg:hidden md:block ">
-                        <SliderMany list={products} md />
+                        <SliderMany
+                            list={products.filter(item => item?._id !== pid)}
+                            md
+                        />
                     </div>
                     <div className=" mt-5 w-full md:hidden ">
-                        <SliderMany list={products} />
+                        <SliderMany
+                            list={products.filter(item => item?._id !== pid)}
+                        />
                     </div>
                 </div>
             </div>

@@ -1,16 +1,20 @@
 import { apiCreateOrder, apiCurrent } from "apis";
+import { apiMomo, apiZaloPay } from "apis/payment";
 import im from "assets/images/checkout.jpg";
+import momo from "assets/images/momo1.png";
+
 import Paypal from "common/paypal";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { set } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setTranId } from "store/app/appSlice";
 import { IdCurrent } from "store/user/userSlice";
 import Swal from "sweetalert2";
 import { format } from "ultils/format";
 function CheckOut() {
     const navigate = useNavigate();
-    const { cart, data } = useSelector(state => state.user);
+    const { data } = useSelector(state => state.user);
     const [isSuccess, setIsSuccess] = useState(false);
     const [iss, setIss] = useState(true);
     const [tran, setTran] = useState(15000);
@@ -19,6 +23,20 @@ function CheckOut() {
         address: data?.address || "",
     });
     const dispatch = useDispatch();
+    const handle = async () => {
+        const rs = await apiZaloPay({
+            amount:
+                data?.cart?.reduce((sum, item) => +item.price + sum, 0) + tran,
+            orders: data.cart,
+        });
+        if (rs.return_code === 1) {
+            dispatch(setTranId(rs.app_trans_id));
+            Swal.fire("Info", "Next payment ?", "info").then(() => {
+                window.location.href = rs.order_url;
+                setIsSuccess(true);
+            });
+        }
+    };
     const handleSave = async final => {
         const rs = await apiCreateOrder({ ...final });
         if (rs.success) {
@@ -59,34 +77,30 @@ function CheckOut() {
                         : "Vận chuyển hỏa tốc SPX Instant",
             });
     }, [isSuccess]);
-    console.log(payload?.address);
     return (
-        <div className="h-auto flex justify-center items-center py-10">
-            <div className="w-[98%] flex flex-col lg:flex-row justify-center gap-2">
-                <div className="lg:w-[35%] w-full flex flex-col justify-end it lg:h-screen">
-                    <img src={im} alt="" className="w-full h-[50%] mb-28" />
-                </div>
-                <div className="lg:w-[64%] w-full p-2 flex flex-col items-center gap-8 mt-2">
+        <div className="h-auto flex justify-center items-center py-10 bg-background-payment text-white">
+            <div className="w-[70%] flex flex-col lg:flex-row justify-center gap-2">
+                <div className=" w-full p-2 flex flex-col items-center gap-8 mt-2">
                     <div className=" flex justify-center">
                         <h2 className="text-2xl font-bold">
                             CHECKOUT YOUR CART
                         </h2>
                     </div>
                     <div className="w-full">
-                        <table className=" table-auto w-full">
+                        <table className=" table-auto w-full ">
                             <thead className="border bg-gray-400">
                                 <tr>
-                                    <th className="text-center p-2 text-medium border border-black">
+                                    <th className="text-center p-2 text-medium border border-white">
                                         Thumb
                                     </th>
-                                    <th className="text-center p-2 text-medium border border-black">
+                                    <th className="text-center p-2 text-medium border border-white">
                                         Product
                                     </th>
-                                    <th className="text-center p-2 text-medium border border-black">
+                                    <th className="text-center p-2 text-medium border border-white">
                                         quantity
                                     </th>
 
-                                    <th className="text-center p-2 text-medium border border-black">
+                                    <th className="text-center p-2 text-medium border border-white">
                                         price
                                     </th>
                                 </tr>
@@ -94,21 +108,21 @@ function CheckOut() {
                             <tbody>
                                 {data?.cart?.map(el => (
                                     <tr>
-                                        <td className="border p-2 text-center border-black">
+                                        <td className="border p-2 text-center border-white">
                                             <img
                                                 src={el.thumb}
                                                 alt=""
                                                 className="w-[50px]"
                                             />
                                         </td>
-                                        <td className="border p-2 text-center border-black">
+                                        <td className="border p-2 text-center border-white">
                                             {el.title}
                                         </td>
-                                        <td className="border p-2 text-center border-black">
+                                        <td className="border p-2 text-center border-white">
                                             {el.quantity}
                                         </td>
 
-                                        <td className="border p-2 text-center border-black">
+                                        <td className="border p-2 text-center border-white">
                                             {format(el.price)}
                                         </td>
                                     </tr>
@@ -199,7 +213,9 @@ function CheckOut() {
                         />
                     </div>
                     <div className="flex flex-col w-full  gap-2">
-                        <h2>Chọn hình thức thanh toán : </h2>
+                        <h2 className="text-2xl font-medium">
+                            Chọn hình thức thanh toán :{" "}
+                        </h2>
                         <h2
                             onClick={() => setIss(false)}
                             className={`text-lg cursor-pointer hover:bg-gray-200 py-1 text-center px-3 font-medium ${
@@ -215,28 +231,40 @@ function CheckOut() {
                             Thanh toán online
                         </h2>
                     </div>
-                    {/* <div className=" w-[70%]"> */}
                     <div className="border-t-2 w-full flex justify-center pt-7">
                         {iss ? (
-                            <Paypal
-                                payload={{
-                                    products: data?.cart,
-                                    total: Math.round(
+                            <div className="w-full flex flex-col items-center">
+                                <Paypal
+                                    payload={{
+                                        products: data?.cart,
+                                        total: Math.round(
+                                            +data?.cart?.reduce(
+                                                (sum, item) =>
+                                                    +item.price + sum,
+                                                0,
+                                            ) / 23500,
+                                        ),
+                                        address: payload?.address,
+                                    }}
+                                    setIsSuccess={setIsSuccess}
+                                    amount={Math.round(
                                         +data?.cart?.reduce(
                                             (sum, item) => +item.price + sum,
                                             0,
                                         ) / 23500,
-                                    ),
-                                    address: payload?.address,
-                                }}
-                                setIsSuccess={setIsSuccess}
-                                amount={Math.round(
-                                    +data?.cart?.reduce(
-                                        (sum, item) => +item.price + sum,
-                                        0,
-                                    ) / 23500,
-                                )}
-                            />
+                                    )}
+                                />
+
+                                <div
+                                    onClick={handle}
+                                    className=" border p-2 flex justify-center items-center cursor-pointer ">
+                                    <img
+                                        className=" w-[100px] h-[100px] rounded-md hover:shadow-md hover:shadow-blue-600 hover:scale-105"
+                                        src={momo}
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
                         ) : (
                             <button
                                 onClick={() => setIsSuccess(true)}

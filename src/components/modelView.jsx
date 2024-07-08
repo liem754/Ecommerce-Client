@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import DOMPurify from "dompurify";
 
-import { Pagination, Navigation, EffectCoverflow, Autoplay } from "swiper";
+import { Pagination, Navigation, EffectCoverflow } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -18,11 +18,7 @@ import * as api from "apis";
 import { IdCurrent } from "store/user/userSlice";
 const {
     GoDotFill,
-    AiFillSafetyCertificate,
-    MdLocalShipping,
-    AiTwotoneGift,
-    FaPhone,
-    BsSignTurnLeftFill,
+
     GrFormPrevious,
     GrFormNext,
 } = Icons;
@@ -39,10 +35,7 @@ function ModalView({ pid, onClick }) {
     useEffect(() => {
         dispatch(getProduct(pid));
     }, [pid]);
-    console.log(pid);
     const handle = async () => {
-        console.log(pid);
-
         const rs = await apiUpdateCart({
             pid: pid,
             quantity: number,

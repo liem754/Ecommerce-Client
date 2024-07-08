@@ -1,5 +1,4 @@
 export { default as Header } from "./Header";
-export { default as Sidebar } from "./Sidebar";
 export { default as Navigation } from "./Navigation";
 export { default as Slider } from "./Slider";
 export { default as Footer } from "./Footer";
@@ -26,3 +25,4 @@ export { default as ModalView } from "./modelView";
 export { default as ParallaxItem } from "./ParallaxItem";
 export { default as BlogFeature } from "./blogFeature";
 export { default as Top } from "./ScrollTop";
+export { default as ColorItem } from "./ColorItem";

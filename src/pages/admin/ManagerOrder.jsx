@@ -29,6 +29,7 @@ function ManagerOrder() {
     useEffect(() => {
         fetch({
             isMine: true,
+            limit: 5,
         });
     }, [status, remove]);
     const handleupdate = async id => {
@@ -41,33 +42,35 @@ function ManagerOrder() {
             });
             if (rs.success) {
                 Swal.fire(
-                    "Chúc mừng !",
-                    "Cập nhập đơn hàng thành công !",
+                    "Congratulations",
+                    "Successfully updated orders !",
                     "success",
                 ).then(() => {
                     setStatus(null);
                 });
             }
         } else {
-            Swal.fire("Thông báo !", "Bạn chưa thay đổi !", "info");
+            Swal.fire("Notification", "You haven't changed !", "info");
         }
     };
     const deleteOrder = async id => {
         const rs = await apiDeleteOrdersbyAdmin(id);
         if (rs.success) {
-            Swal.fire("Thông báo !", "Xóa đơn hàng thành công", "success").then(
-                () => {
-                    setRemove(true);
-                },
-            );
+            Swal.fire(
+                "Notification",
+                "Order deleted successfully ",
+                "success",
+            ).then(() => {
+                setRemove(true);
+            });
         } else {
-            Swal.fire("Thông báo !", "Xóa đơn hàng thất bại !", "error");
+            Swal.fire("Notification", "Delete failed orders !", "error");
         }
     };
     return (
         <div className="px-2 py-8">
             <h2 className=" text-center font-medium text-3xl mb-4">
-                Quản Lý Đơn Hàng
+                Order Management
             </h2>
             <table className="w-full table-auto">
                 <thead className="border-b bg-gray-400 font-medium dark:border-neutral-500 dark:bg-neutral-600">
@@ -221,7 +224,11 @@ function ManagerOrder() {
             </table>
             {order?.orders.length > 0 && (
                 <div className="mt-20">
-                    <Pagination totalCount={order?.counts} />
+                    <Pagination
+                        totalCount={order?.counts}
+                        type={"order"}
+                        pageSize={5}
+                    />
                 </div>
             )}
         </div>

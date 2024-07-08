@@ -11,7 +11,7 @@ export const path = {
     OUR_SERVICE: "our-service",
     FAQ: "faqs",
     COLECTIONS: ":category",
-    DETAIL_COLLECTION: "collections",
+    DETAIL_COLLECTION: "all-product",
     DETAIL_PRODUCT: ":category/:pid/:title",
     FINAL_REGISTER: "finalregister/:status",
     RESET_PASSWORD: "reset-password/:token",

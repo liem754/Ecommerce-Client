@@ -1,5 +1,4 @@
-import { apidata, apiUpdateUser } from "apis";
-import { Modal } from "components";
+import { apiUpdateUser } from "apis";
 import InputField from "components/inputField";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,17 +56,19 @@ function EditUser() {
         const rs = await apiUpdateUser(data);
         if (rs.success) {
             dispatch(show(false));
-            Swal.fire("Oops!", "Update user thành công!", "success").then(
-                () => {
-                    dispatch(
-                        IdCurrent({
-                            idCurrent: rs.rs?._id,
-                            data: rs.rs,
-                        }),
-                    );
-                    dispatch(update({ isUpdate: true }));
-                },
-            );
+            Swal.fire(
+                "Congratulations",
+                "Successfully updated !",
+                "success",
+            ).then(() => {
+                dispatch(
+                    IdCurrent({
+                        idCurrent: rs.rs?._id,
+                        data: rs.rs,
+                    }),
+                );
+                dispatch(update({ isUpdate: true }));
+            });
         }
     };
     useEffect(() => {
@@ -75,7 +76,6 @@ function EditUser() {
     }, [inn]);
 
     const handle = () => {
-        let invalid = validate(payload, setInvalids);
         if (
             payload.email === data.email &&
             payload.name === data?.name &&
@@ -85,6 +85,9 @@ function EditUser() {
         ) {
             Swal.fire("Oops!", "Bạn chưa thay đổi trường nào cả!", "info");
         } else {
+            let invalid = validate(payload, setInvalids);
+            console.log(invalids);
+
             if (invalid === 0) {
                 dispatch(show(true));
 

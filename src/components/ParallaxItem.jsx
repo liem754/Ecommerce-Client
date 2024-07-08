@@ -6,7 +6,7 @@ function ParallaxItem({ img, content }) {
             bgImage={img}
             bgImageAlt="the cat"
             strength={200}
-            className="h-[400px] flex justify-center items-center">
+            className="h-[500px] flex justify-center items-center">
             <div className="text-white">{content}</div>
         </Parallax>
     );

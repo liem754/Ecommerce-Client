@@ -1,10 +1,9 @@
 import { useMemo } from "react";
-import { generateRange } from "../ultils/helpers";
-import { Icons } from "../ultils/icons";
-const usePagination = (paginationCount, currentPage, siplipCount = 1) => {
+import { generateRange } from "ultils/helpers";
+
+const usePagination = (paginationCount, currentPage, siplipCount = 1, page) => {
     const paginationArray = useMemo(() => {
-        const pageSize = process.env.REACT_APP_LIMIT || 10;
-        const paginationProductCount = Math.ceil(paginationCount / pageSize);
+        const paginationProductCount = Math.ceil(paginationCount / page);
         const totalPaginationItem = siplipCount + 5;
         if (paginationProductCount <= totalPaginationItem) {
             return generateRange(1, paginationProductCount);

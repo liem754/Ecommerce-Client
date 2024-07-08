@@ -1,11 +1,10 @@
 import { apiGetOrdersbyAdmin } from "apis";
-import logo from "assets/images/logo3.png";
+import logo from "assets/images/logo.png";
 import { useEffect, useState } from "react";
 import { format } from "ultils/format";
 
 function DashBoard() {
     const [order, setOrder] = useState(null);
-    const [edit, setEdit] = useState(false);
     const [status, setStatus] = useState(1);
     const [statusYear, setStatusYear] = useState(2020);
     const [statuss, setStatuss] = useState(1);
@@ -86,21 +85,26 @@ function DashBoard() {
                                 </td>
                                 <td className="whitespace-nowrap px-2 py-2 text-center text-2xl font-bold  text-blue-700  ">
                                     {
-                                        order?.orders.filter(
-                                            item =>
-                                                item?.createdAt
-                                                    .slice(0, 4)
-                                                    .toString() ===
-                                                    new Date()
-                                                        .getFullYear()
-                                                        .toString() &&
-                                                item?.createdAt
-                                                    .split("-")[1]
-                                                    .toString() ===
-                                                    (
-                                                        new Date().getMonth() +
-                                                        1
-                                                    ).toString(),
+                                        order?.orders.filter(item =>
+                                            item?.createdAt
+                                                .slice(0, 4)
+                                                .toString() ===
+                                                new Date()
+                                                    .getFullYear()
+                                                    .toString() &&
+                                            item?.createdAt
+                                                .split("-")[1]
+                                                .toString() ===
+                                                new Date().getMonth() + 1 < 10
+                                                ? "0".concat(
+                                                      (
+                                                          new Date().getMonth() +
+                                                          1
+                                                      ).toString(),
+                                                  )
+                                                : (
+                                                      new Date().getMonth() + 1
+                                                  ).toString(),
                                         ).length
                                     }
                                 </td>
@@ -129,17 +133,17 @@ function DashBoard() {
                         <select
                             className="px-4 py-1 text-md border-2"
                             onChange={e => setStatuss(e.target.value)}>
-                            <option value="1">Tháng 1</option>
-                            <option value="2">Tháng 2</option>
+                            <option value="01">Tháng 1</option>
+                            <option value="02">Tháng 2</option>
 
-                            <option value="3">Tháng 3</option>
+                            <option value="03">Tháng 3</option>
 
-                            <option value="4">Tháng 4</option>
-                            <option value="5">Tháng 5</option>
-                            <option value="6">Tháng 6</option>
-                            <option value="7">Tháng 7</option>
-                            <option value="8">Tháng 8</option>
-                            <option value="9">Tháng 9</option>
+                            <option value="04">Tháng 4</option>
+                            <option value="05">Tháng 5</option>
+                            <option value="06">Tháng 6</option>
+                            <option value="07">Tháng 7</option>
+                            <option value="08">Tháng 8</option>
+                            <option value="09">Tháng 9</option>
                             <option value="10">Tháng 10</option>
                             <option value="11">Tháng 11</option>
                             <option value="12">Tháng 12</option>
@@ -261,21 +265,29 @@ function DashBoard() {
                                     {order?.orders &&
                                         format(
                                             order?.orders
-                                                .filter(
-                                                    item =>
-                                                        item?.createdAt
-                                                            .slice(0, 4)
-                                                            .toString() ===
-                                                            new Date()
-                                                                .getFullYear()
-                                                                .toString() &&
-                                                        item?.createdAt
-                                                            .split("-")[1]
-                                                            .toString() ===
-                                                            (
-                                                                new Date().getMonth() +
-                                                                1
-                                                            ).toString(),
+                                                .filter(item =>
+                                                    item?.createdAt
+                                                        .slice(0, 4)
+                                                        .toString() ===
+                                                        new Date()
+                                                            .getFullYear()
+                                                            .toString() &&
+                                                    item?.createdAt
+                                                        .split("-")[1]
+                                                        .toString() ===
+                                                        new Date().getMonth() +
+                                                            1 <
+                                                            10
+                                                        ? "0".concat(
+                                                              (
+                                                                  new Date().getMonth() +
+                                                                  1
+                                                              ).toString(),
+                                                          )
+                                                        : (
+                                                              new Date().getMonth() +
+                                                              1
+                                                          ).toString(),
                                                 )
                                                 .reduce(
                                                     (sum, el) =>
@@ -314,17 +326,17 @@ function DashBoard() {
                         <select
                             className="px-4 py-1 text-md border-2"
                             onChange={e => setStatus(e.target.value)}>
-                            <option value="1">Tháng 1</option>
-                            <option value="2">Tháng 2</option>
+                            <option value="01">Tháng 1</option>
+                            <option value="02">Tháng 2</option>
 
-                            <option value="3">Tháng 3</option>
+                            <option value="03">Tháng 3</option>
 
-                            <option value="4">Tháng 4</option>
-                            <option value="5">Tháng 5</option>
-                            <option value="6">Tháng 6</option>
-                            <option value="7">Tháng 7</option>
-                            <option value="8">Tháng 8</option>
-                            <option value="9">Tháng 9</option>
+                            <option value="04">Tháng 4</option>
+                            <option value="05">Tháng 5</option>
+                            <option value="06">Tháng 6</option>
+                            <option value="07">Tháng 7</option>
+                            <option value="08">Tháng 8</option>
+                            <option value="09">Tháng 9</option>
                             <option value="10">Tháng 10</option>
                             <option value="11">Tháng 11</option>
                             <option value="12">Tháng 12</option>
@@ -368,6 +380,7 @@ function DashBoard() {
                             <option value="2022">Năm 2022</option>
 
                             <option value="2023">Năm 2023</option>
+                            <option value="2024">Năm 2024</option>
                         </select>
                         <div className="flex flex-col gap-2 items-center">
                             <h2 className=" font-medium ">Doanh thu</h2>

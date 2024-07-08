@@ -58,6 +58,8 @@ module.exports = {
             backgroundImage: {
                 "background-home":
                     "url('https://i.pinimg.com/originals/9b/c0/8d/9bc08da3fab8d0903a7f56aa00fe9b7a.jpg')",
+                "background-payment":
+                    "url('https://www.marqeta.com/resource-hero-bg.svg')",
             },
         },
     },

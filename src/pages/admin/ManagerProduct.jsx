@@ -1,15 +1,9 @@
-import {
-    apiDeleteProduct,
-    apiDeleteUser,
-    apiGetProdcuts,
-    apiGetUsers,
-    apiUpdateUserByAdmin,
-} from "apis";
-import { ModalProduct, ModalVarriants, Pagination, Select } from "components";
+import { apiDeleteProduct, apiGetProdcuts } from "apis";
+import { ModalProduct, Pagination } from "components";
 import useDebounce from "hooks/useDebounce";
 import moment from "moment";
-import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
     createSearchParams,
     useLocation,
@@ -17,11 +11,9 @@ import {
     useSearchParams,
 } from "react-router-dom";
 import Swal from "sweetalert2";
-import { roles } from "ultils/contans";
 import { Icons } from "ultils/icons";
-import { useForm } from "react-hook-form";
-import validate from "ultils/validate";
 import { format } from "ultils/format";
+import { fix } from "store/app/appSlice";
 
 const { AiOutlineSearch } = Icons;
 function ManagerProduct() {
@@ -32,20 +24,19 @@ function ManagerProduct() {
         q: "",
     });
     const ud = useLocation();
-    // console.log(ud.search);
+    const dispatch = useDispatch();
     const [params] = useSearchParams();
-    const [sele, setSele] = useState("");
     const [edit, setEdit] = useState({});
-    const [varr, setVarr] = useState({});
 
     const fetch = async query => {
-        const rs = await apiGetProdcuts({ ...query });
+        const rs = await apiGetProdcuts({ ...query, limit: 5 });
         if (rs.success) setProducts(rs);
     };
     const { isUpdate, idCurrent } = useSelector(state => state.user);
     const [upd, setUpd] = useState(false);
-    const [backs, setBacks] = useState(false);
     const param = useDebounce(query.q, 800);
+    const { isFix } = useSelector(state => state.appReducer);
+
     useEffect(() => {
         if (query.q !== "") {
             navigate({
@@ -58,23 +49,26 @@ function ManagerProduct() {
         const pa = Object.fromEntries([...params]);
 
         if (param) pa.q = param;
+
         fetch(pa);
-    }, [param, isUpdate, upd, backs, params]);
-    // useEffect(() => {
-    //     const pa = Object.fromEntries([...params]);
-    // });
+    }, [param, isUpdate, upd, params, isFix]);
+
     const fetchDelete = async id => {
         const rs = await apiDeleteProduct(id);
         if (rs.success) {
             setUpd(false);
-            Swal.fire("Oops!", "Xóa product thành công @", "success");
+            Swal.fire(
+                "Congratulations!",
+                "Deleted product successfully",
+                "success",
+            );
         }
     };
     const handleDelete = async id => {
         fetchDelete(id);
         setUpd(true);
     };
-
+    console.log(isFix);
     return (
         <div className="p-8 w-full mb-10">
             <h2 className="text-2xl font-bold my-5">Manage Product</h2>
@@ -177,7 +171,10 @@ function ManagerProduct() {
                                         el._id !== idCurrent && "text-center"
                                     } `}>
                                     <span
-                                        onClick={() => setEdit(el)}
+                                        onClick={() => {
+                                            setEdit(el);
+                                            dispatch(fix(true));
+                                        }}
                                         className="  rounded-sm bg-black text-white py-1 px-3 cursor-pointer hover:bg-gray-700">
                                         edit
                                     </span>
@@ -194,13 +191,21 @@ function ManagerProduct() {
                 </table>
                 {products?.products?.length !== 0 && (
                     <div className="w-full">
-                        <Pagination totalCount={products?.counts} />
+                        <Pagination
+                            totalCount={products?.counts}
+                            pageSize={5}
+                            type={"product"}
+                        />
                     </div>
                 )}
             </div>
             <div className="w-full">
                 {Object?.keys(edit)?.length !== 0 && (
-                    <ModalProduct data={edit} setEdit={setEdit} />
+                    <ModalProduct
+                        data={edit}
+                        setEdit={setEdit}
+                        type={"product"}
+                    />
                 )}
             </div>
         </div>

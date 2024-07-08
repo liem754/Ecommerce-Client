@@ -27,12 +27,8 @@ import {
     ManagerProduct,
     ManagerUser,
 } from "pages/admin";
-import MenberLayout from "pages/menber/MenberLayout";
-import Personal from "pages/menber/Personal";
-import EditUser from "pages/menber/EditUser";
-import Cart from "pages/menber/Cart";
-import CheckOut from "pages/menber/Checkout";
-import History from "pages/menber/History";
+import { Cart, Checkout, EditUser, History, MenberLayout } from "pages/menber";
+
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -41,7 +37,7 @@ function App() {
     return (
         <div className="font-main h-screen">
             <Routes>
-                <Route path={path.CHECKOUT} element={<CheckOut />} />
+                <Route path={path.CHECKOUT} element={<Checkout />} />
                 <Route path={path.PUBLIC} element={<Public />}>
                     <Route path={path.HOME} element={<Home />} />
 
@@ -92,7 +88,6 @@ function App() {
                     />
                 </Route>
                 <Route path={path.MENBER_LAYOUT} element={<MenberLayout />}>
-                    <Route path={path.PERSONAL} element={<Personal />} />
                     <Route path={path.CART} element={<Cart />} />
                     <Route path={path.HISTORY} element={<History />} />
 

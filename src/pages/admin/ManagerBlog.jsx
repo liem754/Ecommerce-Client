@@ -1,5 +1,5 @@
 import { apiDeleteBlog, apiGetBlogs } from "apis";
-import { Pagination } from "components";
+import { ModalProduct, Pagination } from "components";
 import useDebounce from "hooks/useDebounce";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -11,7 +11,6 @@ import {
     useSearchParams,
 } from "react-router-dom";
 import Swal from "sweetalert2";
-import { format } from "ultils/format";
 import { Icons } from "ultils/icons";
 
 const { AiOutlineSearch } = Icons;
@@ -25,23 +24,17 @@ function ManagerBlog() {
     const ud = useLocation();
     // console.log(ud.search);
     const [params] = useSearchParams();
-    const [sele, setSele] = useState("");
     const [edit, setEdit] = useState({});
-    const [varr, setVarr] = useState({});
 
     const fetch = async query => {
-        const rs = await apiGetBlogs({ ...query });
+        const rs = await apiGetBlogs({ ...query, limit: 3 });
         if (rs.success) setProducts(rs);
-        // console.log(rs);
     };
-    // useEffect(() => {
-    //     fetch();
-    // }, []);
 
     const { isUpdate, idCurrent } = useSelector(state => state.user);
+    const { isFix } = useSelector(state => state.appReducer);
+
     const [upd, setUpd] = useState(false);
-    const [backs, setBacks] = useState(false);
-    console.log(query.q);
     const param = useDebounce(query.q, 800);
     useEffect(() => {
         if (query.q !== "") {
@@ -53,20 +46,19 @@ function ManagerBlog() {
     }, [query]);
     useEffect(() => {
         const pa = Object.fromEntries([...params]);
-        // let para = [];
-        // for (let i of params.entries()) para.push(i);
-        // const queris = {};
-        // for (let i of params) queris[i[0]] = i[1];
+
         if (param) pa.q = param;
         fetch(pa);
-    }, [param, isUpdate, upd, backs, params]);
-    // useEffect(() => {
-    //     const pa = Object.fromEntries([...params]);
-    // });
+    }, [param, isUpdate, upd, params, isFix]);
+
     const fetchDelete = async id => {
         const rs = await apiDeleteBlog(id);
         if (rs.success) {
-            Swal.fire("Oops!", "Xóa product thành công @", "success");
+            Swal.fire(
+                "Congratulations!",
+                "Deleted blog successfully",
+                "success",
+            );
         }
     };
     const handleDelete = async id => {
@@ -74,7 +66,7 @@ function ManagerBlog() {
         setUpd(!upd);
     };
     return (
-        <div className="p-8 w-full mb-10">
+        <div className="p-8 w-full mb-10 overflow-x-auto h-screen ">
             <h2 className="text-2xl font-bold my-5">Manage Product</h2>
             <div className="font-medium w-full ">
                 <div className="flex justify-end">
@@ -140,7 +132,7 @@ function ManagerBlog() {
                                 <td className="px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {index + 1}
                                 </td>
-                                <td className="px-3   py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
+                                <td className="px-3  py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
                                     {el.title}
                                 </td>
                                 <td className=" px-3 py-4 whitespace-nowrap lg:text-sm text-xs font-medium text-gray-900 border border-black">
@@ -162,7 +154,10 @@ function ManagerBlog() {
                                         el._id !== idCurrent && "text-center"
                                     } `}>
                                     <span
-                                        onClick={() => setEdit(el)}
+                                        onClick={() => {
+                                            setEdit(el);
+                                            setUpd(true);
+                                        }}
                                         className="  rounded-sm bg-black text-white py-1 px-3 cursor-pointer hover:bg-gray-700">
                                         edit
                                     </span>
@@ -179,15 +174,19 @@ function ManagerBlog() {
                 </table>
                 {blogs?.blogs?.length !== 0 && (
                     <div className="w-full">
-                        <Pagination totalCount={blogs?.counts} />
+                        <Pagination
+                            totalCount={blogs?.counts}
+                            pageSize={3}
+                            type={"blog"}
+                        />
                     </div>
                 )}
             </div>
-            {/* <div className="w-full">
+            <div className="w-full">
                 {Object?.keys(edit)?.length !== 0 && (
-                    <ModalProduct data={edit} setEdit={setEdit} />
+                    <ModalProduct data={edit} setEdit={setEdit} type={"blog"} />
                 )}
-            </div> */}
+            </div>
         </div>
     );
 }

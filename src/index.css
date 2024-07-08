@@ -98,3 +98,45 @@
 .img2:hover {
     filter: none;
 }
+.bg-whilecss {
+    background-color: #fff;
+}
+.bg-blackcss {
+    background-color: #000;
+}
+.bg-yellowcss {
+    background-color: yellow;
+}
+.bg-bluecss {
+    background-color: blue;
+}
+.bg-greencss {
+    background-color: green;
+}
+.bg-redcss {
+    background-color: red;
+}
+/* styles.css */
+.custom-scrollbar {
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #bec3ca #edf2f7; /* For Firefox */
+
+    /* For WebKit-based browsers */
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #edf2f7;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #4a5568;
+        border-radius: 4px;
+        border: 2px solid #edf2f7;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #6d747f;
+    }
+}

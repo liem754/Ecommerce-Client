@@ -87,9 +87,11 @@ function Header() {
             {!isLoggedin ? (
                 <div className="flex gap-3">
                     <Button
-                        title={"Đăng nhập"}
+                        title={"Log in"}
                         textColor={"text-white"}
-                        bgColor={"bg-black"}
+                        bgColor={
+                            "bg-black hover:shadow-md hover:shadow-blue-600"
+                        }
                         pd={"py-2 px-5"}
                         size={"font-medium"}
                         radius={"rounded-md"}
@@ -97,9 +99,11 @@ function Header() {
                     />
 
                     <Button
-                        title={"Đăng ký"}
+                        title={"Sign up"}
                         textColor={"text-white"}
-                        bgColor={"bg-black"}
+                        bgColor={
+                            "bg-black hover:shadow-md hover:shadow-blue-600"
+                        }
                         pd={"py-2 px-5"}
                         size={"font-medium"}
                         radius={"rounded-md"}
@@ -145,8 +149,10 @@ function Header() {
 
                     <button
                         onClick={handle}
-                        className="bg-black rounded-md text-white px-2 py-[5px] hover:bg-slate-800 hidden md:flex">
-                        Đăng xuất
+                        className="before:ease relative py-2 px-5 overflow-hidden border rounded-md border-black shadow-2xl before:absolute before:left-0 before:-ml-2 before:h-48 before:w-48 before:origin-top-right before:-translate-x-full before:translate-y-12 before:-rotate-90 before:bg-gray-900 before:transition-all before:duration-300 hover:text-white hover:shadow-black hover:before:-rotate-180">
+                        <span className="relative z-10 font-medium ">
+                            Log out
+                        </span>
                     </button>
                 </div>
             )}

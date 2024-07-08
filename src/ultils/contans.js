@@ -44,7 +44,7 @@ export const collection = [
     {
         id: 2,
         img: cl2,
-        title: "Women",
+        title: "Girl",
     },
     {
         id: 3,

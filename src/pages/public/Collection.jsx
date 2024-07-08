@@ -50,10 +50,11 @@ function Collection() {
     }, [query]);
     const detailFetch = async () => {
         if (param.pathname === "/all-product") {
-            const rs = await apiGetProdcuts({});
+            const rs = await apiGetProdcuts({ limit: 12 });
             if (rs.success) setProduct(rs);
         } else {
             const rs = await apiGetProdcuts({
+                limit: 12,
                 category:
                     param.pathname.replace("/", "")?.charAt(0).toUpperCase() +
                     param.pathname.replace("/", "").slice(1),
@@ -81,6 +82,7 @@ function Collection() {
         if (param.pathname === "/all-product") {
             const response = await apiGetProdcuts({
                 ...queries,
+                limit: 12,
             });
             if (response?.success) setProduct(response);
         } else {
@@ -89,6 +91,7 @@ function Collection() {
                 category:
                     param.pathname.replace("/", "")?.charAt(0).toUpperCase() +
                     param.pathname.replace("/", "").slice(1),
+                limit: 12,
             });
             if (response?.success) setProduct(response);
         }
@@ -125,7 +128,7 @@ function Collection() {
             fetch(q);
             window.scrollTo(0, 0);
         }
-    }, [params]);
+    }, [params, param]);
     const handleActive = useCallback(
         label => {
             if (label === active) {
@@ -145,7 +148,6 @@ function Collection() {
         },
         [sort],
     );
-    console.log(product.counts);
 
     return (
         <div className="w-full flex-col items-center flex">
@@ -222,7 +224,7 @@ function Collection() {
                                 <Product
                                     grip
                                     title={item?.title}
-                                    img={item?.images[2]}
+                                    img={item?.images[0]}
                                     price={item?.price}
                                     cate={item?.category}
                                     id={item?._id}
@@ -233,12 +235,15 @@ function Collection() {
                         ))}
                 </div>
             </div>
-            {param.pathname === "/all-product" &&
-                product?.products?.length > 0 && (
-                    <div className="w-4/5 mb-20">
-                        <Pagination totalCount={product.counts} />
-                    </div>
-                )}
+            {product?.products?.length > 0 && (
+                <div className="w-4/5 mb-20">
+                    <Pagination
+                        type={"product"}
+                        totalCount={product.counts}
+                        pageSize={12}
+                    />
+                </div>
+            )}
         </div>
     );
 }

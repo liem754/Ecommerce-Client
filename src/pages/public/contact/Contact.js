@@ -1,12 +1,12 @@
-import { Breadcrumb } from "../../../components";
+import { Breadcrumb } from "components";
 import "./contact.css";
-import logo from "../../../assets/images/logo3.png";
-import { Icons } from "../../../ultils/icons";
+import logo from "assets/images/logo.png";
+import { Icons } from "ultils/icons";
 const { FaFacebook, FaTwitter, FaGoogle, FaPinterest, AiFillInstagram } = Icons;
 
 function Contact() {
     return (
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full mb-10">
             <div className="flex w-full items-center justify-center bg-gray-200">
                 <div className="lg:w-4/5 w-[94%] py-4 flex flex-col gap-1">
                     <h2>Contact us</h2>
