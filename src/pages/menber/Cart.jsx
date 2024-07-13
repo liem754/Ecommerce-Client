@@ -77,13 +77,13 @@ function Cart() {
                                     }`,
                                 );
                             }}
-                            className=" w-[50%] flex px-2 ">
+                            className=" w-[50%] flex px-2 gap-4 ">
                             <img
                                 src={el?.images[0]}
                                 alt=""
                                 className="w-[30%] hidden sm:block"
                             />
-                            <div className=" mt-1 lg:text-md sm:text-xs text-[10px]">
+                            <div className=" mt-1 flex flex-col gap-2 font-medium lg:text-md sm:text-xs text-[10px]">
                                 <h2>{el?.title}</h2>
                                 <h3>{`Color : ${el?.new}`}</h3>
                                 <h3>{`Size : ${el?.newsize}`}</h3>

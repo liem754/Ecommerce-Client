@@ -46,7 +46,7 @@ function ModalRating({ setRating, handle, show }) {
                     setRating(true);
                     dispatch(fix(true));
                 }}
-                className="bg-white flex flex-col items-center gap-2 py-4 w-3/5 h-[600px] overflow-auto">
+                className="bg-white flex flex-col items-center gap-2 py-4 lg:w-3/5 w-[95%] h-[600px] overflow-auto">
                 <img src={logo} alt="" className="w-[30%]" />
                 <h2 className="text-lg font-medium my-3">Product reviews</h2>
                 <textarea
@@ -106,6 +106,16 @@ function ModalRating({ setRating, handle, show }) {
                         </div>
                     ))}
                 </div>
+                <button
+                    className="border rounded-md px-10 py-2"
+                    onClick={e => {
+                        e.stopPropagation();
+
+                        setRating(false);
+                        dispatch(fix(false));
+                    }}>
+                    Cancel
+                </button>
                 {show ? (
                     <div className="py-2 px-8 flex justify-center items-center rounded-md bg-red-600 text-white hover:bg-red-500">
                         <div

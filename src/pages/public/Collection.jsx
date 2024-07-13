@@ -219,9 +219,7 @@ function Collection() {
                 <div className="flex w-full flex-wrap gap-[30px] p-3 border shadow-md mb-6 mt-2">
                     {product &&
                         product?.products?.map(item => (
-                            <div
-                                key={item.id}
-                                className="xl:w-[23%] sm:w-[30%] w-[96%]  xs:w-[46%]">
+                            <div key={item.id} className=" sm:w-[30%] w-[96%]">
                                 <Product
                                     grip
                                     title={item?.title}

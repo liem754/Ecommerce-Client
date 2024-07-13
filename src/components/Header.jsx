@@ -60,15 +60,14 @@ function Header() {
     const getLogin = useCallback(flag => {
         navigate(path.LOGIN, { state: { flag } });
     }, []);
-    console.log(current);
     return (
         <div className="w-[95%] lg:w-4/5 flex justify-between items-center border-b-2">
             <section
-                className=" cursor-pointer w-[15%]"
+                className=" cursor-pointer md:w-[15%] w-[30%]"
                 onClick={() => navigate("/")}>
                 <img src={logo} alt="" className="w-[100%]" />
             </section>
-            <section className=" lg:flex items-center justify-between w-[45%] hidden">
+            <section className=" xl:flex items-center justify-between w-[45%] hidden">
                 <nav className="flex gap-3 items-center">
                     <FaPhoneVolume size={"30px"} />
                     <div className=" flex flex-col">

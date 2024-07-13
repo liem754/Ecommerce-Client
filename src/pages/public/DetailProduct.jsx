@@ -185,7 +185,7 @@ function DetailProduct() {
                             <div className="flex gap-1 py-1">
                                 {formatStar(product?.totalRatings)}
                             </div>
-                            <h2 className="text-xs mt-[1px] text-gray-500">{`Đã bạn được ${product?.sold}`}</h2>
+                            <h2 className="text-xs mt-[1px] text-gray-500">{`Đã bán được ${product?.sold}`}</h2>
                         </div>
                         <div className="">
                             {product?.description?.length > 1 &&

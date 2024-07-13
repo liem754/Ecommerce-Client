@@ -202,7 +202,7 @@ function CheckOut() {
                         <input
                             type="text"
                             placeholder="Nhập địa chỉ để đặt hàng !"
-                            className=" p-2 rounded-md border-2 w-full"
+                            className="p-2 rounded-md border-2 w-full text-blue-600 font-medium"
                             value={payload?.address}
                             onChange={e =>
                                 setPayload(pre => ({

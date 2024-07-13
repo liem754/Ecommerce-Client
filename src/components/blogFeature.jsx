@@ -6,7 +6,7 @@ function BlogFeature({ id, title, image, size, time, user }) {
         <Link
             key={id}
             to={`/blogs/${id}/${slugify(title).replace("j", "")}`}
-            className={`sm:w-[48%]  ${
+            className={`sm:w-[43%]  ${
                 size ? "lg:w-[23%]" : "lg:w-[30%]"
             }  w-full shadow-xl hover:scale-105 rounded-md pb-5`}>
             <img

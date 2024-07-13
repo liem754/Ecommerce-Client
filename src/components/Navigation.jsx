@@ -53,7 +53,7 @@ function Navigation() {
                         <div
                             onClick={() => dispatch(logout())}
                             className=" font-medium py-2 text-md">
-                            Đăng xuất
+                            LOG OUT
                         </div>
                     </div>
                 )}

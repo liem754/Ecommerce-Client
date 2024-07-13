@@ -68,7 +68,6 @@ function Tag({ description, total, totalratings, pid, rerender, category }) {
     useEffect(() => {
         if (payload.comment !== "" && payload.star !== null) fetch();
     }, [payload]);
-    console.log(total);
     return (
         <div className="w-full mb-11">
             {rating && (

@@ -68,27 +68,22 @@ function Footer() {
                     </h2>
                     <Link to className="flex items-center gap-1 ">
                         <span className=" text-gray-300 hover:text-red-400 text-xs lg:text-sm">
-                            Help
+                            Product
                         </span>
                     </Link>
                     <Link to className="flex items-center gap-1 ">
                         <span className=" text-gray-300 hover:text-red-400 text-xs lg:text-sm">
-                            Free Shipping
+                            Blog
                         </span>
                     </Link>
                     <Link to className="flex items-center gap-1 ">
                         <span className=" text-gray-300 hover:text-red-400 text-xs lg:text-sm">
-                            FAQs
+                            Contact
                         </span>
                     </Link>
                     <Link to className="flex items-center gap-1 ">
                         <span className=" text-gray-300 hover:text-red-400 text-xs lg:text-sm">
-                            Return & Exchange
-                        </span>
-                    </Link>
-                    <Link to className="flex items-center gap-1 ">
-                        <span className=" text-gray-300 hover:text-red-400 text-xs lg:text-sm">
-                            Testimonials
+                            Introduce
                         </span>
                     </Link>
                 </div>

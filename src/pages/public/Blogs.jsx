@@ -42,7 +42,7 @@ function Blogs() {
         }
     }, [pa]);
     return (
-        <div className="flex flex-col items-center w-full mb-24">
+        <div className="flex flex-col items-center w-full mb-24 ">
             <div className="bg-gray-300 w-full flex justify-center py-2 pl-2">
                 <div className="lg:w-4/5 w-[96%] ">
                     <div className="flex flex-col">
@@ -55,7 +55,7 @@ function Blogs() {
                     </div>
                 </div>
             </div>
-            <div className=" flex lg:gap-5 gap-1 lg:w-4/5 w-[96%] mt-7 mb-16 h-screen">
+            <div className=" flex lg:gap-5 gap-1 lg:w-4/5 w-[96%] mt-7 mb-16 sm:h-screen h-auto ">
                 <div className="w-[30%] lg:w-[25%] flex flex-col gap-2 border">
                     <h2 className="font-bold text-2xl p-4">Category</h2>
                     {cate?.map(el => (
@@ -71,11 +71,11 @@ function Blogs() {
                         </NavLink>
                     ))}
                 </div>
-                <div className="w-[70%] lg:w-[75%]  px-10 py-2">
+                <div className="w-[70%] lg:w-[75%]  px-10 py-2 ">
                     <h2 className="font-bold text-3xl text-center mb-8">
                         BLOG LIST
                     </h2>
-                    <div className="list_blog flex flex-wrap sm:flex-row gap-5">
+                    <div className="list_blog flex flex-wrap gap-5">
                         {blogs &&
                             blogs?.blogs?.map(el => (
                                 <BlogFeature
@@ -89,7 +89,7 @@ function Blogs() {
                             ))}
                     </div>
                     {blogs?.blogs?.length > 0 && (
-                        <div className="mt-20 w-full">
+                        <div className="lg:mt-20 mt-10 w-full">
                             <Pagination
                                 type="blog"
                                 totalCount={blogs?.counts}
