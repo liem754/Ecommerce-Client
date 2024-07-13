@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "store/product/asyncActions";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Breadcrumb, ColorItem, Tag } from "components";
 import { format, formatStar } from "ultils/format";
@@ -36,11 +36,11 @@ function DetailProduct() {
     const [update, setUpdate] = useState(false);
     const dispatch = useDispatch();
     const { product } = useSelector(state => state.product);
-    const { data } = useSelector(state => state.user);
+    const { isLoggedin, data } = useSelector(state => state.user);
 
     const [active, setActive] = useState(1);
     const [co, setCo] = useState("BLACK");
-
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const fetch = async () => {
         const rs = await apiGetProdcuts({
@@ -65,30 +65,42 @@ function DetailProduct() {
         dispatch(getProduct(pid));
     }, [pid]);
     const handleCart = async e => {
-        const rs = await apiUpdateCart({
-            pid: pid,
-            quantity: number,
-            color: co,
-            price:
-                co !== "BLACK"
-                    ? +product?.price * number
-                    : +product?.price > 2000000
-                    ? (+product?.price - 500000) * number
-                    : (+product?.price - 50000) * number,
-            title: product?.title,
-            thumb: product?.images[0],
-            size,
-        });
-        if (rs.success) {
-            Swal.fire("Congratulation", rs.mes, "success");
-            const rss = await api.apiCurrent();
-            if (rss.success) {
-                dispatch(
-                    IdCurrent({
-                        idCurrent: rss.rs._id,
-                        data: rss.rs,
-                    }),
-                );
+        if (!isLoggedin) {
+            Swal.fire({
+                text: "Go Login to vote",
+                cancelButtonText: "Cancel",
+                confirmButtonText: "Go Login",
+                title: "Oops!",
+                showCancelButton: true,
+            }).then(rs => {
+                if (rs.isConfirmed) navigate("/login");
+            });
+        } else {
+            const rs = await apiUpdateCart({
+                pid: pid,
+                quantity: number,
+                color: co,
+                price:
+                    co !== "BLACK"
+                        ? +product?.price * number
+                        : +product?.price > 2000000
+                        ? (+product?.price - 500000) * number
+                        : (+product?.price - 50000) * number,
+                title: product?.title,
+                thumb: product?.images[0],
+                size,
+            });
+            if (rs.success) {
+                Swal.fire("Congratulation", rs.mes, "success");
+                const rss = await api.apiCurrent();
+                if (rss.success) {
+                    dispatch(
+                        IdCurrent({
+                            idCurrent: rss.rs._id,
+                            data: rss.rs,
+                        }),
+                    );
+                }
             }
         }
     };

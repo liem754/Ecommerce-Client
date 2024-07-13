@@ -1,7 +1,7 @@
 import { apiCreateOrder, apiCurrent } from "apis";
 import { apiMomo, apiZaloPay } from "apis/payment";
 import im from "assets/images/checkout.jpg";
-import momo from "assets/images/momo1.png";
+import zalopay from "assets/images/zalopay.jpg";
 
 import Paypal from "common/paypal";
 import { useEffect, useState } from "react";
@@ -259,9 +259,9 @@ function CheckOut() {
                                     onClick={handle}
                                     className=" border p-2 flex justify-center items-center cursor-pointer ">
                                     <img
-                                        className=" w-[100px] h-[100px] rounded-md hover:shadow-md hover:shadow-blue-600 hover:scale-105"
-                                        src={momo}
-                                        alt=""
+                                        className=" w-[200px] h-[100px] rounded-md hover:shadow-md hover:shadow-blue-600 hover:scale-105"
+                                        src={zalopay}
+                                        alt="zalopay"
                                     />
                                 </div>
                             </div>
