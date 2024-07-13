@@ -35,6 +35,17 @@ function Header() {
     };
     const { isLoggedin } = useSelector(state => state.user);
     useEffect(() => {
+        if (current?.isBlocked === true) {
+            Swal.fire(
+                "Oops",
+                "Sorry, the account has been locked !",
+                "info",
+            ).then(() => {
+                handle();
+            });
+        }
+    }, [current]);
+    useEffect(() => {
         const time = setTimeout(() => {
             if (isLoggedin) fetch();
         }, 300);
@@ -49,7 +60,7 @@ function Header() {
     const getLogin = useCallback(flag => {
         navigate(path.LOGIN, { state: { flag } });
     }, []);
-
+    console.log(current);
     return (
         <div className="w-[95%] lg:w-4/5 flex justify-between items-center border-b-2">
             <section

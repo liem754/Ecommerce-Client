@@ -148,6 +148,7 @@ function Collection() {
         },
         [sort],
     );
+    console.log(param);
 
     return (
         <div className="w-full flex-col items-center flex">

@@ -213,7 +213,7 @@ function ManagerOrder() {
                                                 deleteOrder(item._id)
                                             }
                                             className="py-1 px-3 bg-red-600 text-white rounded-md">
-                                            xóa
+                                            delete
                                         </button>
                                     </div>
                                 )}

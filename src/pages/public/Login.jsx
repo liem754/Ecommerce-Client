@@ -36,11 +36,11 @@ function Login() {
         setIsLogin(location.state?.flag);
     }, [location.state?.flag]);
     const handle = async () => {
-        setLoad(true);
         const { name, phone, ...data } = payload;
         if (!isLogin) {
             let invalid = validate(payload, setInvalids);
             if (invalid === 0) {
+                setLoad(true);
                 const response = await apiRegister(payload);
                 if (response?.success) {
                     Swal.fire("Congratulation", response.mes, "success").then(
@@ -56,12 +56,16 @@ function Login() {
                         },
                     );
                 } else {
+                    setLoad(false);
+
                     Swal.fire("Oops!", response.mes, "error");
                 }
             }
         } else {
             let invalid = validate(data, setInvalids);
             if (invalid === 0) {
+                setLoad(true);
+
                 const rs = await apiLogin(data && data);
 
                 if (rs.success) {
@@ -77,6 +81,8 @@ function Login() {
                         navigate("/");
                     });
                 } else {
+                    setLoad(false);
+
                     Swal.fire("Oops!", rs.mes, "error");
                 }
             }
