@@ -21,7 +21,6 @@ export { default as Select } from "./Select";
 export { default as Tiny } from "./Tiny";
 export { default as ModalProduct } from "./ModalProduct";
 export { default as ModalVarriants } from "./ModalVarriants";
-export { default as ModalView } from "./modelView";
 export { default as ParallaxItem } from "./ParallaxItem";
 export { default as BlogFeature } from "./blogFeature";
 export { default as Top } from "./ScrollTop";

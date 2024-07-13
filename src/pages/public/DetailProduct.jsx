@@ -9,7 +9,6 @@ import { Icons } from "ultils/icons";
 import * as api from "apis";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, EffectCoverflow } from "swiper";
-import ReactImageMagnify from "react-image-magnify";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
